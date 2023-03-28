@@ -1,0 +1,13 @@
+Z:\IAS0110_Elektripaketid\Elekter\obj\Debug\Elekter.vbproj.AssemblyReference.cache
+Z:\IAS0110_Elektripaketid\Elekter\obj\Debug\Elekter.vbproj.SuggestedBindingRedirects.cache
+Z:\IAS0110_Elektripaketid\Elekter\obj\Debug\Elekter.MainForm.resources
+Z:\IAS0110_Elektripaketid\Elekter\obj\Debug\Elekter.Resources.resources
+Z:\IAS0110_Elektripaketid\Elekter\obj\Debug\Elekter.vbproj.GenerateResource.cache
+Z:\IAS0110_Elektripaketid\Elekter\obj\Debug\Elekter.vbproj.CoreCompileInputs.cache
+Z:\IAS0110_Elektripaketid\Elekter\bin\Debug\Elekter.exe.config
+Z:\IAS0110_Elektripaketid\Elekter\bin\Debug\Elekter.exe
+Z:\IAS0110_Elektripaketid\Elekter\bin\Debug\Elekter.pdb
+Z:\IAS0110_Elektripaketid\Elekter\bin\Debug\Elekter.xml
+Z:\IAS0110_Elektripaketid\Elekter\obj\Debug\Elekter.exe
+Z:\IAS0110_Elektripaketid\Elekter\obj\Debug\Elekter.xml
+Z:\IAS0110_Elektripaketid\Elekter\obj\Debug\Elekter.pdb
