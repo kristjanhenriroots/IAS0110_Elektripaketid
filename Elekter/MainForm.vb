@@ -2,8 +2,11 @@
 Imports System.IO
 Imports System.Text
 Imports System.Windows.Forms.DataVisualization.Charting
+Imports System.Globalization
 
 Public Class MainForm
+
+    Dim chartMaker As New chartMaker()
 
     Private Async Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
@@ -20,7 +23,8 @@ Public Class MainForm
             Dim content As Stream = Await response.Content.ReadAsStreamAsync()
 
             ' Parse CSV data and extract price data
-            Dim prices As New List(Of KeyValuePair(Of DateTime, Double))
+            Dim times As New List(Of DateTime)()
+            Dim prices As New List(Of Double)()
             Dim csvContent As New StringBuilder()
             Using reader As New StreamReader(content, Encoding.UTF8)
                 ' Read header row
@@ -31,35 +35,18 @@ Public Class MainForm
                     csvContent.AppendLine(line)
                     Dim values As String() = line.Split(";"c)
 
-                    Dim dateValue As DateTime = DateTime.ParseExact(values(1).Trim(""""), "dd.MM.yyyy HH:mm", Globalization.CultureInfo.InvariantCulture)
-                    Dim price As Double = Double.Parse(values(2).Trim("""").Replace(",", "."), Globalization.CultureInfo.InvariantCulture)
-                    prices.Add(New KeyValuePair(Of DateTime, Double)(dateValue, price))
+                    Dim dateValue As DateTime = DateTime.ParseExact(values(1).Trim(""""), "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture)
+                    Dim price As Double = Double.Parse(values(2).Trim("""").Replace(",", "."), CultureInfo.InvariantCulture)
+
+                    ' Add dateValue to the times list and price to the prices list
+                    times.Add(dateValue)
+                    prices.Add(price)
                 End While
             End Using
 
-            ' Set anchor property
-            MainChart.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
-
-            ' Set margin for the chart
-            MainChart.Margin = New Padding(10)
-
-            ' Add chart area
-            Dim chartArea As New ChartArea()
-            MainChart.ChartAreas.Add(chartArea)
 
 
-            ' Set X-axis label format to HH:mm
-            chartArea.AxisX.LabelStyle.Format = "HH:mm"
-
-            ' Add series
-            Dim series As New Series()
-            series.ChartType = SeriesChartType.Line
-            MainChart.Series.Add(series)
-
-            ' Add data points
-            For Each priceData In prices
-                series.Points.AddXY(priceData.Key, priceData.Value)
-            Next
+            chartMaker.setChart(MainChart, times.ToArray(), prices.ToArray())
 
         Catch ex As Exception
             MessageBox.Show("An error occurred while retrieving data from the Elering API: " & ex.Message)
