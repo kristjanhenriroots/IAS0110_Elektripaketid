@@ -12,6 +12,11 @@
         'Set costTextBox to read-only'
         costTextBox.ReadOnly = True
 
+        ' Handle the KeyPress event of the text boxes to allow double values with commas and dots.
+        AddHandler powerRatingTextBox.KeyPress, AddressOf TextBox_KeyPress
+        AddHandler timeUsedTextBox.KeyPress, AddressOf TextBox_KeyPress
+        AddHandler electricityRateTextBox.KeyPress, AddressOf TextBox_KeyPress
+
         'Fill appliances dictionary'
         'Data from: https://rohe.geenius.ee/rubriik/uudis/millised-su-kodumasinad-kulutavad-aastas-enim-elektrit-ei-see-pole-pesumasin-voi-elektripliit/'
         appliances = New Dictionary(Of String, Double) From {
@@ -40,6 +45,13 @@
         For Each applianceName As String In appliances.Keys
             applianceComboBox.Items.Add(applianceName)
         Next
+    End Sub
+
+    Private Sub TextBox_KeyPress(sender As Object, e As KeyPressEventArgs)
+        ' Replace any dots with commas to allow double values with both separators.
+        If e.KeyChar = "." Then
+            e.KeyChar = ","
+        End If
     End Sub
 
     Private Sub applianceComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles applianceComboBox.SelectedIndexChanged
@@ -73,5 +85,15 @@
         costTextBox.Text = cost.ToString()
     End Sub
 
+    'Button tabs'
+    Private Sub homeButton_Click(sender As Object, e As EventArgs) Handles homeButton.Click
+        formHome.Show()
+        Me.Hide()
+    End Sub
+
+    Private Sub vordlusButton_Click(sender As Object, e As EventArgs) Handles vordlusButton.Click
+        formVordlus.Show()
+        Me.Hide()
+    End Sub
 
 End Class

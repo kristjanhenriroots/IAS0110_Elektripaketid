@@ -32,10 +32,10 @@ Partial Class formVordlus
         Me.Label4 = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.CheckedListBox1 = New System.Windows.Forms.CheckedListBox()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button9 = New System.Windows.Forms.Button()
-        Me.Button8 = New System.Windows.Forms.Button()
-        Me.btn_home = New System.Windows.Forms.Button()
+        Me.otsingButton = New System.Windows.Forms.Button()
+        Me.vordlusButton = New System.Windows.Forms.Button()
+        Me.calcButton = New System.Windows.Forms.Button()
+        Me.homeButton = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -120,51 +120,51 @@ Partial Class formVordlus
         Me.CheckedListBox1.Size = New System.Drawing.Size(133, 188)
         Me.CheckedListBox1.TabIndex = 2
         '
-        'Button3
+        'otsingButton
         '
-        Me.Button3.Location = New System.Drawing.Point(244, 1)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(75, 30)
-        Me.Button3.TabIndex = 35
-        Me.Button3.Text = "Otsing"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.otsingButton.Location = New System.Drawing.Point(245, 0)
+        Me.otsingButton.Name = "otsingButton"
+        Me.otsingButton.Size = New System.Drawing.Size(75, 30)
+        Me.otsingButton.TabIndex = 51
+        Me.otsingButton.Text = "Otsing"
+        Me.otsingButton.UseVisualStyleBackColor = True
         '
-        'Button9
+        'vordlusButton
         '
-        Me.Button9.Location = New System.Drawing.Point(163, 1)
-        Me.Button9.Name = "Button9"
-        Me.Button9.Size = New System.Drawing.Size(75, 30)
-        Me.Button9.TabIndex = 34
-        Me.Button9.Text = "Võrd"
-        Me.Button9.UseVisualStyleBackColor = True
+        Me.vordlusButton.Location = New System.Drawing.Point(164, 0)
+        Me.vordlusButton.Name = "vordlusButton"
+        Me.vordlusButton.Size = New System.Drawing.Size(75, 30)
+        Me.vordlusButton.TabIndex = 50
+        Me.vordlusButton.Text = "Võrd"
+        Me.vordlusButton.UseVisualStyleBackColor = True
         '
-        'Button8
+        'calcButton
         '
-        Me.Button8.Location = New System.Drawing.Point(82, 1)
-        Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(75, 30)
-        Me.Button8.TabIndex = 33
-        Me.Button8.Text = "Kalk"
-        Me.Button8.UseVisualStyleBackColor = True
+        Me.calcButton.Location = New System.Drawing.Point(83, 0)
+        Me.calcButton.Name = "calcButton"
+        Me.calcButton.Size = New System.Drawing.Size(75, 30)
+        Me.calcButton.TabIndex = 49
+        Me.calcButton.Text = "Kalk"
+        Me.calcButton.UseVisualStyleBackColor = True
         '
-        'btn_home
+        'homeButton
         '
-        Me.btn_home.Location = New System.Drawing.Point(1, 1)
-        Me.btn_home.Name = "btn_home"
-        Me.btn_home.Size = New System.Drawing.Size(75, 30)
-        Me.btn_home.TabIndex = 32
-        Me.btn_home.Text = "Home"
-        Me.btn_home.UseVisualStyleBackColor = True
+        Me.homeButton.Location = New System.Drawing.Point(2, 0)
+        Me.homeButton.Name = "homeButton"
+        Me.homeButton.Size = New System.Drawing.Size(75, 30)
+        Me.homeButton.TabIndex = 48
+        Me.homeButton.Text = "Home"
+        Me.homeButton.UseVisualStyleBackColor = True
         '
-        'Form4
+        'formVordlus
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(576, 324)
-        Me.Controls.Add(Me.Button3)
-        Me.Controls.Add(Me.Button9)
-        Me.Controls.Add(Me.Button8)
-        Me.Controls.Add(Me.btn_home)
+        Me.Controls.Add(Me.otsingButton)
+        Me.Controls.Add(Me.vordlusButton)
+        Me.Controls.Add(Me.calcButton)
+        Me.Controls.Add(Me.homeButton)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.CheckedListBox2)
@@ -174,7 +174,7 @@ Partial Class formVordlus
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.CheckedListBox1)
         Me.Controls.Add(Me.Label1)
-        Me.Name = "Form4"
+        Me.Name = "formVordlus"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Rakendus_Paketivõrdlus"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -192,8 +192,8 @@ Partial Class formVordlus
     Friend WithEvents Label4 As Label
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents CheckedListBox1 As CheckedListBox
-    Friend WithEvents Button3 As Button
-    Friend WithEvents Button9 As Button
-    Friend WithEvents Button8 As Button
-    Friend WithEvents btn_home As Button
+    Friend WithEvents otsingButton As Button
+    Friend WithEvents vordlusButton As Button
+    Friend WithEvents calcButton As Button
+    Friend WithEvents homeButton As Button
 End Class

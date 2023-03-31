@@ -27,7 +27,6 @@ Partial Class formHome
         Me.Label2 = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
@@ -43,9 +42,10 @@ Partial Class formHome
         Me.ComboBox2 = New System.Windows.Forms.ComboBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Button3 = New System.Windows.Forms.Button()
-        Me.btn_home = New System.Windows.Forms.Button()
-        Me.Button8 = New System.Windows.Forms.Button()
-        Me.Button9 = New System.Windows.Forms.Button()
+        Me.otsingButton = New System.Windows.Forms.Button()
+        Me.vordlusButton = New System.Windows.Forms.Button()
+        Me.calcButton = New System.Windows.Forms.Button()
+        Me.homeButton = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -85,15 +85,6 @@ Partial Class formHome
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(124, 28)
         Me.ComboBox1.TabIndex = 4
-        '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(245, -1)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 30)
-        Me.Button2.TabIndex = 5
-        Me.Button2.Text = "Otsing"
-        Me.Button2.UseVisualStyleBackColor = True
         '
         'Label3
         '
@@ -221,41 +212,51 @@ Partial Class formHome
         Me.Button3.Text = "Muuda kasutusaegu"
         Me.Button3.UseVisualStyleBackColor = True
         '
-        'btn_home
+        'otsingButton
         '
-        Me.btn_home.Location = New System.Drawing.Point(2, -1)
-        Me.btn_home.Name = "btn_home"
-        Me.btn_home.Size = New System.Drawing.Size(75, 30)
-        Me.btn_home.TabIndex = 25
-        Me.btn_home.Text = "Home"
-        Me.btn_home.UseVisualStyleBackColor = True
+        Me.otsingButton.Location = New System.Drawing.Point(242, -1)
+        Me.otsingButton.Name = "otsingButton"
+        Me.otsingButton.Size = New System.Drawing.Size(75, 30)
+        Me.otsingButton.TabIndex = 51
+        Me.otsingButton.Text = "Otsing"
+        Me.otsingButton.UseVisualStyleBackColor = True
         '
-        'Button8
+        'vordlusButton
         '
-        Me.Button8.Location = New System.Drawing.Point(83, -1)
-        Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(75, 30)
-        Me.Button8.TabIndex = 26
-        Me.Button8.Text = "Kalk"
-        Me.Button8.UseVisualStyleBackColor = True
+        Me.vordlusButton.Location = New System.Drawing.Point(161, -1)
+        Me.vordlusButton.Name = "vordlusButton"
+        Me.vordlusButton.Size = New System.Drawing.Size(75, 30)
+        Me.vordlusButton.TabIndex = 50
+        Me.vordlusButton.Text = "Võrd"
+        Me.vordlusButton.UseVisualStyleBackColor = True
         '
-        'Button9
+        'calcButton
         '
-        Me.Button9.Location = New System.Drawing.Point(164, -1)
-        Me.Button9.Name = "Button9"
-        Me.Button9.Size = New System.Drawing.Size(75, 30)
-        Me.Button9.TabIndex = 27
-        Me.Button9.Text = "Võrd"
-        Me.Button9.UseVisualStyleBackColor = True
+        Me.calcButton.Location = New System.Drawing.Point(80, -1)
+        Me.calcButton.Name = "calcButton"
+        Me.calcButton.Size = New System.Drawing.Size(75, 30)
+        Me.calcButton.TabIndex = 49
+        Me.calcButton.Text = "Kalk"
+        Me.calcButton.UseVisualStyleBackColor = True
         '
-        'Form2
+        'homeButton
+        '
+        Me.homeButton.Location = New System.Drawing.Point(-1, -1)
+        Me.homeButton.Name = "homeButton"
+        Me.homeButton.Size = New System.Drawing.Size(75, 30)
+        Me.homeButton.TabIndex = 48
+        Me.homeButton.Text = "Home"
+        Me.homeButton.UseVisualStyleBackColor = True
+        '
+        'formHome
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(750, 457)
-        Me.Controls.Add(Me.Button9)
-        Me.Controls.Add(Me.Button8)
-        Me.Controls.Add(Me.btn_home)
+        Me.Controls.Add(Me.otsingButton)
+        Me.Controls.Add(Me.vordlusButton)
+        Me.Controls.Add(Me.calcButton)
+        Me.Controls.Add(Me.homeButton)
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.ComboBox2)
@@ -271,12 +272,11 @@ Partial Class formHome
         Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.ComboBox1)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
-        Me.Name = "Form2"
+        Me.Name = "formHome"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Rakendus_Homepage"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -289,7 +289,6 @@ Partial Class formHome
     Friend WithEvents Label2 As Label
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents ComboBox1 As ComboBox
-    Friend WithEvents Button2 As Button
     Friend WithEvents Label3 As Label
     Friend WithEvents Button4 As Button
     Friend WithEvents Button5 As Button
@@ -305,7 +304,8 @@ Partial Class formHome
     Friend WithEvents ComboBox2 As ComboBox
     Friend WithEvents Label9 As Label
     Friend WithEvents Button3 As Button
-    Friend WithEvents btn_home As Button
-    Friend WithEvents Button8 As Button
-    Friend WithEvents Button9 As Button
+    Friend WithEvents otsingButton As Button
+    Friend WithEvents vordlusButton As Button
+    Friend WithEvents calcButton As Button
+    Friend WithEvents homeButton As Button
 End Class

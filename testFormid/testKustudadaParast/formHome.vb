@@ -1,24 +1,13 @@
 ﻿Public Class formHome
-    Private Sub Kalk_Click(sender As Object, e As EventArgs) Handles Button8.Click
+
+    'Button tabs'
+    Private Sub calcButton_Click(sender As Object, e As EventArgs) Handles calcButton.Click
+        formCalc.Show()
         Me.Hide()
-        Form3.Show()
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs)
+    Private Sub vordlusButton_Click(sender As Object, e As EventArgs) Handles vordlusButton.Click
+        formVordlus.Show()
         Me.Hide()
-        Form4.Show()
-    End Sub
-
-    Private Sub btn_home_Click(sender As Object, e As EventArgs) Handles btn_home.Click
-
-        btn_home.Enabled = False
-
-        Form3.Hide()
-        Form4.Hide()
-
-    End Sub
-
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-
     End Sub
 End Class
