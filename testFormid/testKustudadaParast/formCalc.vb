@@ -14,27 +14,28 @@
 
         'Fill appliances dictionary'
         'Data from: https://rohe.geenius.ee/rubriik/uudis/millised-su-kodumasinad-kulutavad-aastas-enim-elektrit-ei-see-pole-pesumasin-voi-elektripliit/'
-        appliances = New Dictionary(Of String, Double)
-        appliances.Add("Mikrolaineahi [1000W]", 1000)
-        appliances.Add("Kohvimasin [1000 W]", 1000)
-        appliances.Add("Veekeetja [1500 W]", 1500)
-        appliances.Add("Keraamiline pliit [2000 W]", 2000)
-        appliances.Add("Induktsioonpliit [2500 W]", 2500)
-        appliances.Add("Elektripliit [2500 W]", 2500)
-        appliances.Add("Elektriahi [3000 W]", 3000)
-        appliances.Add("Triikraud [2000 W]", 2000)
-        appliances.Add("Tolmuimeja [800 W]", 800)
-        appliances.Add("Mängukonsool []", 0)
-        appliances.Add("Digiboks []", 0)
-        appliances.Add("Wifi ruuter []", 0)
-        appliances.Add("Kell-raadio [10 W]", 10)
-        appliances.Add("Elektriboiler 100 l [2200 W]", 2200)
-        appliances.Add("Elektriradiaator [2000 W]", 2000)
-        appliances.Add("Valgusti Halogeen [60 W]", 60)
-        appliances.Add("Valgusti LED [10 W]", 10)
-        appliances.Add("Laptop [50 W]", 50)
-        appliances.Add("Arvuti [250 W]", 250)
-        appliances.Add("Televisioon [100 W]", 100)
+        appliances = New Dictionary(Of String, Double) From {
+            {"Mikrolaineahi [1000W]", 1000},
+            {"Kohvimasin [1000 W]", 1000},
+            {"Veekeetja [1500 W]", 1500},
+            {"Keraamiline pliit [2000 W]", 2000},
+            {"Induktsioonpliit [2500 W]", 2500},
+            {"Elektripliit [2500 W]", 2500},
+            {"Elektriahi [3000 W]", 3000},
+            {"Triikraud [2000 W]", 2000},
+            {"Tolmuimeja [800 W]", 800},
+            {"Mängukonsool [90 W]", 90},
+            {"Digiboks [60 W]", 60},
+            {"Wifi ruuter [20 W]", 20},
+            {"Kell-raadio [10 W]", 10},
+            {"Elektriboiler 100 l [2200 W]", 2200},
+            {"Elektriradiaator [2000 W]", 2000},
+            {"Valgusti Halogeen [60 W]", 60},
+            {"Valgusti LED [10 W]", 10},
+            {"Laptop [50 W]", 50},
+            {"Arvuti [250 W]", 250},
+            {"Televisioon [100 W]", 100}
+        }
 
         For Each applianceName As String In appliances.Keys
             applianceComboBox.Items.Add(applianceName)
