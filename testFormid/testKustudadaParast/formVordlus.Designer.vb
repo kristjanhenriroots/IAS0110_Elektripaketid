@@ -25,13 +25,13 @@ Partial Class formVordlus
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formVordlus))
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.jarjestamineComboBox = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.CheckedListBox2 = New System.Windows.Forms.CheckedListBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.CheckedListBox1 = New System.Windows.Forms.CheckedListBox()
+        Me.pakettCheckedListBox = New System.Windows.Forms.CheckedListBox()
         Me.otsingButton = New System.Windows.Forms.Button()
         Me.vordlusButton = New System.Windows.Forms.Button()
         Me.calcButton = New System.Windows.Forms.Button()
@@ -57,13 +57,13 @@ Partial Class formVordlus
         Me.Button1.Text = "Võrdle pakette"
         Me.Button1.UseVisualStyleBackColor = True
         '
-        'ComboBox1
+        'jarjestamineComboBox
         '
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(184, 97)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(121, 28)
-        Me.ComboBox1.TabIndex = 4
+        Me.jarjestamineComboBox.FormattingEnabled = True
+        Me.jarjestamineComboBox.Location = New System.Drawing.Point(184, 97)
+        Me.jarjestamineComboBox.Name = "jarjestamineComboBox"
+        Me.jarjestamineComboBox.Size = New System.Drawing.Size(121, 28)
+        Me.jarjestamineComboBox.TabIndex = 4
         '
         'Label2
         '
@@ -111,14 +111,13 @@ Partial Class formVordlus
         Me.PictureBox1.TabIndex = 11
         Me.PictureBox1.TabStop = False
         '
-        'CheckedListBox1
+        'pakettCheckedListBox
         '
-        Me.CheckedListBox1.FormattingEnabled = True
-        Me.CheckedListBox1.Items.AddRange(New Object() {"Pakett 1", "Pakett 2", "Pakett 3"})
-        Me.CheckedListBox1.Location = New System.Drawing.Point(25, 97)
-        Me.CheckedListBox1.Name = "CheckedListBox1"
-        Me.CheckedListBox1.Size = New System.Drawing.Size(133, 188)
-        Me.CheckedListBox1.TabIndex = 2
+        Me.pakettCheckedListBox.FormattingEnabled = True
+        Me.pakettCheckedListBox.Location = New System.Drawing.Point(25, 97)
+        Me.pakettCheckedListBox.Name = "pakettCheckedListBox"
+        Me.pakettCheckedListBox.Size = New System.Drawing.Size(133, 188)
+        Me.pakettCheckedListBox.TabIndex = 2
         '
         'otsingButton
         '
@@ -170,9 +169,9 @@ Partial Class formVordlus
         Me.Controls.Add(Me.CheckedListBox2)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.ComboBox1)
+        Me.Controls.Add(Me.jarjestamineComboBox)
         Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.CheckedListBox1)
+        Me.Controls.Add(Me.pakettCheckedListBox)
         Me.Controls.Add(Me.Label1)
         Me.Name = "formVordlus"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -185,13 +184,13 @@ Partial Class formVordlus
 
     Friend WithEvents Label1 As Label
     Friend WithEvents Button1 As Button
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents jarjestamineComboBox As ComboBox
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents CheckedListBox2 As CheckedListBox
     Friend WithEvents Label4 As Label
     Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents CheckedListBox1 As CheckedListBox
+    Friend WithEvents pakettCheckedListBox As CheckedListBox
     Friend WithEvents otsingButton As Button
     Friend WithEvents vordlusButton As Button
     Friend WithEvents calcButton As Button
