@@ -82,7 +82,12 @@
 
         cost = ((powerRating * timeUsed) / 1000) * electricityRate
 
-        costTextBox.Text = cost.ToString() + " senti"
+        If cost < 100.0 Then
+            costTextBox.Text = cost.ToString() + " s"
+        Else
+            costTextBox.Text = (cost / 100).ToString() + " €"
+        End If
+
     End Sub
 
     'Button tabs'
