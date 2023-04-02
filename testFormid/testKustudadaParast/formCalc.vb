@@ -82,6 +82,7 @@
 
         cost = ((powerRating * timeUsed) / 1000) * electricityRate
 
+        'Convert cost to Eur if over 100 cents
         If cost < 100.0 Then
             costTextBox.Text = cost.ToString() + " s"
         Else

@@ -1,9 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\testFormid",
-    "\\testFormid\\testKustudadaParast"
+    "\\Elekter",
+    "\\Elekter\\obj",
+    "\\Elekter\\obj\\Release",
+    "\\testFormid"
   ],
-  "SelectedNode": "\\testFormid\\testKustudadaParast\\formHome.vb",
   "PreviewInSolutionExplorer": false
 }

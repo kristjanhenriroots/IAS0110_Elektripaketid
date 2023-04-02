@@ -26,7 +26,7 @@
     End Sub
 
     Private Sub shrink_Click(sender As Object, e As EventArgs) Handles shrinkButton.Click
-        'Increase the size of the form and all its elements by 5%
+        'Decrease the size of the form and all its elements by 5%
         Me.Width *= 0.95
         Me.Height *= 0.95
 
