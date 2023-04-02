@@ -80,9 +80,9 @@
         timeUsed = Double.Parse(timeUsedTextBox.Text)
         electricityRate = Double.Parse(electricityRateTextBox.Text)
 
-        cost = (powerRating / 1000) * timeUsed * electricityRate
+        cost = ((powerRating * timeUsed) / 1000) * electricityRate
 
-        costTextBox.Text = cost.ToString()
+        costTextBox.Text = cost.ToString() + " senti"
     End Sub
 
     'Button tabs'

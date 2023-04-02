@@ -120,11 +120,11 @@ Partial Class formCalc
         'costLabel
         '
         Me.costLabel.AutoSize = True
-        Me.costLabel.Location = New System.Drawing.Point(7, 216)
+        Me.costLabel.Location = New System.Drawing.Point(65, 213)
         Me.costLabel.Name = "costLabel"
-        Me.costLabel.Size = New System.Drawing.Size(191, 20)
+        Me.costLabel.Size = New System.Drawing.Size(133, 20)
         Me.costLabel.TabIndex = 43
-        Me.costLabel.Text = "Orienteeruv hind (s/kWh): "
+        Me.costLabel.Text = "Orienteeruv hind: "
         '
         'powerRatingLabel
         '
