@@ -7,6 +7,7 @@ Imports classCheap_calculator
 Imports chartMaker
 Imports System.Security.Cryptography
 Imports packageComparator
+Imports 
 
 Public Class MainForm
     Dim times As New List(Of DateTime)()
@@ -16,7 +17,7 @@ Public Class MainForm
     Dim rs As New Resizer
     Dim initialFormSize As SizeF
     Dim initialFontSize As Single
-
+    Private dictionaryTable As New DataTable
 
 
     Private Async Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -27,7 +28,7 @@ Public Class MainForm
         Me.MinimumSize = New Size(1000, 600)
 
         ' Get all package data from prj packageComparator, call function PackageData() for all names and prices
-        Dim packagePrices = comparePackages.PackageData()
+        Dim packagePrices = comparePackages.PackageData(dictionaryTable)
 
         ' Populate the listbox with the packages
         updateListBox(packagePrices)
