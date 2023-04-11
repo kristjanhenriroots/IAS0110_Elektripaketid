@@ -15,7 +15,7 @@ Public Class MainForm
             'client.DefaultRequestHeaders.Add("Authorization", "Bearer YOUR_API_KEY")
 
             ' Set start and end times for 24-hour period
-            Dim startTime As String = DateTime.Now.ToString("yyyy-MM-dd'T'HH:mm:ssZ")
+            Dim startTime As String = DateTime.Now.AddHours(-4).ToString("yyyy-MM-dd'T'HH:mm:ssZ")
             Dim endTime As String = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd'T'HH:mm:ssZ")
 
             ' Send GET request to Elering API
@@ -43,10 +43,14 @@ Public Class MainForm
                     prices.Add(price)
                 End While
             End Using
-
+            ' Print out the times and prices lists
+            For i As Integer = 0 To times.Count - 1
+                Console.WriteLine($"Time: {times(i)}, Price: {prices(i)}")
+            Next
 
 
             chartMaker.setChart(MainChart, times.ToArray(), prices.ToArray())
+            AddHandler MainChart.MouseMove, AddressOf Chart_MouseMove
 
         Catch ex As Exception
             MessageBox.Show("An error occurred while retrieving data from the Elering API: " & ex.Message)
@@ -59,9 +63,10 @@ Public Class MainForm
         If hit.ChartElementType = ChartElementType.DataPoint Then
             Dim point As DataPoint = MainChart.Series(0).Points(hit.PointIndex)
             ' Update tooltip to display date and time properly
-            MainChart.Series(0).ToolTip = $"Time: {DateTime.FromOADate(point.XValue):HH:mm}{Environment.NewLine}Price: {point.YValues(0):F2}"
+            MainChart.Series(0).ToolTip = $"Time: {DateTime.FromOADate(point.XValue).ToString("dd.MM.yyyy HH:mm")}{Environment.NewLine}Price: {point.YValues(0):F2}"
         End If
     End Sub
+
 
     'Button tabs'
     Private Sub calcButton_Click(sender As Object, e As EventArgs) Handles calcButton.Click
