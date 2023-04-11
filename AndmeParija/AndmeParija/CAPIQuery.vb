@@ -63,8 +63,6 @@ Public Class CAPIQuery
         End Using
 
         connection.Close()
-
-
     End Sub
 
     Public Sub updateTable() Implements IAPIQuery.updateTable
