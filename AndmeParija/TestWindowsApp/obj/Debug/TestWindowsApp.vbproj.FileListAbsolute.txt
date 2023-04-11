@@ -11,7 +11,6 @@ C:\Users\Sander\Source\Repos\kristjanhenriroots\IAS0110_Elektripaketid\AndmePari
 C:\Users\Sander\Source\Repos\kristjanhenriroots\IAS0110_Elektripaketid\AndmeParija\TestWindowsApp\bin\Debug\AndmeParija.dll
 C:\Users\Sander\Source\Repos\kristjanhenriroots\IAS0110_Elektripaketid\AndmeParija\TestWindowsApp\bin\Debug\System.Data.SQLite.dll
 C:\Users\Sander\Source\Repos\kristjanhenriroots\IAS0110_Elektripaketid\AndmeParija\TestWindowsApp\bin\Debug\AndmeParija.pdb
-C:\Users\Sander\Source\Repos\kristjanhenriroots\IAS0110_Elektripaketid\AndmeParija\TestWindowsApp\bin\Debug\AndmeParija.xml
 C:\Users\Sander\Source\Repos\kristjanhenriroots\IAS0110_Elektripaketid\AndmeParija\TestWindowsApp\bin\Debug\System.Data.SQLite.xml
 C:\Users\Sander\Source\Repos\kristjanhenriroots\IAS0110_Elektripaketid\AndmeParija\TestWindowsApp\obj\Debug\TestWindowsApp.vbproj.CopyComplete
 C:\Users\Sander\Source\Repos\kristjanhenriroots\IAS0110_Elektripaketid\AndmeParija\TestWindowsApp\obj\Debug\TestWindowsApp.exe
@@ -19,3 +18,4 @@ C:\Users\Sander\Source\Repos\kristjanhenriroots\IAS0110_Elektripaketid\AndmePari
 C:\Users\Sander\Source\Repos\kristjanhenriroots\IAS0110_Elektripaketid\AndmeParija\TestWindowsApp\obj\Debug\TestWindowsApp.pdb
 C:\Users\Sander\Source\Repos\kristjanhenriroots\IAS0110_Elektripaketid\AndmeParija\TestWindowsApp\bin\Debug\x86\sqlite3.dll
 C:\Users\Sander\Source\Repos\kristjanhenriroots\IAS0110_Elektripaketid\AndmeParija\TestWindowsApp\bin\Debug\x64\sqlite3.dll
+C:\Users\Sander\Source\Repos\kristjanhenriroots\IAS0110_Elektripaketid\AndmeParija\TestWindowsApp\bin\Debug\AndmeParija.xml
