@@ -8,6 +8,7 @@ Imports classCheap_calculator
 Public Class MainForm
     Dim times As New List(Of DateTime)()
     Dim prices As New List(Of Double)()
+
     Dim chartMaker As New chartMaker()
 
     Private Async Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -37,7 +38,7 @@ Public Class MainForm
                     Dim values As String() = line.Split(";"c)
 
                     Dim dateValue As DateTime = DateTime.ParseExact(values(1).Trim(""""), "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture)
-                    Dim price As Double = Double.Parse(values(2).Trim("""").Replace(",", "."), CultureInfo.InvariantCulture) * 1.2 / 10
+                    Dim price As Double = Double.Parse(values(2).Trim("""").Replace(",", "."), CultureInfo.InvariantCulture)
 
                     ' Add dateValue to the times list and price to the prices list
                     times.Add(dateValue)
@@ -107,26 +108,17 @@ Public Class MainForm
         Next
     End Sub
 
-    ' Calculates the cheapest time to use electricity based on the amount of hours
-    Private Sub btnCalcTimeFrame_Click(sender As Object, e As EventArgs) Handles btnCalcTimeFrame.Click
+    Private Sub MainChart_Click(sender As Object, e As EventArgs) Handles MainChart.Click
 
-        ' combobox needs to have a value selected
-        If cbTimeFrame.SelectedItem Then
-
-            ' get the best time frame
-            Dim frame As iPriceCalc = New TimeFrameCalc
-            Dim time_frame = frame.CalcTimeFrame(Int(cbTimeFrame.SelectedItem), prices.ToArray(), times.ToArray())
-
-
-            'MessageBox.Show("the selected value is " & Int(ComboBox2.SelectedItem))
-            ' display the time frame and change colors accordingly
-            tbRecTimeFrame.Text = (time_frame(0).ToString("HH:mm") & " - " & time_frame(1).ToString("HH:mm"))
-            chartMaker.changeColors(MainChart, times.ToArray(), time_frame(0), Int(cbTimeFrame.SelectedItem))
-        End If
     End Sub
 
-    Public Function ReturnCurrentPrice()
-        Return prices.First
-    End Function
+    Private Sub ComboBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbTimeFrame.SelectedIndexChanged
+        chartMaker.colorReset(MainChart)
+        Dim frame As iPriceCalc = New TimeFrameCalc
+        Dim time_frame = frame.CalcTimeFrame(Int(cbTimeFrame.SelectedItem), prices.ToArray(), times.ToArray())
+        'MessageBox.Show("the selected value is " & Int(ComboBox2.SelectedItem))
+        tbRecTimeFrame.Text = (time_frame(0).ToString("HH:mm") & " - " & time_frame(1).ToString("HH:mm"))
 
+        chartMaker.changeColors(MainChart, times.ToArray(), time_frame(0), Int(cbTimeFrame.SelectedItem))
+    End Sub
 End Class
