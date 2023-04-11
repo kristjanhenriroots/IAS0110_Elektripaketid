@@ -60,7 +60,7 @@ Public Class FormTest
 
         For Each row As DataRow In testTable.Rows
             If i = 0 Then
-                i = i + 1
+                i = i + 1 'Esimene rida apist on lampi pealkiri XDXDXDXDXD
             Else
                 dateTimeValues.Add(row(1).ToString)
                 priceValues.Add(row(2).ToString)
