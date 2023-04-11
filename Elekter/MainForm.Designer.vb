@@ -22,17 +22,17 @@ Partial Class MainForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.MainChart = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.otsingButton = New System.Windows.Forms.Button()
         Me.vordlusButton = New System.Windows.Forms.Button()
         Me.calcButton = New System.Windows.Forms.Button()
         Me.homeButton = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Me.btnCalcTimeFrame = New System.Windows.Forms.Button()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
+        Me.cbTimeFrame = New System.Windows.Forms.ComboBox()
         Me.TextBox4 = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -40,7 +40,7 @@ Partial Class MainForm
         Me.Label5 = New System.Windows.Forms.Label()
         Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.tbRecTimeFrame = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.shrinkButton = New System.Windows.Forms.Button()
         Me.enlargeButton = New System.Windows.Forms.Button()
@@ -53,17 +53,17 @@ Partial Class MainForm
         '
         'MainChart
         '
-        ChartArea3.Name = "ChartArea1"
-        Me.MainChart.ChartAreas.Add(ChartArea3)
-        Legend3.Name = "Legend1"
-        Me.MainChart.Legends.Add(Legend3)
+        ChartArea1.Name = "ChartArea1"
+        Me.MainChart.ChartAreas.Add(ChartArea1)
+        Legend1.Name = "Legend1"
+        Me.MainChart.Legends.Add(Legend1)
         Me.MainChart.Location = New System.Drawing.Point(34, 65)
         Me.MainChart.Margin = New System.Windows.Forms.Padding(2)
         Me.MainChart.Name = "MainChart"
-        Series3.ChartArea = "ChartArea1"
-        Series3.Legend = "Legend1"
-        Series3.Name = "Series1"
-        Me.MainChart.Series.Add(Series3)
+        Series1.ChartArea = "ChartArea1"
+        Series1.Legend = "Legend1"
+        Series1.Name = "Series1"
+        Me.MainChart.Series.Add(Series1)
         Me.MainChart.Size = New System.Drawing.Size(351, 195)
         Me.MainChart.TabIndex = 0
         Me.MainChart.Text = "MainChart"
@@ -108,15 +108,15 @@ Partial Class MainForm
         Me.homeButton.Text = "Home"
         Me.homeButton.UseVisualStyleBackColor = True
         '
-        'Button3
+        'btnCalcTimeFrame
         '
-        Me.Button3.Location = New System.Drawing.Point(397, 102)
-        Me.Button3.Margin = New System.Windows.Forms.Padding(2)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(81, 36)
-        Me.Button3.TabIndex = 70
-        Me.Button3.Text = "Muuda kasutusaegu"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.btnCalcTimeFrame.Location = New System.Drawing.Point(397, 102)
+        Me.btnCalcTimeFrame.Margin = New System.Windows.Forms.Padding(2)
+        Me.btnCalcTimeFrame.Name = "btnCalcTimeFrame"
+        Me.btnCalcTimeFrame.Size = New System.Drawing.Size(81, 36)
+        Me.btnCalcTimeFrame.TabIndex = 70
+        Me.btnCalcTimeFrame.Text = "Muuda kasutusaegu"
+        Me.btnCalcTimeFrame.UseVisualStyleBackColor = True
         '
         'Label9
         '
@@ -128,15 +128,15 @@ Partial Class MainForm
         Me.Label9.TabIndex = 69
         Me.Label9.Text = "Kuva valik:"
         '
-        'ComboBox2
+        'cbTimeFrame
         '
-        Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Items.AddRange(New Object() {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"})
-        Me.ComboBox2.Location = New System.Drawing.Point(397, 80)
-        Me.ComboBox2.Margin = New System.Windows.Forms.Padding(2)
-        Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(82, 21)
-        Me.ComboBox2.TabIndex = 68
+        Me.cbTimeFrame.FormattingEnabled = True
+        Me.cbTimeFrame.Items.AddRange(New Object() {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"})
+        Me.cbTimeFrame.Location = New System.Drawing.Point(397, 80)
+        Me.cbTimeFrame.Margin = New System.Windows.Forms.Padding(2)
+        Me.cbTimeFrame.Name = "cbTimeFrame"
+        Me.cbTimeFrame.Size = New System.Drawing.Size(82, 21)
+        Me.cbTimeFrame.TabIndex = 68
         '
         'TextBox4
         '
@@ -202,13 +202,13 @@ Partial Class MainForm
         Me.TextBox2.Size = New System.Drawing.Size(68, 20)
         Me.TextBox2.TabIndex = 61
         '
-        'TextBox1
+        'tbRecTimeFrame
         '
-        Me.TextBox1.Location = New System.Drawing.Point(394, 166)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(2)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(115, 20)
-        Me.TextBox1.TabIndex = 60
+        Me.tbRecTimeFrame.Location = New System.Drawing.Point(394, 166)
+        Me.tbRecTimeFrame.Margin = New System.Windows.Forms.Padding(2)
+        Me.tbRecTimeFrame.Name = "tbRecTimeFrame"
+        Me.tbRecTimeFrame.Size = New System.Drawing.Size(115, 20)
+        Me.tbRecTimeFrame.TabIndex = 60
         '
         'Label4
         '
@@ -289,9 +289,9 @@ Partial Class MainForm
         Me.Controls.Add(Me.vordlusButton)
         Me.Controls.Add(Me.calcButton)
         Me.Controls.Add(Me.homeButton)
-        Me.Controls.Add(Me.Button3)
+        Me.Controls.Add(Me.btnCalcTimeFrame)
         Me.Controls.Add(Me.Label9)
-        Me.Controls.Add(Me.ComboBox2)
+        Me.Controls.Add(Me.cbTimeFrame)
         Me.Controls.Add(Me.TextBox4)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Label7)
@@ -299,7 +299,7 @@ Partial Class MainForm
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.TextBox3)
         Me.Controls.Add(Me.TextBox2)
-        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.tbRecTimeFrame)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.shrinkButton)
         Me.Controls.Add(Me.enlargeButton)
@@ -322,9 +322,9 @@ Partial Class MainForm
     Friend WithEvents vordlusButton As Button
     Friend WithEvents calcButton As Button
     Friend WithEvents homeButton As Button
-    Friend WithEvents Button3 As Button
+    Friend WithEvents btnCalcTimeFrame As Button
     Friend WithEvents Label9 As Label
-    Friend WithEvents ComboBox2 As ComboBox
+    Friend WithEvents cbTimeFrame As ComboBox
     Friend WithEvents TextBox4 As TextBox
     Friend WithEvents Label8 As Label
     Friend WithEvents Label7 As Label
@@ -332,7 +332,7 @@ Partial Class MainForm
     Friend WithEvents Label5 As Label
     Friend WithEvents TextBox3 As TextBox
     Friend WithEvents TextBox2 As TextBox
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents tbRecTimeFrame As TextBox
     Friend WithEvents Label4 As Label
     Friend WithEvents shrinkButton As Button
     Friend WithEvents enlargeButton As Button

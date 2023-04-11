@@ -112,10 +112,13 @@ Public Class MainForm
 
     End Sub
 
-    Private Sub ComboBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox2.SelectedIndexChanged
+    Private Sub ComboBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbTimeFrame.SelectedIndexChanged
+        chartMaker.colorReset(MainChart)
         Dim frame As iPriceCalc = New TimeFrameCalc
-        Dim time_frame = frame.CalcTimeFrame(Int(ComboBox2.SelectedItem), prices.ToArray(), times.ToArray())
-        MessageBox.Show("the selected value is " & Int(ComboBox2.SelectedItem))
-        TextBox1.Text = (time_frame(0).ToString("HH:mm") & " - " & time_frame(1).ToString("HH:mm"))
+        Dim time_frame = frame.CalcTimeFrame(Int(cbTimeFrame.SelectedItem), prices.ToArray(), times.ToArray())
+        'MessageBox.Show("the selected value is " & Int(ComboBox2.SelectedItem))
+        tbRecTimeFrame.Text = (time_frame(0).ToString("HH:mm") & " - " & time_frame(1).ToString("HH:mm"))
+
+        chartMaker.changeColors(MainChart, times.ToArray(), time_frame(0), Int(cbTimeFrame.SelectedItem))
     End Sub
 End Class
