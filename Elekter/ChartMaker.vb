@@ -27,5 +27,7 @@ Public Class chartMaker
             series.Points.AddXY(times(i), prices(i))
         Next
 
+        'Remove chart legend
+        mainChart.Legends.Clear()
     End Sub
 End Class

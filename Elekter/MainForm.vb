@@ -3,10 +3,12 @@ Imports System.IO
 Imports System.Text
 Imports System.Windows.Forms.DataVisualization.Charting
 Imports System.Globalization
+Imports System.Security.Cryptography.X509Certificates
 
 Public Class MainForm
 
     Dim chartMaker As New chartMaker()
+    Dim currentPrice As Double
 
     Private Async Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
@@ -15,7 +17,7 @@ Public Class MainForm
             'client.DefaultRequestHeaders.Add("Authorization", "Bearer YOUR_API_KEY")
 
             ' Set start and end times for 24-hour period
-            Dim startTime As String = DateTime.Now.ToString("yyyy-MM-dd'T'HH:mm:ssZ")
+            Dim startTime As String = DateTime.Now.AddHours(-4).ToString("yyyy-MM-dd'T'HH:mm:ssZ")
             Dim endTime As String = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd'T'HH:mm:ssZ")
 
             ' Send GET request to Elering API
@@ -44,7 +46,7 @@ Public Class MainForm
                 End While
             End Using
 
-
+            currentPrice = prices.First
 
             chartMaker.setChart(MainChart, times.ToArray(), prices.ToArray())
 
@@ -101,7 +103,8 @@ Public Class MainForm
         Next
     End Sub
 
-    Private Sub MainChart_Click(sender As Object, e As EventArgs) Handles MainChart.Click
+    Public Function ReturnCurrentPrice()
 
-    End Sub
+        Return currentPrice
+    End Function
 End Class

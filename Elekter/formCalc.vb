@@ -103,7 +103,7 @@
     End Sub
 
     Private Sub RadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles borssRadioButton.CheckedChanged, universaalRadioButton.CheckedChanged
-        Dim borssPrice As Double = 12.7
+        Dim borssPrice As Double = MainForm.returnCurrentPrice()
         Dim universalPrice As Double = 19.95
 
         If borssRadioButton.Checked Then

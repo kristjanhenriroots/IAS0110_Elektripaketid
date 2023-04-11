@@ -22,9 +22,9 @@ Partial Class MainForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.MainChart = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.otsingButton = New System.Windows.Forms.Button()
         Me.vordlusButton = New System.Windows.Forms.Button()
@@ -53,16 +53,17 @@ Partial Class MainForm
         '
         'MainChart
         '
-        ChartArea1.Name = "ChartArea1"
-        Me.MainChart.ChartAreas.Add(ChartArea1)
-        Legend1.Name = "Legend1"
-        Me.MainChart.Legends.Add(Legend1)
+        Me.MainChart.Anchor = System.Windows.Forms.AnchorStyles.None
+        ChartArea2.Name = "ChartArea1"
+        Me.MainChart.ChartAreas.Add(ChartArea2)
+        Legend2.Name = "Legend1"
+        Me.MainChart.Legends.Add(Legend2)
         Me.MainChart.Location = New System.Drawing.Point(51, 100)
         Me.MainChart.Name = "MainChart"
-        Series1.ChartArea = "ChartArea1"
-        Series1.Legend = "Legend1"
-        Series1.Name = "Series1"
-        Me.MainChart.Series.Add(Series1)
+        Series2.ChartArea = "ChartArea1"
+        Series2.Legend = "Legend1"
+        Series2.Name = "Series1"
+        Me.MainChart.Series.Add(Series2)
         Me.MainChart.Size = New System.Drawing.Size(526, 300)
         Me.MainChart.TabIndex = 0
         Me.MainChart.Text = "MainChart"
@@ -105,7 +106,7 @@ Partial Class MainForm
         '
         'Button3
         '
-        Me.Button3.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Button3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Button3.Location = New System.Drawing.Point(596, 157)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(122, 55)
@@ -115,7 +116,7 @@ Partial Class MainForm
         '
         'Label9
         '
-        Me.Label9.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label9.AutoSize = True
         Me.Label9.Location = New System.Drawing.Point(591, 100)
         Me.Label9.Name = "Label9"
@@ -125,7 +126,7 @@ Partial Class MainForm
         '
         'ComboBox2
         '
-        Me.ComboBox2.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.ComboBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ComboBox2.FormattingEnabled = True
         Me.ComboBox2.Location = New System.Drawing.Point(596, 123)
         Me.ComboBox2.Name = "ComboBox2"
@@ -134,6 +135,7 @@ Partial Class MainForm
         '
         'TextBox4
         '
+        Me.TextBox4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.TextBox4.Location = New System.Drawing.Point(412, 425)
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.Size = New System.Drawing.Size(170, 26)
@@ -141,6 +143,7 @@ Partial Class MainForm
         '
         'Label8
         '
+        Me.Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label8.AutoSize = True
         Me.Label8.Location = New System.Drawing.Point(416, 403)
         Me.Label8.Name = "Label8"
@@ -159,6 +162,7 @@ Partial Class MainForm
         '
         'Label6
         '
+        Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label6.AutoSize = True
         Me.Label6.Location = New System.Drawing.Point(156, 428)
         Me.Label6.Name = "Label6"
@@ -168,6 +172,7 @@ Partial Class MainForm
         '
         'Label5
         '
+        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label5.AutoSize = True
         Me.Label5.Location = New System.Drawing.Point(46, 403)
         Me.Label5.Name = "Label5"
@@ -177,6 +182,7 @@ Partial Class MainForm
         '
         'TextBox3
         '
+        Me.TextBox3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.TextBox3.Location = New System.Drawing.Point(176, 425)
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.Size = New System.Drawing.Size(100, 26)
@@ -184,6 +190,7 @@ Partial Class MainForm
         '
         'TextBox2
         '
+        Me.TextBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.TextBox2.Location = New System.Drawing.Point(50, 425)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(100, 26)
@@ -191,7 +198,7 @@ Partial Class MainForm
         '
         'TextBox1
         '
-        Me.TextBox1.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.TextBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TextBox1.Location = New System.Drawing.Point(591, 255)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(170, 26)
@@ -199,7 +206,7 @@ Partial Class MainForm
         '
         'Label4
         '
-        Me.Label4.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
         Me.Label4.Location = New System.Drawing.Point(584, 232)
         Me.Label4.Name = "Label4"
@@ -209,6 +216,7 @@ Partial Class MainForm
         '
         'shrinkButton
         '
+        Me.shrinkButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.shrinkButton.Location = New System.Drawing.Point(735, 446)
         Me.shrinkButton.Name = "shrinkButton"
         Me.shrinkButton.Size = New System.Drawing.Size(26, 25)
@@ -218,6 +226,7 @@ Partial Class MainForm
         '
         'enlargeButton
         '
+        Me.enlargeButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.enlargeButton.Location = New System.Drawing.Point(735, 414)
         Me.enlargeButton.Name = "enlargeButton"
         Me.enlargeButton.Size = New System.Drawing.Size(26, 25)
@@ -227,6 +236,7 @@ Partial Class MainForm
         '
         'Label3
         '
+        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(278, 403)
         Me.Label3.Name = "Label3"
@@ -236,6 +246,7 @@ Partial Class MainForm
         '
         'ComboBox1
         '
+        Me.ComboBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Items.AddRange(New Object() {"Tulpdiagramm", "Tabeldiagramm"})
         Me.ComboBox1.Location = New System.Drawing.Point(282, 423)
@@ -254,6 +265,7 @@ Partial Class MainForm
         '
         'Label1
         '
+        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(622, 28)
         Me.Label1.Name = "Label1"
