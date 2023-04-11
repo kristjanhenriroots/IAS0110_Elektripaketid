@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\AndmeParija"
+    "\\AndmeParija",
+    "\\AndmeParija\\TestWindowsApp"
   ],
-  "SelectedNode": "\\AndmeParija\\AndmeParija.sln",
+  "SelectedNode": "\\AndmeParija\\TestWindowsApp\\FormTest.vb",
   "PreviewInSolutionExplorer": false
 }
