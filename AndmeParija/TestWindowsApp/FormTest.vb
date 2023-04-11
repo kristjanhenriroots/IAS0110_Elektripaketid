@@ -49,7 +49,7 @@ Public Class FormTest
         Dim query1 As String = "dateTime"
         Dim query2 As String = "NPSEesti"
 
-        testTable = buttonPress.queryData("Select * FROM BorssPakett WHERE rowid < 11")
+        testTable = buttonPress.queryData("Select * FROM BorssPakett WHERE rowid < 24")
 
         Dim Len As Integer = testTable.Columns.Count
         Dim i As Integer = 0

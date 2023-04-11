@@ -25,9 +25,8 @@ Public Class CAPIQuery
 
     Private Async Sub testSub()
         ' Set start and end times for 24-hour period
-        Dim startTime As String = DateTime.Now.ToString("yyyy-MM-dd'T'HH:mm:ssZ")
-
-        Dim endTime As String = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd'T'HH:mm:ssZ")
+        Dim startTime As String = DateTime.Today.ToString("yyyy-MM-dd'T'HH:mm:ssZ")
+        Dim endTime As String = DateTime.Today.AddDays(1).ToString("yyyy-MM-dd'T'HH:mm:ssZ")
 
         ' Send GET request to Elering API
         Dim response As HttpResponseMessage = Await client.GetAsync($"https://dashboard.elering.ee/api/nps/price/csv?start={startTime}&end={endTime}&fields=ee")
