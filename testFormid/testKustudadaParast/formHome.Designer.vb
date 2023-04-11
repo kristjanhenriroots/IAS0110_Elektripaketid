@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class formHome
+Partial Class MainForm
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,244 +22,276 @@ Partial Class formHome
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formHome))
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.enlargeButton = New System.Windows.Forms.Button()
-        Me.shrinkButton = New System.Windows.Forms.Button()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.TextBox4 = New System.Windows.Forms.TextBox()
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Me.MainChart = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.otsingButton = New System.Windows.Forms.Button()
         Me.vordlusButton = New System.Windows.Forms.Button()
         Me.calcButton = New System.Windows.Forms.Button()
         Me.homeButton = New System.Windows.Forms.Button()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.btnCalcTimeFrame = New System.Windows.Forms.Button()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.cbTimeFrame = New System.Windows.Forms.ComboBox()
+        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.tbRecTimeFrame = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.shrinkButton = New System.Windows.Forms.Button()
+        Me.enlargeButton = New System.Windows.Forms.Button()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        CType(Me.MainChart, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'Label1
+        'MainChart
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(605, 9)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(133, 20)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Tere, <Kasutaja>!"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(28, 48)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(242, 20)
-        Me.Label2.TabIndex = 1
-        Me.Label2.Text = "Hetkel valitud pakett: Börsipakett"
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(32, 81)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(535, 288)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 2
-        Me.PictureBox1.TabStop = False
-        '
-        'ComboBox1
-        '
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"Tulpdiagramm", "Tabeldiagramm"})
-        Me.ComboBox1.Location = New System.Drawing.Point(264, 405)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(124, 28)
-        Me.ComboBox1.TabIndex = 4
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(260, 385)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(108, 20)
-        Me.Label3.TabIndex = 7
-        Me.Label3.Text = "Graafiku valik:"
-        '
-        'enlargeButton
-        '
-        Me.enlargeButton.Location = New System.Drawing.Point(717, 396)
-        Me.enlargeButton.Name = "enlargeButton"
-        Me.enlargeButton.Size = New System.Drawing.Size(25, 25)
-        Me.enlargeButton.TabIndex = 8
-        Me.enlargeButton.Text = "+"
-        Me.enlargeButton.UseVisualStyleBackColor = True
-        '
-        'shrinkButton
-        '
-        Me.shrinkButton.Location = New System.Drawing.Point(717, 427)
-        Me.shrinkButton.Name = "shrinkButton"
-        Me.shrinkButton.Size = New System.Drawing.Size(25, 25)
-        Me.shrinkButton.TabIndex = 9
-        Me.shrinkButton.Text = "-"
-        Me.shrinkButton.UseVisualStyleBackColor = True
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(565, 214)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(182, 20)
-        Me.Label4.TabIndex = 11
-        Me.Label4.Text = "Soovitatav tarbimiseaeg:"
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Location = New System.Drawing.Point(573, 237)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(170, 26)
-        Me.TextBox1.TabIndex = 12
-        '
-        'TextBox2
-        '
-        Me.TextBox2.Location = New System.Drawing.Point(32, 406)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(100, 26)
-        Me.TextBox2.TabIndex = 13
-        '
-        'TextBox3
-        '
-        Me.TextBox3.Location = New System.Drawing.Point(158, 406)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(100, 26)
-        Me.TextBox3.TabIndex = 14
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(28, 385)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(122, 20)
-        Me.Label5.TabIndex = 15
-        Me.Label5.Text = "Vali ajavahemik:"
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(138, 409)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(14, 20)
-        Me.Label6.TabIndex = 16
-        Me.Label6.Text = "-"
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(346, 48)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(221, 20)
-        Me.Label7.TabIndex = 19
-        Me.Label7.Text = "Hetkel valitud kuva: Kinnisvara"
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(397, 385)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(97, 20)
-        Me.Label8.TabIndex = 20
-        Me.Label8.Text = "CO2 jalajälg:"
-        '
-        'TextBox4
-        '
-        Me.TextBox4.Location = New System.Drawing.Point(394, 406)
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(170, 26)
-        Me.TextBox4.TabIndex = 21
-        '
-        'ComboBox2
-        '
-        Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Location = New System.Drawing.Point(577, 104)
-        Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(121, 28)
-        Me.ComboBox2.TabIndex = 22
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(573, 81)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(82, 20)
-        Me.Label9.TabIndex = 23
-        Me.Label9.Text = "Kuva valik:"
-        '
-        'Button3
-        '
-        Me.Button3.Location = New System.Drawing.Point(577, 138)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(121, 56)
-        Me.Button3.TabIndex = 24
-        Me.Button3.Text = "Muuda kasutusaegu"
-        Me.Button3.UseVisualStyleBackColor = True
+        ChartArea2.Name = "ChartArea1"
+        Me.MainChart.ChartAreas.Add(ChartArea2)
+        Legend2.Name = "Legend1"
+        Me.MainChart.Legends.Add(Legend2)
+        Me.MainChart.Location = New System.Drawing.Point(34, 65)
+        Me.MainChart.Margin = New System.Windows.Forms.Padding(2)
+        Me.MainChart.Name = "MainChart"
+        Series2.ChartArea = "ChartArea1"
+        Series2.Legend = "Legend1"
+        Series2.Name = "Series1"
+        Me.MainChart.Series.Add(Series2)
+        Me.MainChart.Size = New System.Drawing.Size(351, 195)
+        Me.MainChart.TabIndex = 0
+        Me.MainChart.Text = "MainChart"
         '
         'otsingButton
         '
-        Me.otsingButton.Location = New System.Drawing.Point(242, -1)
+        Me.otsingButton.Location = New System.Drawing.Point(173, 11)
+        Me.otsingButton.Margin = New System.Windows.Forms.Padding(2)
         Me.otsingButton.Name = "otsingButton"
-        Me.otsingButton.Size = New System.Drawing.Size(75, 30)
-        Me.otsingButton.TabIndex = 51
+        Me.otsingButton.Size = New System.Drawing.Size(50, 20)
+        Me.otsingButton.TabIndex = 74
         Me.otsingButton.Text = "Otsing"
         Me.otsingButton.UseVisualStyleBackColor = True
         '
         'vordlusButton
         '
-        Me.vordlusButton.Location = New System.Drawing.Point(161, -1)
+        Me.vordlusButton.Location = New System.Drawing.Point(119, 11)
+        Me.vordlusButton.Margin = New System.Windows.Forms.Padding(2)
         Me.vordlusButton.Name = "vordlusButton"
-        Me.vordlusButton.Size = New System.Drawing.Size(75, 30)
-        Me.vordlusButton.TabIndex = 50
+        Me.vordlusButton.Size = New System.Drawing.Size(50, 20)
+        Me.vordlusButton.TabIndex = 73
         Me.vordlusButton.Text = "Võrd"
         Me.vordlusButton.UseVisualStyleBackColor = True
         '
         'calcButton
         '
-        Me.calcButton.Location = New System.Drawing.Point(80, -1)
+        Me.calcButton.Location = New System.Drawing.Point(65, 11)
+        Me.calcButton.Margin = New System.Windows.Forms.Padding(2)
         Me.calcButton.Name = "calcButton"
-        Me.calcButton.Size = New System.Drawing.Size(75, 30)
-        Me.calcButton.TabIndex = 49
+        Me.calcButton.Size = New System.Drawing.Size(50, 20)
+        Me.calcButton.TabIndex = 72
         Me.calcButton.Text = "Kalk"
         Me.calcButton.UseVisualStyleBackColor = True
         '
         'homeButton
         '
-        Me.homeButton.Location = New System.Drawing.Point(-1, -1)
+        Me.homeButton.Location = New System.Drawing.Point(11, 11)
+        Me.homeButton.Margin = New System.Windows.Forms.Padding(2)
         Me.homeButton.Name = "homeButton"
-        Me.homeButton.Size = New System.Drawing.Size(75, 30)
-        Me.homeButton.TabIndex = 48
+        Me.homeButton.Size = New System.Drawing.Size(50, 20)
+        Me.homeButton.TabIndex = 71
         Me.homeButton.Text = "Home"
         Me.homeButton.UseVisualStyleBackColor = True
         '
-        'formHome
+        'btnCalcTimeFrame
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.btnCalcTimeFrame.Location = New System.Drawing.Point(397, 102)
+        Me.btnCalcTimeFrame.Margin = New System.Windows.Forms.Padding(2)
+        Me.btnCalcTimeFrame.Name = "btnCalcTimeFrame"
+        Me.btnCalcTimeFrame.Size = New System.Drawing.Size(81, 36)
+        Me.btnCalcTimeFrame.TabIndex = 70
+        Me.btnCalcTimeFrame.Text = "Muuda kasutusaegu"
+        Me.btnCalcTimeFrame.UseVisualStyleBackColor = True
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(394, 65)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(60, 13)
+        Me.Label9.TabIndex = 69
+        Me.Label9.Text = "Kuva valik:"
+        '
+        'cbTimeFrame
+        '
+        Me.cbTimeFrame.FormattingEnabled = True
+        Me.cbTimeFrame.Items.AddRange(New Object() {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"})
+        Me.cbTimeFrame.Location = New System.Drawing.Point(397, 80)
+        Me.cbTimeFrame.Margin = New System.Windows.Forms.Padding(2)
+        Me.cbTimeFrame.Name = "cbTimeFrame"
+        Me.cbTimeFrame.Size = New System.Drawing.Size(82, 21)
+        Me.cbTimeFrame.TabIndex = 68
+        '
+        'TextBox4
+        '
+        Me.TextBox4.Location = New System.Drawing.Point(275, 276)
+        Me.TextBox4.Margin = New System.Windows.Forms.Padding(2)
+        Me.TextBox4.Name = "TextBox4"
+        Me.TextBox4.Size = New System.Drawing.Size(115, 20)
+        Me.TextBox4.TabIndex = 67
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(277, 262)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(66, 13)
+        Me.Label8.TabIndex = 66
+        Me.Label8.Text = "CO2 jalajälg:"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(243, 43)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(154, 13)
+        Me.Label7.TabIndex = 65
+        Me.Label7.Text = "Hetkel valitud kuva: Kinnisvara"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(104, 278)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(10, 13)
+        Me.Label6.TabIndex = 64
+        Me.Label6.Text = "-"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(31, 262)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(84, 13)
+        Me.Label5.TabIndex = 63
+        Me.Label5.Text = "Vali ajavahemik:"
+        '
+        'TextBox3
+        '
+        Me.TextBox3.Location = New System.Drawing.Point(117, 276)
+        Me.TextBox3.Margin = New System.Windows.Forms.Padding(2)
+        Me.TextBox3.Name = "TextBox3"
+        Me.TextBox3.Size = New System.Drawing.Size(68, 20)
+        Me.TextBox3.TabIndex = 62
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Location = New System.Drawing.Point(33, 276)
+        Me.TextBox2.Margin = New System.Windows.Forms.Padding(2)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(68, 20)
+        Me.TextBox2.TabIndex = 61
+        '
+        'tbRecTimeFrame
+        '
+        Me.tbRecTimeFrame.Location = New System.Drawing.Point(394, 166)
+        Me.tbRecTimeFrame.Margin = New System.Windows.Forms.Padding(2)
+        Me.tbRecTimeFrame.Name = "tbRecTimeFrame"
+        Me.tbRecTimeFrame.Size = New System.Drawing.Size(115, 20)
+        Me.tbRecTimeFrame.TabIndex = 60
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(389, 151)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(123, 13)
+        Me.Label4.TabIndex = 59
+        Me.Label4.Text = "Soovitatav tarbimiseaeg:"
+        '
+        'shrinkButton
+        '
+        Me.shrinkButton.Location = New System.Drawing.Point(490, 290)
+        Me.shrinkButton.Margin = New System.Windows.Forms.Padding(2)
+        Me.shrinkButton.Name = "shrinkButton"
+        Me.shrinkButton.Size = New System.Drawing.Size(17, 16)
+        Me.shrinkButton.TabIndex = 58
+        Me.shrinkButton.Text = "-"
+        Me.shrinkButton.UseVisualStyleBackColor = True
+        '
+        'enlargeButton
+        '
+        Me.enlargeButton.Location = New System.Drawing.Point(490, 269)
+        Me.enlargeButton.Margin = New System.Windows.Forms.Padding(2)
+        Me.enlargeButton.Name = "enlargeButton"
+        Me.enlargeButton.Size = New System.Drawing.Size(17, 16)
+        Me.enlargeButton.TabIndex = 57
+        Me.enlargeButton.Text = "+"
+        Me.enlargeButton.UseVisualStyleBackColor = True
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(185, 262)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(75, 13)
+        Me.Label3.TabIndex = 56
+        Me.Label3.Text = "Graafiku valik:"
+        '
+        'ComboBox1
+        '
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Items.AddRange(New Object() {"Tulpdiagramm", "Tabeldiagramm"})
+        Me.ComboBox1.Location = New System.Drawing.Point(188, 275)
+        Me.ComboBox1.Margin = New System.Windows.Forms.Padding(2)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(84, 21)
+        Me.ComboBox1.TabIndex = 55
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(31, 43)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(164, 13)
+        Me.Label2.TabIndex = 53
+        Me.Label2.Text = "Hetkel valitud pakett: Börsipakett"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(415, 18)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(91, 13)
+        Me.Label1.TabIndex = 52
+        Me.Label1.Text = "Tere, <Kasutaja>!"
+        '
+        'MainForm
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(750, 457)
+        Me.ClientSize = New System.Drawing.Size(532, 317)
         Me.Controls.Add(Me.otsingButton)
         Me.Controls.Add(Me.vordlusButton)
         Me.Controls.Add(Me.calcButton)
         Me.Controls.Add(Me.homeButton)
-        Me.Controls.Add(Me.Button3)
+        Me.Controls.Add(Me.btnCalcTimeFrame)
         Me.Controls.Add(Me.Label9)
-        Me.Controls.Add(Me.ComboBox2)
+        Me.Controls.Add(Me.cbTimeFrame)
         Me.Controls.Add(Me.TextBox4)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Label7)
@@ -267,45 +299,45 @@ Partial Class formHome
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.TextBox3)
         Me.Controls.Add(Me.TextBox2)
-        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.tbRecTimeFrame)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.shrinkButton)
         Me.Controls.Add(Me.enlargeButton)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.ComboBox1)
-        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
-        Me.Name = "formHome"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Rakendus_Homepage"
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Controls.Add(Me.MainChart)
+        Me.Margin = New System.Windows.Forms.Padding(2)
+        Me.Name = "MainForm"
+        Me.Text = "MainForm"
+        CType(Me.MainChart, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
-    Friend WithEvents Label1 As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents ComboBox1 As ComboBox
-    Friend WithEvents Label3 As Label
-    Friend WithEvents enlargeButton As Button
-    Friend WithEvents shrinkButton As Button
-    Friend WithEvents Label4 As Label
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents TextBox2 As TextBox
-    Friend WithEvents TextBox3 As TextBox
-    Friend WithEvents Label5 As Label
-    Friend WithEvents Label6 As Label
-    Friend WithEvents Label7 As Label
-    Friend WithEvents Label8 As Label
-    Friend WithEvents TextBox4 As TextBox
-    Friend WithEvents ComboBox2 As ComboBox
-    Friend WithEvents Label9 As Label
-    Friend WithEvents Button3 As Button
+    Friend WithEvents MainChart As DataVisualization.Charting.Chart
     Friend WithEvents otsingButton As Button
     Friend WithEvents vordlusButton As Button
     Friend WithEvents calcButton As Button
     Friend WithEvents homeButton As Button
+    Friend WithEvents btnCalcTimeFrame As Button
+    Friend WithEvents Label9 As Label
+    Friend WithEvents cbTimeFrame As ComboBox
+    Friend WithEvents TextBox4 As TextBox
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Label7 As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents tbRecTimeFrame As TextBox
+    Friend WithEvents Label4 As Label
+    Friend WithEvents shrinkButton As Button
+    Friend WithEvents enlargeButton As Button
+    Friend WithEvents Label3 As Label
+    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label1 As Label
 End Class

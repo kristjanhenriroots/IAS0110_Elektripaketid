@@ -102,4 +102,14 @@
         Me.Hide()
     End Sub
 
+    Private Sub RadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles borssRadioButton.CheckedChanged, universaalRadioButton.CheckedChanged
+        Dim borssPrice As Double = MainForm.returnCurrentPrice()
+        Dim universalPrice As Double = 19.95
+
+        If borssRadioButton.Checked Then
+            electricityRateTextBox.Text = borssPrice
+        ElseIf universaalRadioButton.Checked Then
+            electricityRateTextBox.Text = universalPrice
+        End If
+    End Sub
 End Class

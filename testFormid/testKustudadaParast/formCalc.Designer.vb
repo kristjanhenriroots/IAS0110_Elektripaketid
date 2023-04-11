@@ -22,7 +22,8 @@ Partial Class formCalc
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.universaalRadioButton = New System.Windows.Forms.RadioButton()
+        Me.borssRadioButton = New System.Windows.Forms.RadioButton()
         Me.electricityRateLabel = New System.Windows.Forms.Label()
         Me.timeUsedLabel = New System.Windows.Forms.Label()
         Me.electricityRateTextBox = New System.Windows.Forms.TextBox()
@@ -40,147 +41,178 @@ Partial Class formCalc
         Me.applianceComboBox = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
         '
-        'Label2
+        'universaalRadioButton
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(328, 182)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(98, 20)
-        Me.Label2.TabIndex = 52
-        Me.Label2.Text = "autofill börss"
+        Me.universaalRadioButton.AutoSize = True
+        Me.universaalRadioButton.Location = New System.Drawing.Point(283, 125)
+        Me.universaalRadioButton.Margin = New System.Windows.Forms.Padding(2)
+        Me.universaalRadioButton.Name = "universaalRadioButton"
+        Me.universaalRadioButton.Size = New System.Drawing.Size(75, 17)
+        Me.universaalRadioButton.TabIndex = 86
+        Me.universaalRadioButton.TabStop = True
+        Me.universaalRadioButton.Text = "Universaal"
+        Me.universaalRadioButton.UseVisualStyleBackColor = True
+        '
+        'borssRadioButton
+        '
+        Me.borssRadioButton.AutoSize = True
+        Me.borssRadioButton.Location = New System.Drawing.Point(229, 125)
+        Me.borssRadioButton.Margin = New System.Windows.Forms.Padding(2)
+        Me.borssRadioButton.Name = "borssRadioButton"
+        Me.borssRadioButton.Size = New System.Drawing.Size(51, 17)
+        Me.borssRadioButton.TabIndex = 85
+        Me.borssRadioButton.TabStop = True
+        Me.borssRadioButton.Text = "Börss"
+        Me.borssRadioButton.UseVisualStyleBackColor = True
         '
         'electricityRateLabel
         '
         Me.electricityRateLabel.AutoSize = True
-        Me.electricityRateLabel.Location = New System.Drawing.Point(61, 179)
+        Me.electricityRateLabel.Location = New System.Drawing.Point(49, 125)
+        Me.electricityRateLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.electricityRateLabel.Name = "electricityRateLabel"
-        Me.electricityRateLabel.Size = New System.Drawing.Size(137, 20)
-        Me.electricityRateLabel.TabIndex = 51
+        Me.electricityRateLabel.Size = New System.Drawing.Size(95, 13)
+        Me.electricityRateLabel.TabIndex = 84
         Me.electricityRateLabel.Text = "Paketihind (kWh): "
         '
         'timeUsedLabel
         '
         Me.timeUsedLabel.AutoSize = True
-        Me.timeUsedLabel.Location = New System.Drawing.Point(44, 142)
+        Me.timeUsedLabel.Location = New System.Drawing.Point(37, 101)
+        Me.timeUsedLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.timeUsedLabel.Name = "timeUsedLabel"
-        Me.timeUsedLabel.Size = New System.Drawing.Size(154, 20)
-        Me.timeUsedLabel.TabIndex = 50
+        Me.timeUsedLabel.Size = New System.Drawing.Size(103, 13)
+        Me.timeUsedLabel.TabIndex = 83
         Me.timeUsedLabel.Text = "Kasutamise aeg (h): "
         '
         'electricityRateTextBox
         '
-        Me.electricityRateTextBox.Location = New System.Drawing.Point(213, 176)
+        Me.electricityRateTextBox.Location = New System.Drawing.Point(150, 123)
+        Me.electricityRateTextBox.Margin = New System.Windows.Forms.Padding(2)
         Me.electricityRateTextBox.Name = "electricityRateTextBox"
-        Me.electricityRateTextBox.Size = New System.Drawing.Size(100, 26)
-        Me.electricityRateTextBox.TabIndex = 49
+        Me.electricityRateTextBox.Size = New System.Drawing.Size(68, 20)
+        Me.electricityRateTextBox.TabIndex = 82
         '
         'timeUsedTextBox
         '
-        Me.timeUsedTextBox.Location = New System.Drawing.Point(213, 139)
+        Me.timeUsedTextBox.Location = New System.Drawing.Point(150, 99)
+        Me.timeUsedTextBox.Margin = New System.Windows.Forms.Padding(2)
         Me.timeUsedTextBox.Name = "timeUsedTextBox"
-        Me.timeUsedTextBox.Size = New System.Drawing.Size(100, 26)
-        Me.timeUsedTextBox.TabIndex = 48
+        Me.timeUsedTextBox.Size = New System.Drawing.Size(68, 20)
+        Me.timeUsedTextBox.TabIndex = 81
         '
         'otsingButton
         '
-        Me.otsingButton.Location = New System.Drawing.Point(247, 3)
+        Me.otsingButton.Location = New System.Drawing.Point(173, 11)
+        Me.otsingButton.Margin = New System.Windows.Forms.Padding(2)
         Me.otsingButton.Name = "otsingButton"
-        Me.otsingButton.Size = New System.Drawing.Size(75, 30)
-        Me.otsingButton.TabIndex = 47
+        Me.otsingButton.Size = New System.Drawing.Size(50, 20)
+        Me.otsingButton.TabIndex = 80
         Me.otsingButton.Text = "Otsing"
         Me.otsingButton.UseVisualStyleBackColor = True
         '
         'vordlusButton
         '
-        Me.vordlusButton.Location = New System.Drawing.Point(166, 3)
+        Me.vordlusButton.Location = New System.Drawing.Point(119, 11)
+        Me.vordlusButton.Margin = New System.Windows.Forms.Padding(2)
         Me.vordlusButton.Name = "vordlusButton"
-        Me.vordlusButton.Size = New System.Drawing.Size(75, 30)
-        Me.vordlusButton.TabIndex = 46
+        Me.vordlusButton.Size = New System.Drawing.Size(50, 20)
+        Me.vordlusButton.TabIndex = 79
         Me.vordlusButton.Text = "Võrd"
         Me.vordlusButton.UseVisualStyleBackColor = True
         '
         'calcButton
         '
-        Me.calcButton.Location = New System.Drawing.Point(85, 3)
+        Me.calcButton.Location = New System.Drawing.Point(65, 11)
+        Me.calcButton.Margin = New System.Windows.Forms.Padding(2)
         Me.calcButton.Name = "calcButton"
-        Me.calcButton.Size = New System.Drawing.Size(75, 30)
-        Me.calcButton.TabIndex = 45
+        Me.calcButton.Size = New System.Drawing.Size(50, 20)
+        Me.calcButton.TabIndex = 78
         Me.calcButton.Text = "Kalk"
         Me.calcButton.UseVisualStyleBackColor = True
         '
         'homeButton
         '
-        Me.homeButton.Location = New System.Drawing.Point(4, 3)
+        Me.homeButton.Location = New System.Drawing.Point(11, 11)
+        Me.homeButton.Margin = New System.Windows.Forms.Padding(2)
         Me.homeButton.Name = "homeButton"
-        Me.homeButton.Size = New System.Drawing.Size(75, 30)
-        Me.homeButton.TabIndex = 44
+        Me.homeButton.Size = New System.Drawing.Size(50, 20)
+        Me.homeButton.TabIndex = 77
         Me.homeButton.Text = "Home"
         Me.homeButton.UseVisualStyleBackColor = True
         '
         'costLabel
         '
         Me.costLabel.AutoSize = True
-        Me.costLabel.Location = New System.Drawing.Point(65, 213)
+        Me.costLabel.Location = New System.Drawing.Point(51, 147)
+        Me.costLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.costLabel.Name = "costLabel"
-        Me.costLabel.Size = New System.Drawing.Size(133, 20)
-        Me.costLabel.TabIndex = 43
+        Me.costLabel.Size = New System.Drawing.Size(91, 13)
+        Me.costLabel.TabIndex = 76
         Me.costLabel.Text = "Orienteeruv hind: "
         '
         'powerRatingLabel
         '
         Me.powerRatingLabel.AutoSize = True
-        Me.powerRatingLabel.Location = New System.Drawing.Point(36, 105)
+        Me.powerRatingLabel.Location = New System.Drawing.Point(32, 77)
+        Me.powerRatingLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.powerRatingLabel.Name = "powerRatingLabel"
-        Me.powerRatingLabel.Size = New System.Drawing.Size(162, 20)
-        Me.powerRatingLabel.TabIndex = 42
+        Me.powerRatingLabel.Size = New System.Drawing.Size(110, 13)
+        Me.powerRatingLabel.TabIndex = 75
         Me.powerRatingLabel.Text = "Tarbimisvõimsus (W): "
         '
         'costTextBox
         '
-        Me.costTextBox.Location = New System.Drawing.Point(213, 213)
+        Me.costTextBox.Location = New System.Drawing.Point(150, 147)
+        Me.costTextBox.Margin = New System.Windows.Forms.Padding(2)
         Me.costTextBox.Name = "costTextBox"
-        Me.costTextBox.Size = New System.Drawing.Size(100, 26)
-        Me.costTextBox.TabIndex = 41
+        Me.costTextBox.Size = New System.Drawing.Size(68, 20)
+        Me.costTextBox.TabIndex = 74
         '
         'powerRatingTextBox
         '
-        Me.powerRatingTextBox.Location = New System.Drawing.Point(213, 102)
+        Me.powerRatingTextBox.Location = New System.Drawing.Point(150, 75)
+        Me.powerRatingTextBox.Margin = New System.Windows.Forms.Padding(2)
         Me.powerRatingTextBox.Name = "powerRatingTextBox"
-        Me.powerRatingTextBox.Size = New System.Drawing.Size(100, 26)
-        Me.powerRatingTextBox.TabIndex = 40
+        Me.powerRatingTextBox.Size = New System.Drawing.Size(68, 20)
+        Me.powerRatingTextBox.TabIndex = 73
         '
         'calculateButton
         '
-        Me.calculateButton.Location = New System.Drawing.Point(202, 260)
+        Me.calculateButton.Location = New System.Drawing.Point(143, 178)
+        Me.calculateButton.Margin = New System.Windows.Forms.Padding(2)
         Me.calculateButton.Name = "calculateButton"
-        Me.calculateButton.Size = New System.Drawing.Size(100, 35)
-        Me.calculateButton.TabIndex = 39
+        Me.calculateButton.Size = New System.Drawing.Size(67, 23)
+        Me.calculateButton.TabIndex = 72
         Me.calculateButton.Text = "Kuva"
         Me.calculateButton.UseVisualStyleBackColor = True
         '
         'applianceLabel
         '
         Me.applianceLabel.AutoSize = True
-        Me.applianceLabel.Location = New System.Drawing.Point(42, 71)
+        Me.applianceLabel.Location = New System.Drawing.Point(36, 55)
+        Me.applianceLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.applianceLabel.Name = "applianceLabel"
-        Me.applianceLabel.Size = New System.Drawing.Size(156, 20)
-        Me.applianceLabel.TabIndex = 38
+        Me.applianceLabel.Size = New System.Drawing.Size(105, 13)
+        Me.applianceLabel.TabIndex = 71
         Me.applianceLabel.Text = "Vali tüüpkodumasin: "
         '
         'applianceComboBox
         '
         Me.applianceComboBox.FormattingEnabled = True
-        Me.applianceComboBox.Location = New System.Drawing.Point(213, 67)
+        Me.applianceComboBox.Location = New System.Drawing.Point(150, 53)
+        Me.applianceComboBox.Margin = New System.Windows.Forms.Padding(2)
         Me.applianceComboBox.Name = "applianceComboBox"
-        Me.applianceComboBox.Size = New System.Drawing.Size(227, 28)
-        Me.applianceComboBox.TabIndex = 37
+        Me.applianceComboBox.Size = New System.Drawing.Size(153, 21)
+        Me.applianceComboBox.TabIndex = 70
         '
         'formCalc
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(523, 343)
-        Me.Controls.Add(Me.Label2)
+        Me.ClientSize = New System.Drawing.Size(383, 227)
+        Me.Controls.Add(Me.universaalRadioButton)
+        Me.Controls.Add(Me.borssRadioButton)
         Me.Controls.Add(Me.electricityRateLabel)
         Me.Controls.Add(Me.timeUsedLabel)
         Me.Controls.Add(Me.electricityRateTextBox)
@@ -197,14 +229,14 @@ Partial Class formCalc
         Me.Controls.Add(Me.applianceLabel)
         Me.Controls.Add(Me.applianceComboBox)
         Me.Name = "formCalc"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Rakendus_Kalkulaator"
+        Me.Text = "formCalc"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
-    Friend WithEvents Label2 As Label
+    Friend WithEvents universaalRadioButton As RadioButton
+    Friend WithEvents borssRadioButton As RadioButton
     Friend WithEvents electricityRateLabel As Label
     Friend WithEvents timeUsedLabel As Label
     Friend WithEvents electricityRateTextBox As TextBox
