@@ -2,9 +2,11 @@
 Imports AndmeParija.CAPIQuery
 Imports AndmeParija.CDatabaseQuery
 Imports System.Windows.Forms.DataVisualization.Charting
+Imports System.Globalization
 
 Public Class FormTest
 
+    Private comboBoxTable As New DataTable
 
     Private Sub FormTest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim testShit As AndmeParija.IAPIQuery
@@ -14,6 +16,24 @@ Public Class FormTest
         Catch ex As Exception
             Console.WriteLine("Fuck")
         End Try
+
+
+
+        Dim loadComboboxValues As AndmeParija.IDatabaseQuery
+        loadComboboxValues = New AndmeParija.CDatabaseQuery
+
+        comboBoxTable = loadComboboxValues.queryData("Select dateTime FROM bors WHERE rowid > 1 LIMIT 21")
+
+        Dim dateTimeValues = New List(Of String)
+        For Each row As DataRow In comboBoxTable.Rows
+            dateTimeValues.Add(row(0))
+        Next
+
+        ComboBox1.BindingContext = New BindingContext
+        ComboBox1.DataSource = dateTimeValues
+        ComboBox2.BindingContext = New BindingContext
+        ComboBox2.DataSource = dateTimeValues
+
     End Sub
 
     Private Sub firstSeries(values As Double(), s As String())
@@ -49,7 +69,7 @@ Public Class FormTest
         Dim query1 As String = "dateTime"
         Dim query2 As String = "NPSEesti"
 
-        testTable = buttonPress.queryData("Select * FROM BorssPakett WHERE rowid < 24")
+        testTable = buttonPress.queryData("Select * FROM bors WHERE rowid < 24")
 
         Dim Len As Integer = testTable.Columns.Count
         Dim i As Integer = 0
@@ -82,4 +102,21 @@ Public Class FormTest
         firstSeries(priceValues.ToArray, dateTimeValues.ToArray)
 
     End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+
+
+        Dim loadComboboxValues As AndmeParija.IDatabaseQuery
+        loadComboboxValues = New AndmeParija.CDatabaseQuery
+
+        Dim tempTable As DataTable = loadComboboxValues.queryData("Select dateTime, price FROM bors WHERE rowid > 1 AND dateTime BETWEEN '" _
+                                                                  & ComboBox1.SelectedValue & "' AND '" & ComboBox2.SelectedValue & "'")
+
+        For Each row As DataRow In tempTable.Rows
+            Console.Write(row(0) & " " & row(1))
+            Console.WriteLine()
+        Next
+
+    End Sub
+
 End Class

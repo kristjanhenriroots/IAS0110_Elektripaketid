@@ -49,6 +49,8 @@ Public Class CAPIQuery
                 Dim dateValue As DateTime = DateTime.ParseExact(values(1).Trim(""""), "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture)
                 Dim price As Double = Double.Parse(values(2).Trim("""").Replace(",", "."), CultureInfo.InvariantCulture)
 
+                Console.WriteLine(dateValue)
+
                 commandTxt = "UPDATE bors SET timeTemplateUTC = '" & timeTemplate & "', dateTime = '" & dateValue &
                 "', price = '" & price & "' WHERE rowid = " & index & ";" 'Päringu teksti lisamine. Rowid peab olema alguses 2, sest esimene row on csv failis stringid :/
 
