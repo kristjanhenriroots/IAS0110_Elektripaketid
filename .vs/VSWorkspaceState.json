@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\AndmeParija",
+    "\\AndmeParija\\AndmeParija",
     "\\Elekter"
   ],
-  "SelectedNode": "\\Elekter\\formVordlus.vb",
+  "SelectedNode": "\\AndmeParija\\AndmeParija\\CAPIQuery.vb",
   "PreviewInSolutionExplorer": false
 }
