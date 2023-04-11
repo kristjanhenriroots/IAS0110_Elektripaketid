@@ -22,9 +22,9 @@ Partial Class MainForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.MainChart = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.otsingButton = New System.Windows.Forms.Button()
         Me.vordlusButton = New System.Windows.Forms.Button()
@@ -53,17 +53,17 @@ Partial Class MainForm
         '
         'MainChart
         '
-        ChartArea1.Name = "ChartArea1"
-        Me.MainChart.ChartAreas.Add(ChartArea1)
-        Legend1.Name = "Legend1"
-        Me.MainChart.Legends.Add(Legend1)
+        ChartArea3.Name = "ChartArea1"
+        Me.MainChart.ChartAreas.Add(ChartArea3)
+        Legend3.Name = "Legend1"
+        Me.MainChart.Legends.Add(Legend3)
         Me.MainChart.Location = New System.Drawing.Point(34, 65)
-        Me.MainChart.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.MainChart.Margin = New System.Windows.Forms.Padding(2)
         Me.MainChart.Name = "MainChart"
-        Series1.ChartArea = "ChartArea1"
-        Series1.Legend = "Legend1"
-        Series1.Name = "Series1"
-        Me.MainChart.Series.Add(Series1)
+        Series3.ChartArea = "ChartArea1"
+        Series3.Legend = "Legend1"
+        Series3.Name = "Series1"
+        Me.MainChart.Series.Add(Series3)
         Me.MainChart.Size = New System.Drawing.Size(351, 195)
         Me.MainChart.TabIndex = 0
         Me.MainChart.Text = "MainChart"
@@ -131,6 +131,7 @@ Partial Class MainForm
         'ComboBox2
         '
         Me.ComboBox2.FormattingEnabled = True
+        Me.ComboBox2.Items.AddRange(New Object() {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"})
         Me.ComboBox2.Location = New System.Drawing.Point(397, 80)
         Me.ComboBox2.Margin = New System.Windows.Forms.Padding(2)
         Me.ComboBox2.Name = "ComboBox2"
@@ -307,7 +308,7 @@ Partial Class MainForm
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.MainChart)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "MainForm"
         Me.Text = "MainForm"
         CType(Me.MainChart, System.ComponentModel.ISupportInitialize).EndInit()

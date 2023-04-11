@@ -19,6 +19,8 @@
 *.sdf
 *.opensdf
 *.sln.docstates
+*.v2
+*vsidx
 
 # Ignore build output
 [Bb]in/

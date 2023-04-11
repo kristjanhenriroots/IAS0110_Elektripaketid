@@ -3,8 +3,11 @@ Imports System.IO
 Imports System.Text
 Imports System.Windows.Forms.DataVisualization.Charting
 Imports System.Globalization
+Imports classCheap_calculator
 
 Public Class MainForm
+    Dim times As New List(Of DateTime)()
+    Dim prices As New List(Of Double)()
 
     Dim chartMaker As New chartMaker()
 
@@ -23,8 +26,7 @@ Public Class MainForm
             Dim content As Stream = Await response.Content.ReadAsStreamAsync()
 
             ' Parse CSV data and extract price data
-            Dim times As New List(Of DateTime)()
-            Dim prices As New List(Of Double)()
+
             Dim csvContent As New StringBuilder()
             Using reader As New StreamReader(content, Encoding.UTF8)
                 ' Read header row
@@ -108,5 +110,12 @@ Public Class MainForm
 
     Private Sub MainChart_Click(sender As Object, e As EventArgs) Handles MainChart.Click
 
+    End Sub
+
+    Private Sub ComboBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox2.SelectedIndexChanged
+        Dim frame As iPriceCalc = New TimeFrameCalc
+        Dim time_frame = frame.CalcTimeFrame(Int(ComboBox2.SelectedItem), prices.ToArray(), times.ToArray())
+        MessageBox.Show("the selected value is " & Int(ComboBox2.SelectedItem))
+        TextBox1.Text = (time_frame(0).ToString("HH:mm") & " - " & time_frame(1).ToString("HH:mm"))
     End Sub
 End Class
