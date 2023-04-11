@@ -60,5 +60,7 @@ Public Class chartMaker
             mainChart.Series(0).Points(index + i).Color = Color.Red
         Next
 
+        'Remove chart legend
+        mainChart.Legends.Clear()
     End Sub
 End Class
