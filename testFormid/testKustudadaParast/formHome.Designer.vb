@@ -22,9 +22,11 @@ Partial Class MainForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+
         Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+
         Me.MainChart = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.otsingButton = New System.Windows.Forms.Button()
         Me.vordlusButton = New System.Windows.Forms.Button()
@@ -53,6 +55,7 @@ Partial Class MainForm
         '
         'MainChart
         '
+
         ChartArea2.Name = "ChartArea1"
         Me.MainChart.ChartAreas.Add(ChartArea2)
         Legend2.Name = "Legend1"
@@ -64,6 +67,7 @@ Partial Class MainForm
         Series2.Legend = "Legend1"
         Series2.Name = "Series1"
         Me.MainChart.Series.Add(Series2)
+
         Me.MainChart.Size = New System.Drawing.Size(351, 195)
         Me.MainChart.TabIndex = 0
         Me.MainChart.Text = "MainChart"
