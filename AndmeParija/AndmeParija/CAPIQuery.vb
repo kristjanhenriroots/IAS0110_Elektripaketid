@@ -26,6 +26,7 @@ Public Class CAPIQuery
     Private Async Sub testSub()
         ' Set start and end times for 24-hour period
         Dim startTime As String = DateTime.Now.ToString("yyyy-MM-dd'T'HH:mm:ssZ")
+        Console.WriteLine(startTime)
         Dim endTime As String = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd'T'HH:mm:ssZ")
 
         ' Send GET request to Elering API
@@ -48,16 +49,12 @@ Public Class CAPIQuery
                 Dim dateValue As DateTime = DateTime.ParseExact(values(1).Trim(""""), "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture)
                 Dim price As Double = Double.Parse(values(2).Trim("""").Replace(",", "."), CultureInfo.InvariantCulture)
 
-                Console.WriteLine(dateValue)
-
                 commandTxt = "UPDATE BorssPakett SET dateTime = '" & dateValue & "' WHERE rowid = " & index & ";" 'Päringu teksti lisamine
 
                 command.Connection = connection 'Andmebaasi ühenduse lisamine
                 command.CommandText = commandTxt
 
                 command.ExecuteNonQuery()
-
-                Console.WriteLine(commandTxt)
                 index = index + 1
             End While
         End Using
