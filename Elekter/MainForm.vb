@@ -49,8 +49,8 @@ Public Class MainForm
             Next
 
 
-
             chartMaker.setChart(MainChart, times.ToArray(), prices.ToArray())
+            AddHandler MainChart.MouseMove, AddressOf Chart_MouseMove
 
         Catch ex As Exception
             MessageBox.Show("An error occurred while retrieving data from the Elering API: " & ex.Message)
@@ -63,9 +63,10 @@ Public Class MainForm
         If hit.ChartElementType = ChartElementType.DataPoint Then
             Dim point As DataPoint = MainChart.Series(0).Points(hit.PointIndex)
             ' Update tooltip to display date and time properly
-            MainChart.Series(0).ToolTip = $"Time: {DateTime.FromOADate(point.XValue):HH:mm}{Environment.NewLine}Price: {point.YValues(0):F2}"
+            MainChart.Series(0).ToolTip = $"Time: {DateTime.FromOADate(point.XValue).ToString("dd.MM.yyyy HH:mm")}{Environment.NewLine}Price: {point.YValues(0):F2}"
         End If
     End Sub
+
 
     'Button tabs'
     Private Sub calcButton_Click(sender As Object, e As EventArgs) Handles calcButton.Click
