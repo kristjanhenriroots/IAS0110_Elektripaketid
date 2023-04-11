@@ -38,8 +38,6 @@ Partial Class MainForm
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.shrinkButton = New System.Windows.Forms.Button()
@@ -48,6 +46,9 @@ Partial Class MainForm
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.cbStartTime = New System.Windows.Forms.ComboBox()
+        Me.cbEndTime = New System.Windows.Forms.ComboBox()
+        Me.btnFindPackage = New System.Windows.Forms.Button()
         CType(Me.MainChart, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -58,7 +59,7 @@ Partial Class MainForm
         Legend1.Name = "Legend1"
         Me.MainChart.Legends.Add(Legend1)
         Me.MainChart.Location = New System.Drawing.Point(34, 65)
-        Me.MainChart.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.MainChart.Margin = New System.Windows.Forms.Padding(2)
         Me.MainChart.Name = "MainChart"
         Series1.ChartArea = "ChartArea1"
         Series1.Legend = "Legend1"
@@ -185,22 +186,6 @@ Partial Class MainForm
         Me.Label5.TabIndex = 63
         Me.Label5.Text = "Vali ajavahemik:"
         '
-        'TextBox3
-        '
-        Me.TextBox3.Location = New System.Drawing.Point(117, 276)
-        Me.TextBox3.Margin = New System.Windows.Forms.Padding(2)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(68, 20)
-        Me.TextBox3.TabIndex = 62
-        '
-        'TextBox2
-        '
-        Me.TextBox2.Location = New System.Drawing.Point(33, 276)
-        Me.TextBox2.Margin = New System.Windows.Forms.Padding(2)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(68, 20)
-        Me.TextBox2.TabIndex = 61
-        '
         'TextBox1
         '
         Me.TextBox1.Location = New System.Drawing.Point(394, 166)
@@ -279,11 +264,39 @@ Partial Class MainForm
         Me.Label1.TabIndex = 52
         Me.Label1.Text = "Tere, <Kasutaja>!"
         '
+        'cbStartTime
+        '
+        Me.cbStartTime.FormattingEnabled = True
+        Me.cbStartTime.Location = New System.Drawing.Point(34, 276)
+        Me.cbStartTime.Name = "cbStartTime"
+        Me.cbStartTime.Size = New System.Drawing.Size(68, 21)
+        Me.cbStartTime.TabIndex = 75
+        '
+        'cbEndTime
+        '
+        Me.cbEndTime.FormattingEnabled = True
+        Me.cbEndTime.Location = New System.Drawing.Point(115, 276)
+        Me.cbEndTime.Name = "cbEndTime"
+        Me.cbEndTime.Size = New System.Drawing.Size(68, 21)
+        Me.cbEndTime.TabIndex = 76
+        '
+        'btnFindPackage
+        '
+        Me.btnFindPackage.Location = New System.Drawing.Point(403, 275)
+        Me.btnFindPackage.Name = "btnFindPackage"
+        Me.btnFindPackage.Size = New System.Drawing.Size(75, 23)
+        Me.btnFindPackage.TabIndex = 77
+        Me.btnFindPackage.Text = "Button1"
+        Me.btnFindPackage.UseVisualStyleBackColor = True
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(532, 317)
+        Me.Controls.Add(Me.btnFindPackage)
+        Me.Controls.Add(Me.cbEndTime)
+        Me.Controls.Add(Me.cbStartTime)
         Me.Controls.Add(Me.otsingButton)
         Me.Controls.Add(Me.vordlusButton)
         Me.Controls.Add(Me.calcButton)
@@ -296,8 +309,6 @@ Partial Class MainForm
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label5)
-        Me.Controls.Add(Me.TextBox3)
-        Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.shrinkButton)
@@ -307,7 +318,7 @@ Partial Class MainForm
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.MainChart)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "MainForm"
         Me.Text = "MainForm"
         CType(Me.MainChart, System.ComponentModel.ISupportInitialize).EndInit()
@@ -329,8 +340,6 @@ Partial Class MainForm
     Friend WithEvents Label7 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents Label5 As Label
-    Friend WithEvents TextBox3 As TextBox
-    Friend WithEvents TextBox2 As TextBox
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Label4 As Label
     Friend WithEvents shrinkButton As Button
@@ -339,4 +348,7 @@ Partial Class MainForm
     Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
+    Friend WithEvents cbStartTime As ComboBox
+    Friend WithEvents cbEndTime As ComboBox
+    Friend WithEvents btnFindPackage As Button
 End Class

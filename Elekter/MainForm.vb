@@ -3,6 +3,8 @@ Imports System.IO
 Imports System.Text
 Imports System.Windows.Forms.DataVisualization.Charting
 Imports System.Globalization
+Imports AndmeParija.CAPIQuery
+Imports AndmeParija.CDatabaseQuery
 
 Public Class MainForm
 
@@ -55,6 +57,34 @@ Public Class MainForm
         Catch ex As Exception
             MessageBox.Show("An error occurred while retrieving data from the Elering API: " & ex.Message)
         End Try
+
+        'Andmebaaside osa
+        'Comboboxide laadimine
+        Dim comboBoxTable As New DataTable
+
+        Dim updateBorsTable As AndmeParija.IAPIQuery
+        updateBorsTable = New AndmeParija.CAPIQuery
+        Try
+            updateBorsTable.updateTable()
+        Catch ex As Exception
+            MessageBox.Show("Error updating data table.")
+        End Try
+
+        Dim loadComboBoxValues As AndmeParija.IDatabaseQuery
+        loadComboBoxValues = New AndmeParija.CDatabaseQuery
+
+        comboBoxTable = loadComboBoxValues.queryData("Select dateTime FROM bors WHERE rowid > 1 LIMIT 21")
+
+        Dim dateTimeValues = New List(Of String)
+        For Each row As DataRow In comboBoxTable.Rows
+            dateTimeValues.Add(row(0))
+        Next
+
+        cbStartTime.BindingContext = New BindingContext
+        cbStartTime.DataSource = dateTimeValues
+        cbEndTime.BindingContext = New BindingContext
+        cbEndTime.DataSource = dateTimeValues
+
     End Sub
 
     Private Sub Chart_MouseMove(sender As Object, e As MouseEventArgs)
