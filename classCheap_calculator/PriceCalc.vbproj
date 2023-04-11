@@ -1,8 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <RootNamespace>classCheap_calculator</RootNamespace>
-    <TargetFramework>net4.7.2</TargetFramework>
-  </PropertyGroup>
-
-</Project>
