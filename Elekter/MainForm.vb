@@ -8,7 +8,6 @@ Imports classCheap_calculator
 Public Class MainForm
     Dim times As New List(Of DateTime)()
     Dim prices As New List(Of Double)()
-
     Dim chartMaker As New chartMaker()
 
     Private Async Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -125,4 +124,9 @@ Public Class MainForm
             chartMaker.changeColors(MainChart, times.ToArray(), time_frame(0), Int(cbTimeFrame.SelectedItem))
         End If
     End Sub
+
+    Public Function ReturnCurrentPrice()
+        Return prices.First
+    End Function
+
 End Class
