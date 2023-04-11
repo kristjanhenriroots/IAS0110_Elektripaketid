@@ -26,7 +26,7 @@ Public Class chartMaker
         mainChart.ChartAreas(0).AxisX.LabelStyle.Format = "HH:mm"
         mainChart.ChartAreas(0).AxisX.Interval = 1
         mainChart.ChartAreas(0).AxisY.Title = "Price"
-        mainChart.Series(0).Color = Color.LightGreen
+        mainChart.Series(0).Color = Color.MediumSlateBlue
 
         ' Set the interval to 30 minutes
         mainChart.ChartAreas(0).AxisX.Interval = New TimeSpan(0, 120, 0).TotalDays
@@ -37,11 +37,16 @@ Public Class chartMaker
 
     End Sub
 
-    Public Sub colorReset(mainchart As Chart)
-        mainchart.Series(0).Color = Color.LightGreen
+    Public Sub colorReset(mainChart As Chart, times As DateTime())
+        For i As Integer = 0 To times.Count - 1
+            mainChart.Series(0).Points(i).Color = Color.MediumSlateBlue
+        Next
     End Sub
 
     Public Sub changeColors(mainChart As Chart, times As DateTime(), change As DateTime, len As Integer)
+
+        colorReset(mainChart, times)
+
         Dim index As Integer
         For i As Integer = 0 To times.Count - 1
             If times(i).Equals(change) Then
