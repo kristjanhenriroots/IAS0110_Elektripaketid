@@ -145,7 +145,7 @@ Public Class FormTest
 
         tempTable.Columns.Add("priceMargin", GetType(Double))
         For Each row As DataRow In tempTable.Rows
-            row("priceMargin") = row(1) + tempTable2.Rows(0)(0) 'bandaid fix. Hind on 10 korda suurem kui muidu
+            row("priceMargin") = row(1) + pakettMargin 'bandaid fix. Hind on 10 korda suurem kui muidu
             Console.WriteLine(row(0) & " " & row(1) & " " & row(2))
         Next
 
