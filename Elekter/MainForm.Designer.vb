@@ -22,9 +22,9 @@ Partial Class MainForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.MainChart = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.otsingButton = New System.Windows.Forms.Button()
         Me.vordlusButton = New System.Windows.Forms.Button()
@@ -35,7 +35,6 @@ Partial Class MainForm
         Me.cbTimeFrame = New System.Windows.Forms.ComboBox()
         Me.TextBox4 = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.TextBox3 = New System.Windows.Forms.TextBox()
@@ -48,22 +47,25 @@ Partial Class MainForm
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblAverageNow = New System.Windows.Forms.Label()
+        Me.lblAverageTF = New System.Windows.Forms.Label()
+        Me.lblSavedPer = New System.Windows.Forms.Label()
         CType(Me.MainChart, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MainChart
         '
-        ChartArea1.Name = "ChartArea1"
-        Me.MainChart.ChartAreas.Add(ChartArea1)
-        Legend1.Name = "Legend1"
-        Me.MainChart.Legends.Add(Legend1)
+        ChartArea3.Name = "ChartArea1"
+        Me.MainChart.ChartAreas.Add(ChartArea3)
+        Legend3.Name = "Legend1"
+        Me.MainChart.Legends.Add(Legend3)
         Me.MainChart.Location = New System.Drawing.Point(68, 125)
-        Me.MainChart.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MainChart.Margin = New System.Windows.Forms.Padding(4)
         Me.MainChart.Name = "MainChart"
-        Series1.ChartArea = "ChartArea1"
-        Series1.Legend = "Legend1"
-        Series1.Name = "Series1"
-        Me.MainChart.Series.Add(Series1)
+        Series3.ChartArea = "ChartArea1"
+        Series3.Legend = "Legend1"
+        Series3.Name = "Series1"
+        Me.MainChart.Series.Add(Series3)
         Me.MainChart.Size = New System.Drawing.Size(702, 375)
         Me.MainChart.TabIndex = 0
         Me.MainChart.Text = "MainChart"
@@ -71,7 +73,7 @@ Partial Class MainForm
         'otsingButton
         '
         Me.otsingButton.Location = New System.Drawing.Point(346, 21)
-        Me.otsingButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.otsingButton.Margin = New System.Windows.Forms.Padding(4)
         Me.otsingButton.Name = "otsingButton"
         Me.otsingButton.Size = New System.Drawing.Size(100, 38)
         Me.otsingButton.TabIndex = 74
@@ -81,7 +83,7 @@ Partial Class MainForm
         'vordlusButton
         '
         Me.vordlusButton.Location = New System.Drawing.Point(238, 21)
-        Me.vordlusButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.vordlusButton.Margin = New System.Windows.Forms.Padding(4)
         Me.vordlusButton.Name = "vordlusButton"
         Me.vordlusButton.Size = New System.Drawing.Size(100, 38)
         Me.vordlusButton.TabIndex = 73
@@ -91,7 +93,7 @@ Partial Class MainForm
         'calcButton
         '
         Me.calcButton.Location = New System.Drawing.Point(130, 21)
-        Me.calcButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.calcButton.Margin = New System.Windows.Forms.Padding(4)
         Me.calcButton.Name = "calcButton"
         Me.calcButton.Size = New System.Drawing.Size(100, 38)
         Me.calcButton.TabIndex = 72
@@ -101,7 +103,7 @@ Partial Class MainForm
         'homeButton
         '
         Me.homeButton.Location = New System.Drawing.Point(22, 21)
-        Me.homeButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.homeButton.Margin = New System.Windows.Forms.Padding(4)
         Me.homeButton.Name = "homeButton"
         Me.homeButton.Size = New System.Drawing.Size(100, 38)
         Me.homeButton.TabIndex = 71
@@ -111,7 +113,7 @@ Partial Class MainForm
         'btnCalcTimeFrame
         '
         Me.btnCalcTimeFrame.Location = New System.Drawing.Point(794, 196)
-        Me.btnCalcTimeFrame.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnCalcTimeFrame.Margin = New System.Windows.Forms.Padding(4)
         Me.btnCalcTimeFrame.Name = "btnCalcTimeFrame"
         Me.btnCalcTimeFrame.Size = New System.Drawing.Size(162, 69)
         Me.btnCalcTimeFrame.TabIndex = 70
@@ -134,7 +136,7 @@ Partial Class MainForm
         Me.cbTimeFrame.FormattingEnabled = True
         Me.cbTimeFrame.Items.AddRange(New Object() {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"})
         Me.cbTimeFrame.Location = New System.Drawing.Point(794, 154)
-        Me.cbTimeFrame.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cbTimeFrame.Margin = New System.Windows.Forms.Padding(4)
         Me.cbTimeFrame.Name = "cbTimeFrame"
         Me.cbTimeFrame.Size = New System.Drawing.Size(160, 33)
         Me.cbTimeFrame.TabIndex = 68
@@ -142,7 +144,7 @@ Partial Class MainForm
         'TextBox4
         '
         Me.TextBox4.Location = New System.Drawing.Point(550, 531)
-        Me.TextBox4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TextBox4.Margin = New System.Windows.Forms.Padding(4)
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.Size = New System.Drawing.Size(226, 31)
         Me.TextBox4.TabIndex = 67
@@ -156,16 +158,6 @@ Partial Class MainForm
         Me.Label8.Size = New System.Drawing.Size(135, 25)
         Me.Label8.TabIndex = 66
         Me.Label8.Text = "CO2 jalajälg:"
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(486, 83)
-        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(307, 25)
-        Me.Label7.TabIndex = 65
-        Me.Label7.Text = "Hetkel valitud kuva: Kinnisvara"
         '
         'Label6
         '
@@ -190,7 +182,7 @@ Partial Class MainForm
         'TextBox3
         '
         Me.TextBox3.Location = New System.Drawing.Point(234, 531)
-        Me.TextBox3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TextBox3.Margin = New System.Windows.Forms.Padding(4)
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.Size = New System.Drawing.Size(132, 31)
         Me.TextBox3.TabIndex = 62
@@ -198,7 +190,7 @@ Partial Class MainForm
         'TextBox2
         '
         Me.TextBox2.Location = New System.Drawing.Point(66, 531)
-        Me.TextBox2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TextBox2.Margin = New System.Windows.Forms.Padding(4)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(132, 31)
         Me.TextBox2.TabIndex = 61
@@ -206,7 +198,7 @@ Partial Class MainForm
         'tbRecTimeFrame
         '
         Me.tbRecTimeFrame.Location = New System.Drawing.Point(788, 319)
-        Me.tbRecTimeFrame.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tbRecTimeFrame.Margin = New System.Windows.Forms.Padding(4)
         Me.tbRecTimeFrame.Name = "tbRecTimeFrame"
         Me.tbRecTimeFrame.ReadOnly = True
         Me.tbRecTimeFrame.Size = New System.Drawing.Size(226, 31)
@@ -225,7 +217,7 @@ Partial Class MainForm
         'shrinkButton
         '
         Me.shrinkButton.Location = New System.Drawing.Point(980, 558)
-        Me.shrinkButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.shrinkButton.Margin = New System.Windows.Forms.Padding(4)
         Me.shrinkButton.Name = "shrinkButton"
         Me.shrinkButton.Size = New System.Drawing.Size(34, 31)
         Me.shrinkButton.TabIndex = 58
@@ -235,7 +227,7 @@ Partial Class MainForm
         'enlargeButton
         '
         Me.enlargeButton.Location = New System.Drawing.Point(980, 517)
-        Me.enlargeButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.enlargeButton.Margin = New System.Windows.Forms.Padding(4)
         Me.enlargeButton.Name = "enlargeButton"
         Me.enlargeButton.Size = New System.Drawing.Size(34, 31)
         Me.enlargeButton.TabIndex = 57
@@ -257,7 +249,7 @@ Partial Class MainForm
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Items.AddRange(New Object() {"Tulpdiagramm", "Tabeldiagramm"})
         Me.ComboBox1.Location = New System.Drawing.Point(376, 529)
-        Me.ComboBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ComboBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(164, 33)
         Me.ComboBox1.TabIndex = 55
@@ -278,15 +270,44 @@ Partial Class MainForm
         Me.Label1.Location = New System.Drawing.Point(830, 35)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(182, 25)
+        Me.Label1.Size = New System.Drawing.Size(0, 25)
         Me.Label1.TabIndex = 52
-        Me.Label1.Text = "Tere, <Kasutaja>!"
+        '
+        'lblAverageNow
+        '
+        Me.lblAverageNow.AutoSize = True
+        Me.lblAverageNow.Location = New System.Drawing.Point(793, 373)
+        Me.lblAverageNow.Name = "lblAverageNow"
+        Me.lblAverageNow.Size = New System.Drawing.Size(165, 25)
+        Me.lblAverageNow.TabIndex = 75
+        Me.lblAverageNow.Text = "Keskmine hind: "
+        '
+        'lblAverageTF
+        '
+        Me.lblAverageTF.AutoSize = True
+        Me.lblAverageTF.Location = New System.Drawing.Point(793, 409)
+        Me.lblAverageTF.Name = "lblAverageTF"
+        Me.lblAverageTF.Size = New System.Drawing.Size(219, 25)
+        Me.lblAverageTF.TabIndex = 76
+        Me.lblAverageTF.Text = "Soovituslik keskmine:"
+        '
+        'lblSavedPer
+        '
+        Me.lblSavedPer.AutoSize = True
+        Me.lblSavedPer.Location = New System.Drawing.Point(793, 451)
+        Me.lblSavedPer.Name = "lblSavedPer"
+        Me.lblSavedPer.Size = New System.Drawing.Size(124, 25)
+        Me.lblSavedPer.TabIndex = 77
+        Me.lblSavedPer.Text = "Säästaksid:"
         '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(12.0!, 25.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1064, 610)
+        Me.Controls.Add(Me.lblSavedPer)
+        Me.Controls.Add(Me.lblAverageTF)
+        Me.Controls.Add(Me.lblAverageNow)
         Me.Controls.Add(Me.otsingButton)
         Me.Controls.Add(Me.vordlusButton)
         Me.Controls.Add(Me.calcButton)
@@ -296,7 +317,6 @@ Partial Class MainForm
         Me.Controls.Add(Me.cbTimeFrame)
         Me.Controls.Add(Me.TextBox4)
         Me.Controls.Add(Me.Label8)
-        Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.TextBox3)
@@ -310,8 +330,9 @@ Partial Class MainForm
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.MainChart)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "MainForm"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "MainForm"
         CType(Me.MainChart, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -329,7 +350,6 @@ Partial Class MainForm
     Friend WithEvents cbTimeFrame As ComboBox
     Friend WithEvents TextBox4 As TextBox
     Friend WithEvents Label8 As Label
-    Friend WithEvents Label7 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents TextBox3 As TextBox
@@ -342,4 +362,7 @@ Partial Class MainForm
     Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
+    Friend WithEvents lblAverageNow As Label
+    Friend WithEvents lblAverageTF As Label
+    Friend WithEvents lblSavedPer As Label
 End Class
