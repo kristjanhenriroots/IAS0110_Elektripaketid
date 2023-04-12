@@ -39,6 +39,9 @@ Partial Class formCalc
         Me.applianceComboBox = New System.Windows.Forms.ComboBox()
         Me.borssRadioButton = New System.Windows.Forms.RadioButton()
         Me.universaalRadioButton = New System.Windows.Forms.RadioButton()
+        Me.recommendedTimeLabel = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'electricityRateLabel
@@ -143,7 +146,7 @@ Partial Class formCalc
         '
         'calculateButton
         '
-        Me.calculateButton.Location = New System.Drawing.Point(218, 275)
+        Me.calculateButton.Location = New System.Drawing.Point(228, 271)
         Me.calculateButton.Name = "calculateButton"
         Me.calculateButton.Size = New System.Drawing.Size(100, 35)
         Me.calculateButton.TabIndex = 55
@@ -189,11 +192,41 @@ Partial Class formCalc
         Me.universaalRadioButton.Text = "Universaal"
         Me.universaalRadioButton.UseVisualStyleBackColor = True
         '
+        'recommendedTimeLabel
+        '
+        Me.recommendedTimeLabel.AutoSize = True
+        Me.recommendedTimeLabel.Location = New System.Drawing.Point(24, 322)
+        Me.recommendedTimeLabel.Name = "recommendedTimeLabel"
+        Me.recommendedTimeLabel.Size = New System.Drawing.Size(189, 20)
+        Me.recommendedTimeLabel.TabIndex = 70
+        Me.recommendedTimeLabel.Text = "Parim aeg kasutamiseks: "
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(71, 357)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(142, 20)
+        Me.Label1.TabIndex = 71
+        Me.Label1.Text = "Keskmine hind on: "
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(47, 392)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(166, 20)
+        Me.Label2.TabIndex = 72
+        Me.Label2.Text = "Säästad praegusega: "
+        '
         'formCalc
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(574, 349)
+        Me.ClientSize = New System.Drawing.Size(547, 422)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.recommendedTimeLabel)
         Me.Controls.Add(Me.universaalRadioButton)
         Me.Controls.Add(Me.borssRadioButton)
         Me.Controls.Add(Me.electricityRateLabel)
@@ -235,4 +268,7 @@ Partial Class formCalc
     Friend WithEvents applianceComboBox As ComboBox
     Friend WithEvents borssRadioButton As RadioButton
     Friend WithEvents universaalRadioButton As RadioButton
+    Friend WithEvents recommendedTimeLabel As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label2 As Label
 End Class
