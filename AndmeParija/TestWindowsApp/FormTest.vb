@@ -3,6 +3,9 @@ Imports AndmeParija.CAPIQuery
 Imports AndmeParija.CDatabaseQuery
 Imports System.Windows.Forms.DataVisualization.Charting
 Imports System.Globalization
+Imports System.Text
+Imports System.Configuration
+Imports System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder
 
 Public Class FormTest
 
@@ -22,13 +25,21 @@ Public Class FormTest
         Dim loadComboboxValues As AndmeParija.IDatabaseQuery
         loadComboboxValues = New AndmeParija.CDatabaseQuery
 
-        comboBoxTable = loadComboboxValues.queryData("Select dateTime FROM bors WHERE rowid > 1 LIMIT 21")
+        comboBoxTable = loadComboboxValues.queryData("Select dateTime FROM bors WHERE rowid > 1 LIMIT 25")
 
+        Dim providerValues = New List(Of String)
         Dim dateTimeValues = New List(Of String)
         For Each row As DataRow In comboBoxTable.Rows
             dateTimeValues.Add(row(0))
         Next
 
+        loadComboboxValues = New AndmeParija.CDatabaseQuery
+        comboBoxTable = loadComboboxValues.queryData("Select DISTINCT provider, name FROM borsPakett")
+        For Each row As DataRow In comboBoxTable.Rows
+            providerValues.Add(row(0))
+        Next
+
+        cbProvider.DataSource = providerValues
         ComboBox1.BindingContext = New BindingContext
         ComboBox1.DataSource = dateTimeValues
         ComboBox2.BindingContext = New BindingContext
@@ -103,20 +114,72 @@ Public Class FormTest
 
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub cbProvider_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbProvider.SelectedValueChanged
+        Dim nameValues = New List(Of String)
+        Dim nameRow As DataRow()
+        Console.WriteLine(cbProvider.SelectedValue)
+        Dim filterStr As String = "provider = '" & cbProvider.SelectedValue & "'"
+        nameRow = comboBoxTable.Select(filterStr)
 
-
-        Dim loadComboboxValues As AndmeParija.IDatabaseQuery
-        loadComboboxValues = New AndmeParija.CDatabaseQuery
-
-        Dim tempTable As DataTable = loadComboboxValues.queryData("Select dateTime, price FROM bors WHERE rowid > 1 AND dateTime BETWEEN '" _
-                                                                  & ComboBox1.SelectedValue & "' AND '" & ComboBox2.SelectedValue & "'")
-
-        For Each row As DataRow In tempTable.Rows
-            Console.Write(row(0) & " " & row(1))
-            Console.WriteLine()
+        For Each row As DataRow In nameRow
+            nameValues.Add(row(1).ToString)
         Next
 
+        cbPakett.DataSource = nameValues
+
     End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+
+        Dim sb As StringBuilder = New StringBuilder
+        Dim loadComboBoxValues As AndmeParija.IDatabaseQuery
+        loadComboBoxValues = New AndmeParija.CDatabaseQuery
+
+        Dim tempTable2 As DataTable = loadComboBoxValues.queryData("Select margin FROM borsPakett WHERE name = '" & cbPakett.SelectedValue & "'")
+        loadComboBoxValues = New AndmeParija.CDatabaseQuery
+
+        Dim tempTable As DataTable = loadComboBoxValues.queryData("Select DISTINCT dateTime, price/10 FROM bors WHERE rowid > 1 AND dateTime BETWEEN '" _
+                                                                  & ComboBox1.SelectedValue & "' AND '" & ComboBox2.SelectedValue & "'")
+
+        Dim pakettMargin As Object = tempTable2.Rows(0)(0)
+
+        tempTable.Columns.Add("priceMargin", GetType(Double))
+        For Each row As DataRow In tempTable.Rows
+            row("priceMargin") = row(1) + tempTable2.Rows(0)(0) 'bandaid fix. Hind on 10 korda suurem kui muidu
+            Console.WriteLine(row(0) & " " & row(1) & " " & row(2))
+        Next
+
+        loadComboBoxValues = New AndmeParija.CDatabaseQuery
+
+        tempTable2 = loadComboBoxValues.queryData("Select name, provider, margin FROM borsPakett ORDER BY margin ASC LIMIT 3")
+        sb.AppendLine("3 Kõige väiksemat marginaali: ")
+        For Each row As DataRow In tempTable2.Rows
+            sb.AppendLine(row(0).ToString & " " & row(1).ToString & " " & row(2).ToString)
+        Next
+        sb.AppendLine()
+
+        loadComboBoxValues = New AndmeParija.CDatabaseQuery
+        tempTable2 = loadComboBoxValues.queryData("Select name, provider, margin FROM borsPakett ORDER BY margin DESC LIMIT 3")
+        sb.AppendLine("3 Kõige suuremat marginaali: ")
+        For Each row As DataRow In tempTable2.Rows
+            sb.AppendLine(row(0).ToString & " " & row(1).ToString & " " & row(2).ToString)
+        Next
+        sb.AppendLine()
+
+        sb.AppendLine("Valitud paketti hinnad tunnilõikes, koos hinnaga lõpptarbijale")
+        For Each row As DataRow In tempTable.Rows
+            sb.AppendLine(row(0) & " " & row(1) & " " & row(2))
+        Next
+
+
+
+        Dim newForm As New FormTemp
+        newForm.tbMargins.Text += sb.ToString
+
+        newForm.dgvTimePrice.DataSource = tempTable
+
+        newForm.Show()
+    End Sub
+
 
 End Class
