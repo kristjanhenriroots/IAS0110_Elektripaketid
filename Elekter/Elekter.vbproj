@@ -113,6 +113,12 @@
     <Compile Include="formLogin.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="formPriceMargin.Designer.vb">
+      <DependentUpon>formPriceMargin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formPriceMargin.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formVordlus.Designer.vb">
       <DependentUpon>formVordlus.vb</DependentUpon>
     </Compile>
@@ -148,6 +154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formLogin.resx">
       <DependentUpon>formLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formPriceMargin.resx">
+      <DependentUpon>formPriceMargin.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formVordlus.resx">
       <DependentUpon>formVordlus.vb</DependentUpon>
