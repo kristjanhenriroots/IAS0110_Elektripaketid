@@ -43,18 +43,9 @@ Public Class chartMaker
         Next
     End Sub
 
-    Public Sub changeColors(mainChart As Chart, times As DateTime(), change As DateTime, len As Integer)
+    Public Sub changeColors(mainChart As Chart, times As DateTime(), len As Integer, index As Integer)
 
         colorReset(mainChart, times)
-
-        Dim index As Integer
-        For i As Integer = 0 To times.Count - 1
-            If times(i).Equals(change) Then
-                index = i
-                Exit For
-            End If
-        Next
-
 
         For i As Integer = 0 To len - 1
             mainChart.Series(0).Points(index + i).Color = Color.Red

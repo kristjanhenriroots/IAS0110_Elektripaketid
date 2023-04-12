@@ -111,7 +111,7 @@ Public Class MainForm
     Private Sub btnCalcTimeFrame_Click(sender As Object, e As EventArgs) Handles btnCalcTimeFrame.Click
 
         ' combobox needs to have a value selected
-        If cbTimeFrame.SelectedItem Then
+        If cbTimeFrame.SelectedItem And Int(cbTimeFrame.SelectedItem) <= MainChart.Series(0).Points.Count - 1 Then
 
             ' get the best time frame
             Dim frame As iPriceCalc = New TimeFrameCalc
@@ -121,7 +121,19 @@ Public Class MainForm
             'MessageBox.Show("the selected value is " & Int(ComboBox2.SelectedItem))
             ' display the time frame and change colors accordingly
             tbRecTimeFrame.Text = (time_frame(0).ToString("HH:mm") & " - " & time_frame(1).ToString("HH:mm"))
-            chartMaker.changeColors(MainChart, times.ToArray(), time_frame(0), Int(cbTimeFrame.SelectedItem))
+            Dim startingIndex = frame.findTimeFrame(prices.ToArray(), times.ToArray(), time_frame(0))
+            Dim averageNow = Math.Round(frame.averagePriceBors(Int(cbTimeFrame.SelectedItem), prices.ToArray(), times.ToArray()), 2)
+            Dim averageTF = Math.Round(frame.averagePriceTimeFrame(Int(cbTimeFrame.SelectedItem), prices.ToArray(), startingIndex), 2)
+
+
+
+            chartMaker.changeColors(MainChart, times.ToArray(), Int(cbTimeFrame.SelectedItem), startingIndex)
+
+            lblAverageNow.Text = ("Keskmine hind: " & averageNow)
+            'MessageBox.Show("Sending values: " & startingIndex.ToString())
+            lblAverageTF.Text = ("Keskmine soovituslik: " & averageTF)
+            lblSavedPer.Text = ("Säästaksid: " & 100 - Math.Round(averageTF / averageNow * 100, 0) & "%")
+
         End If
     End Sub
 
@@ -129,4 +141,7 @@ Public Class MainForm
         Return prices.First
     End Function
 
+    Private Sub Label11_Click(sender As Object, e As EventArgs) Handles lblAverageTF.Click
+
+    End Sub
 End Class

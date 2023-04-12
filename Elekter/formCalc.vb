@@ -112,4 +112,9 @@
             electricityRateTextBox.Text = universalPrice
         End If
     End Sub
+
+    Private Sub SecondaryForm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        Application.Exit()
+    End Sub
+
 End Class
