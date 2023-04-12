@@ -527,6 +527,9 @@ Partial Class MainForm
         Me.cbStartTime = New System.Windows.Forms.ComboBox()
         Me.cbEndTime = New System.Windows.Forms.ComboBox()
         Me.btnFindPackage = New System.Windows.Forms.Button()
+        Me.cbProvider = New System.Windows.Forms.ComboBox()
+        Me.cbPakett = New System.Windows.Forms.ComboBox()
+        Me.lblPackages = New System.Windows.Forms.Label()
         CType(Me.MainChart, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -767,11 +770,42 @@ Partial Class MainForm
         Me.btnFindPackage.Text = "Otsi paketti"
         Me.btnFindPackage.UseVisualStyleBackColor = True
         '
+        'cbProvider
+        '
+        Me.cbProvider.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbProvider.FormattingEnabled = True
+        Me.cbProvider.Location = New System.Drawing.Point(34, 317)
+        Me.cbProvider.Name = "cbProvider"
+        Me.cbProvider.Size = New System.Drawing.Size(122, 21)
+        Me.cbProvider.TabIndex = 78
+        '
+        'cbPakett
+        '
+        Me.cbPakett.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbPakett.FormattingEnabled = True
+        Me.cbPakett.Location = New System.Drawing.Point(162, 317)
+        Me.cbPakett.Name = "cbPakett"
+        Me.cbPakett.Size = New System.Drawing.Size(145, 21)
+        Me.cbPakett.TabIndex = 79
+        '
+        'lblPackages
+        '
+        Me.lblPackages.AutoSize = True
+        Me.lblPackages.Location = New System.Drawing.Point(31, 301)
+        Me.lblPackages.Name = "lblPackages"
+        Me.lblPackages.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.lblPackages.Size = New System.Drawing.Size(131, 13)
+        Me.lblPackages.TabIndex = 80
+        Me.lblPackages.Text = "Vali pakkuja ja börsipakett"
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(532, 317)
+        Me.ClientSize = New System.Drawing.Size(532, 341)
+        Me.Controls.Add(Me.lblPackages)
+        Me.Controls.Add(Me.cbPakett)
+        Me.Controls.Add(Me.cbProvider)
         Me.Controls.Add(Me.btnFindPackage)
         Me.Controls.Add(Me.cbEndTime)
         Me.Controls.Add(Me.cbStartTime)
@@ -829,5 +863,8 @@ Partial Class MainForm
     Friend WithEvents cbStartTime As ComboBox
     Friend WithEvents cbEndTime As ComboBox
     Friend WithEvents btnFindPackage As Button
+    Friend WithEvents cbProvider As ComboBox
+    Friend WithEvents cbPakett As ComboBox
+    Friend WithEvents lblPackages As Label
 End Class
 >>>>>>> Temp form for testing. Added solution to tempform.
