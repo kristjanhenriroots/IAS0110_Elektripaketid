@@ -7,6 +7,7 @@
 
         'Sorting options for jarjestamineComboBox
         jarjestamineComboBox.Items.Add("A-Z")
+        jarjestamineComboBox.Items.Add("Z-A")
         jarjestamineComboBox.Items.Add("Hind langev")
         jarjestamineComboBox.Items.Add("Hind tõusev")
     End Sub
@@ -18,6 +19,22 @@
         'Sort the items in CheckedListBox based on selected sorting option
         If selectedSortOption = "A-Z" Then
             pakettCheckedListBox.Sorted = True
+        ElseIf selectedSortOption = "Z-A" Then
+            pakettCheckedListBox.Sorted = False
+            Dim items As New List(Of String)
+
+            For Each item As Object In pakettCheckedListBox.Items
+                items.Add(item.ToString())
+            Next
+
+            items.Sort()
+            items.Reverse()
+
+            pakettCheckedListBox.Items.Clear()
+            For Each item As String In items
+                pakettCheckedListBox.Items.Add(item)
+            Next
+
         ElseIf selectedSortOption = "Hind langev" Then
 
         ElseIf selectedSortOption = "Hind tõusev" Then
