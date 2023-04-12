@@ -21,6 +21,7 @@
 *.sln.docstates
 *.v2
 *vsidx
+*.v5.2
 
 # Ignore build output
 [Bb]in/
