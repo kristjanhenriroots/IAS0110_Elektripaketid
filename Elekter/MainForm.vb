@@ -139,4 +139,13 @@ Public Class MainForm
     Private Sub MainChart_Click(sender As Object, e As EventArgs) Handles MainChart.Click
 
     End Sub
+
+    Private Sub btnFindPackage_Click(sender As Object, e As EventArgs) Handles btnFindPackage.Click
+        Dim comboBoxSearch As AndmeParija.IDatabaseQuery
+        comboBoxSearch = New AndmeParija.CDatabaseQuery
+
+        Dim resultTable As DataTable = comboBoxSearch.queryData("Select dateTime, price FROM bors WHERE rowid > 1 AND dateTime BETWEEN '" _
+                                                                  & ComboBox1.SelectedValue & "' AND '" & ComboBox2.SelectedValue & "'")
+
+    End Sub
 End Class
