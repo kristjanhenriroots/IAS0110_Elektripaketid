@@ -62,35 +62,39 @@ Public Class MainForm
 
         'Andmebaaside osa
         'Tabelite laadimine
+        Dim updateBorsTable As AndmeParija.IAPIQuery 'Uue APi andmetepärimise komponendi tegemine
+        updateBorsTable = New AndmeParija.CAPIQuery 'Klassi realiseerimine
 
-
-        Dim updateBorsTable As AndmeParija.IAPIQuery
-        updateBorsTable = New AndmeParija.CAPIQuery
+        'Tehakse uuendus andmebaasile
         Try
             updateBorsTable.updateTable()
         Catch ex As Exception
             MessageBox.Show("Error updating data table.")
         End Try
 
-        Dim loadComboBoxValues As AndmeParija.IDatabaseQuery
-        loadComboBoxValues = New AndmeParija.CDatabaseQuery
+        Dim loadComboBoxValues As AndmeParija.IDatabaseQuery 'Andmebaasi pärija tegemine
+        loadComboBoxValues = New AndmeParija.CDatabaseQuery 'Klassi realiseerimine
 
-        comboBoxTable = loadComboBoxValues.queryData("Select dateTime FROM bors WHERE rowid > 1 LIMIT 25")
+        comboBoxTable = loadComboBoxValues.queryData("Select dateTime FROM bors WHERE rowid > 1 LIMIT 25") 'Päringu esitus. Võtab selle päeva ajavahemiku. Esimest rida ei vaadata
 
-        Dim dateTimeValues = New List(Of String)
+        Dim dateTimeValues = New List(Of String) 'List aegade hoidmiseks
         For Each row As DataRow In comboBoxTable.Rows
-            dateTimeValues.Add(row(0))
+            dateTimeValues.Add(row(0)) 'Ajad lisatakse listi
         Next
 
-        Dim providerValues = New List(Of String)
+        Dim providerValues = New List(Of String) 'List paketi pakkujate jaoks
 
-        loadComboBoxValues = New AndmeParija.CDatabaseQuery
-        comboBoxTable = loadComboBoxValues.queryData("Select DISTINCT provider, name FROM borsPakett")
+        loadComboBoxValues = New AndmeParija.CDatabaseQuery ' Uue pärija klassi väärtustamine. Nõutud, muidu küsib eelmise päringu andmeid
+
+        comboBoxTable = loadComboBoxValues.queryData("Select DISTINCT provider, name FROM borsPakett") 'Uus päring. Küsitakse pakkujaid ja pakette
         For Each row As DataRow In comboBoxTable.Rows
-            providerValues.Add(row(0))
+            providerValues.Add(row(0)) 'Pakkujad salvestatakse listi
         Next
 
+        'Rippmenüüde liikmete lisamine
         cbProvider.DataSource = providerValues
+
+        'Bindingcontext vajalik, et üks combobox ei valiks mõlema väärtusi samal ajal.
         cbStartTime.BindingContext = New BindingContext
         cbStartTime.DataSource = dateTimeValues
         cbEndTime.BindingContext = New BindingContext
@@ -152,67 +156,68 @@ Public Class MainForm
     End Sub
 
     Private Sub btnFindPackage_Click(sender As Object, e As EventArgs) Handles btnFindPackage.Click
+        'Stringbuilder mitmerealise teksti jaoks
         Dim sbPakettPriceMargin As StringBuilder = New StringBuilder
 
-        Dim comboBoxSearch As AndmeParija.IDatabaseQuery
-        comboBoxSearch = New AndmeParija.CDatabaseQuery
+        Dim comboBoxSearch As AndmeParija.IDatabaseQuery 'Andmepärija väärtustamine
+        comboBoxSearch = New AndmeParija.CDatabaseQuery ' Klassi realisserimine
 
-        Dim marginsTable As DataTable = comboBoxSearch.queryData("Select margin FROM borsPakett WHERE name = '" & cbPakett.SelectedValue & "'")
-        comboBoxSearch = New AndmeParija.CDatabaseQuery
+        Dim marginsTable As DataTable = comboBoxSearch.queryData("Select margin FROM borsPakett WHERE name = '" & cbPakett.SelectedValue & "'") 'Uus päring. Küsitakse paketi marginaal
 
+        comboBoxSearch = New AndmeParija.CDatabaseQuery
         Dim resultTable As DataTable = comboBoxSearch.queryData("Select DISTINCT dateTime, price/10 FROM bors WHERE rowid > 1 AND dateTime BETWEEN '" _
-                                                                  & cbStartTime.SelectedValue & "' AND '" & cbEndTime.SelectedValue & "'")
+                                                                  & cbStartTime.SelectedValue & "' AND '" & cbEndTime.SelectedValue & "'") 'Uus päring. Küsitakse börsi aeg ja vastav hind. NB hind on 10 korda kõrgem kui vaja
 
-        Dim pakettMargin As Object = marginsTable.Rows(0)(0)
+        Dim pakettMargin As Object = marginsTable.Rows(0)(0) 'Peaks olema üks marginaal, salevstab objekti lihtsuse mõttes 
 
-        resultTable.Columns.Add("priceMargin", GetType(Double))
+        resultTable.Columns.Add("priceMargin", GetType(Double)) 'Andmetabelisse lisandub uus tulp, kuhu lisada hind koos margniaaliga
         For Each row As DataRow In resultTable.Rows
-            row("priceMargin") = row(1) + pakettMargin
-            Console.WriteLine(row(0) & " " & row(1) & " " & row(2))
+            row("priceMargin") = row(1) + pakettMargin 'Marginaaliga hinna lisamine
         Next
 
         comboBoxSearch = New AndmeParija.CDatabaseQuery
+        marginsTable = comboBoxSearch.queryData("Select name, provider, margin FROM borsPakett ORDER BY margin ASC LIMIT 3") 'Uus päring. Küsitakse 3 väikseimat marginaali
 
-        marginsTable = comboBoxSearch.queryData("Select name, provider, margin FROM borsPakett ORDER BY margin ASC LIMIT 3")
-        sbPakettPriceMargin.AppendLine("3 Kõige väiksemat marginaali: ")
+        sbPakettPriceMargin.AppendLine("3 Kõige väiksemat marginaali: ") 'stringbuilderisse lisamine
         For Each row As DataRow In marginsTable.Rows
             sbPakettPriceMargin.AppendLine(row(0).ToString & " " & row(1).ToString & " " & row(2).ToString)
         Next
         sbPakettPriceMargin.AppendLine()
 
         comboBoxSearch = New AndmeParija.CDatabaseQuery
-        marginsTable = comboBoxSearch.queryData("Select name, provider, margin FROM borsPakett ORDER BY margin DESC LIMIT 3")
-        sbPakettPriceMargin.AppendLine("3 Kõige suuremat marginaali: ")
+        marginsTable = comboBoxSearch.queryData("Select name, provider, margin FROM borsPakett ORDER BY margin DESC LIMIT 3") 'Uus päring. Küsitakse 3 suurimat marginaali
+
+        sbPakettPriceMargin.AppendLine("3 Kõige suuremat marginaali: ") 'stringbuilderisse lisamine
         For Each row As DataRow In marginsTable.Rows
             sbPakettPriceMargin.AppendLine(row(0).ToString & " " & row(1).ToString & " " & row(2).ToString)
         Next
         sbPakettPriceMargin.AppendLine()
 
-        sbPakettPriceMargin.AppendLine("Valitud paketti ajavahemiku hinnad tunnilõikes, koos hinnaga lõpptarbijale")
+        sbPakettPriceMargin.AppendLine("Valitud paketti ajavahemiku hinnad tunnilõikes, koos hinnaga lõpptarbijale") 'Stringbuilderisse paketti aja börsi ja börs + marginaal lisamine
         For Each row As DataRow In resultTable.Rows
             sbPakettPriceMargin.AppendLine(row(0) & " " & row(1) & " " & row(2))
         Next
 
 
 
-        Dim newForm As New formPriceMargin
-        newForm.tbPriceMargins.Text += sbPakettPriceMargin.ToString
+        Dim newForm As New formPriceMargin 'Uus aken andmete näitamiseks
+        newForm.tbPriceMargins.Text += sbPakettPriceMargin.ToString 'Textboxi teksi lisamine
+        newForm.dgvTimePrice.DataSource = resultTable 'Andmetabelisse allika lisamine
 
-        newForm.dgvTimePrice.DataSource = resultTable
-        newForm.Show()
-
+        newForm.Show() 'Kuvatakse aken
     End Sub
 
+    'Kuna pakkujatel on erinevad paketid, siis võiks näidata ainult pakkuja vastavaid pakette
     Private Sub cbProvider_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbProvider.SelectedValueChanged
-        Dim nameValues = New List(Of String)
-        Dim nameRow As DataRow()
-        Dim filterStr As String = "provider = '" & cbProvider.SelectedValue & "'"
-        nameRow = comboBoxTable.Select(filterStr)
+        Dim nameValues = New List(Of String) 'List paketi nimede hoidmiseks
+        Dim nameRow As DataRow() 'Rida pakettide hoidmiseks
+        Dim filterStr As String = "provider = '" & cbProvider.SelectedValue & "'" 'String, mis otsib ainult pakkujale vastavaid pakette
+        nameRow = comboBoxTable.Select(filterStr) 'Otsimine
 
         For Each row As DataRow In nameRow
-            nameValues.Add(row(1).ToString)
+            nameValues.Add(row(1).ToString) 'Reast listi andmete kandmine
         Next
 
-        cbPakett.DataSource = nameValues
+        cbPakett.DataSource = nameValues 'Rippmenüüle andmete lisamine
     End Sub
 End Class
