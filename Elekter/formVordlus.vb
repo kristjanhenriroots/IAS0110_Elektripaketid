@@ -14,6 +14,7 @@
             {"Tähtajaline fikseeritud hind + ühisarve", 13.96}
         }
 
+        'Go through each deal in deals dictionary and them to pakettCheckedListBox.
         For Each dealName As String In deals.Keys
             pakettCheckedListBox.Items.Add(dealName)
         Next
@@ -23,6 +24,9 @@
         jarjestamineComboBox.Items.Add("Z-A")
         jarjestamineComboBox.Items.Add("Hind langev")
         jarjestamineComboBox.Items.Add("Hind tõusev")
+
+        'Show clear packageChart on form load.
+        packageChart.Series.Clear()
     End Sub
 
     Private Sub jarjestamineComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles jarjestamineComboBox.SelectedIndexChanged
@@ -99,4 +103,27 @@
         Me.Hide()
     End Sub
 
+    Private Sub compareButton_Click(sender As Object, e As EventArgs) Handles compareButton.Click
+        'Clear previous data.
+        packageChart.Series.Clear()
+
+        'Go through checked items in pakettCheckedListBox.
+        For Each item In pakettCheckedListBox.CheckedItems
+            Dim key As String = DirectCast(item, String)
+            Dim value As Double = deals(key)
+
+            'Create a new series in the chart for each checked package.
+            Dim series As New DataVisualization.Charting.Series()
+            series.Name = key
+
+            'Add data point to series with given value.
+            series.Points.AddXY(0, value)
+
+            'Add the series to chart.
+            packageChart.Series.Add(series)
+
+            'Add tooltip for data point to display name and price.
+            series.Points(0).ToolTip = key & " - " & value.ToString() & " s"
+        Next
+    End Sub
 End Class
