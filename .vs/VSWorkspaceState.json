@@ -1,10 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Elekter",
-    "\\Elekter\\obj",
-    "\\Elekter\\obj\\Release",
-    "\\testFormid"
+    "\\classCheap_calculator",
+    "\\Elekter"
   ],
+  "SelectedNode": "\\Elekter\\Elekter.sln",
   "PreviewInSolutionExplorer": false
 }
