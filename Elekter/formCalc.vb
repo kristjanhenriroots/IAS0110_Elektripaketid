@@ -1,4 +1,6 @@
-﻿Public Class formCalc
+﻿Imports System.Net.Security
+
+Public Class formCalc
 
     Private appliances As Dictionary(Of String, Double)
 
@@ -11,11 +13,6 @@
 
         'Set costTextBox to read-only'
         costTextBox.ReadOnly = True
-
-        ' Handle the KeyPress event of the text boxes to allow double values with commas and dots.
-        AddHandler powerRatingTextBox.KeyPress, AddressOf TextBox_KeyPress
-        AddHandler timeUsedTextBox.KeyPress, AddressOf TextBox_KeyPress
-        AddHandler electricityRateTextBox.KeyPress, AddressOf TextBox_KeyPress
 
         'Fill appliances dictionary'
         'Data from: https://rohe.geenius.ee/rubriik/uudis/millised-su-kodumasinad-kulutavad-aastas-enim-elektrit-ei-see-pole-pesumasin-voi-elektripliit/'
@@ -45,13 +42,6 @@
         For Each applianceName As String In appliances.Keys
             applianceComboBox.Items.Add(applianceName)
         Next
-    End Sub
-
-    Private Sub TextBox_KeyPress(sender As Object, e As KeyPressEventArgs)
-        ' Replace any dots with commas to allow double values with both separators.
-        If e.KeyChar = "." Then
-            e.KeyChar = ","
-        End If
     End Sub
 
     Private Sub applianceComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles applianceComboBox.SelectedIndexChanged
@@ -86,7 +76,8 @@
         If cost < 100.0 Then
             costTextBox.Text = cost.ToString() + " s"
         Else
-            costTextBox.Text = (cost / 100).ToString() + " €"
+            'Round to 2 digits after separator
+            costTextBox.Text = Math.Round(cost / 100, 2).ToString() + " €"
         End If
 
     End Sub
@@ -103,18 +94,31 @@
     End Sub
 
     Private Sub RadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles borssRadioButton.CheckedChanged, universaalRadioButton.CheckedChanged
-        Dim borssPrice As Double = MainForm.returnCurrentPrice()
+        Dim borssPrice As Double = MainForm.ReturnCurrentPrice()
         Dim universalPrice As Double = 19.95
 
         If borssRadioButton.Checked Then
-            electricityRateTextBox.Text = borssPrice
+            electricityRateTextBox.Text = Math.Round(borssPrice, 2)
         ElseIf universaalRadioButton.Checked Then
             electricityRateTextBox.Text = universalPrice
         End If
     End Sub
 
-    Private Sub SecondaryForm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        Application.Exit()
-    End Sub
+    Private Sub TextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles electricityRateTextBox.KeyPress, powerRatingTextBox.KeyPress, timeUsedTextBox.KeyPress
+        'Use sender to determine which textbox raised event
+        Dim textbox As TextBox = DirectCast(sender, TextBox)
 
+        'Only allow input in the form of numbers, control character (backspace/delete), comas and dots.
+        If Not Char.IsDigit(e.KeyChar) And Not Char.IsControl(e.KeyChar) And Not e.KeyChar = "," And Not e.KeyChar = "." Then
+            e.Handled = True
+            'If comma or dot already exists in textbox, then ommit user input.
+        ElseIf (e.KeyChar = "," Or e.KeyChar = ".") And textbox.Text.IndexOf(",") > -1 Or textbox.Text.IndexOf(".") > -1 Then
+            e.Handled = True
+        End If
+
+        'Replace any dots with commas to allow double values with both separators.
+        If e.KeyChar = "." Then
+            e.KeyChar = ","
+        End If
+    End Sub
 End Class
