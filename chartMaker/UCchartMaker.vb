@@ -1,8 +1,9 @@
-﻿Imports System.Drawing
-Imports System.Windows.Forms.DataVisualization.Charting
+﻿Imports System.Windows.Forms.DataVisualization.Charting
 
-Public Class chartMaker
-    Public Sub setChart(mainChart As Chart, times As DateTime(), prices As Double())
+Public Class UCchartMaker
+    Implements iMakeChart
+
+    Public Sub setChart(times As DateTime(), prices As Double()) Implements iMakeChart.setChart
 
         ' Clear any existing series and data points from the chart
         mainChart.Series.Clear()
@@ -37,15 +38,15 @@ Public Class chartMaker
 
     End Sub
 
-    Public Sub colorReset(mainChart As Chart, times As DateTime())
+    Public Sub colorReset(times As DateTime()) Implements iMakeChart.colorReset
         For i As Integer = 0 To times.Count - 1
             mainChart.Series(0).Points(i).Color = Color.MediumSlateBlue
         Next
     End Sub
 
-    Public Sub changeColors(mainChart As Chart, times As DateTime(), len As Integer, index As Integer)
+    Public Sub changeColors(times As DateTime(), len As Integer, index As Integer) Implements iMakeChart.changeColors
 
-        colorReset(mainChart, times)
+        colorReset(times)
 
         For i As Integer = 0 To len - 1
             mainChart.Series(0).Points(index + i).Color = Color.Red

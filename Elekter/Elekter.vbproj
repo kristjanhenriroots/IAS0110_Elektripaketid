@@ -74,7 +74,6 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChartMaker.vb" />
     <Compile Include="formCalc.Designer.vb">
       <DependentUpon>formCalc.vb</DependentUpon>
     </Compile>
@@ -150,6 +149,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\chartMaker\chartMaker.vbproj">
+      <Project>{FF4944B7-60BE-41C0-8E27-CD58D3753004}</Project>
+      <Name>chartMaker</Name>
+    </ProjectReference>
     <ProjectReference Include="..\classCheap_calculator\PriceCalc.vbproj">
       <Project>{16f136c8-faf3-4016-a601-b06442bcc07e}</Project>
       <Name>PriceCalc</Name>

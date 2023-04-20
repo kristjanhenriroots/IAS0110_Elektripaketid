@@ -4,14 +4,19 @@ Imports System.Text
 Imports System.Windows.Forms.DataVisualization.Charting
 Imports System.Globalization
 Imports classCheap_calculator
+Imports chartMaker
 
 Public Class MainForm
     Dim times As New List(Of DateTime)()
     Dim prices As New List(Of Double)()
-    Dim chartMaker As New chartMaker()
+    Dim chartMaker As iMakeChart = New UCchartMaker()
 
     Private Async Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+
+            CType(chartMaker, Control).Dock = DockStyle.Fill
+            chartPanel.Controls.Add(CType(chartMaker, Control))
+
             ' Create HTTP client and set API key
             Dim client As New HttpClient()
             'client.DefaultRequestHeaders.Add("Authorization", "Bearer YOUR_API_KEY")
@@ -50,24 +55,13 @@ Public Class MainForm
             Next
 
 
-            chartMaker.setChart(MainChart, times.ToArray(), prices.ToArray())
-            AddHandler MainChart.MouseMove, AddressOf Chart_MouseMove
+            chartMaker.setChart(times.ToArray(), prices.ToArray())
+
 
         Catch ex As Exception
             MessageBox.Show("An error occurred while retrieving data from the Elering API: " & ex.Message)
         End Try
     End Sub
-
-    Private Sub Chart_MouseMove(sender As Object, e As MouseEventArgs)
-        Dim hit As HitTestResult = MainChart.HitTest(e.X, e.Y)
-
-        If hit.ChartElementType = ChartElementType.DataPoint Then
-            Dim point As DataPoint = MainChart.Series(0).Points(hit.PointIndex)
-            ' Update tooltip to display date and time properly
-            MainChart.Series(0).ToolTip = $"Time: {DateTime.FromOADate(point.XValue).ToString("dd.MM.yyyy HH:mm")}{Environment.NewLine}Price: {point.YValues(0):F2}"
-        End If
-    End Sub
-
 
     'Button tabs'
     Private Sub calcButton_Click(sender As Object, e As EventArgs) Handles calcButton.Click
@@ -111,7 +105,7 @@ Public Class MainForm
     Private Sub btnCalcTimeFrame_Click(sender As Object, e As EventArgs) Handles btnCalcTimeFrame.Click
 
         ' combobox needs to have a value selected
-        If cbTimeFrame.SelectedItem And Int(cbTimeFrame.SelectedItem) <= MainChart.Series(0).Points.Count - 1 Then
+        If cbTimeFrame.SelectedItem Then ' And Int(cbTimeFrame.SelectedItem) <= MainChart.Series(0).Points.Count - 1 Then
 
             ' get the best time frame
             Dim frame As iPriceCalc = New TimeFrameCalc
@@ -127,7 +121,7 @@ Public Class MainForm
 
 
 
-            chartMaker.changeColors(MainChart, times.ToArray(), Int(cbTimeFrame.SelectedItem), startingIndex)
+            chartMaker.changeColors(times.ToArray(), Int(cbTimeFrame.SelectedItem), startingIndex)
 
             lblAverageNow.Text = ("Keskmine hind: " & averageNow)
             'MessageBox.Show("Sending values: " & startingIndex.ToString())
