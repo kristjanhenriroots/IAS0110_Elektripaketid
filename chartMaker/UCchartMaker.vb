@@ -12,6 +12,8 @@ Public Class UCchartMaker
         InitializeComponent()
         Me.Controls.Add(CartesianChart)
         CartesianChart.Dock = DockStyle.Fill
+        CartesianChart.Zoom = ZoomingOptions.X
+        'CartesianChart.Pan = PanningOptions.Y
     End Sub
 
     Public Sub setChart(times As DateTime(), prices As Double()) Implements iMakeChart.setChart
@@ -41,10 +43,12 @@ Public Class UCchartMaker
         })
 
         CartesianChart.AxisY.Add(New Axis With {
-            .Title = "Price"
+            .Title = "Price",
+            .Separator = New LiveCharts.Wpf.Separator With {
+                .Step = 1
+            }
 })
 
-        CartesianChart.Zoom = ZoomingOptions.X
     End Sub
 
     Public Sub colorReset(times As DateTime()) Implements iMakeChart.colorReset
