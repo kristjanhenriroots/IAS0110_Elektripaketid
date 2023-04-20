@@ -91,7 +91,7 @@ Partial Class MainForm
         '
         'btnCalcTimeFrame
         '
-        Me.btnCalcTimeFrame.Location = New System.Drawing.Point(397, 102)
+        Me.btnCalcTimeFrame.Location = New System.Drawing.Point(774, 67)
         Me.btnCalcTimeFrame.Margin = New System.Windows.Forms.Padding(2)
         Me.btnCalcTimeFrame.Name = "btnCalcTimeFrame"
         Me.btnCalcTimeFrame.Size = New System.Drawing.Size(81, 36)
@@ -102,7 +102,7 @@ Partial Class MainForm
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(394, 65)
+        Me.Label9.Location = New System.Drawing.Point(771, 30)
         Me.Label9.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(60, 13)
@@ -114,7 +114,7 @@ Partial Class MainForm
         Me.cbTimeFrame.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbTimeFrame.FormattingEnabled = True
         Me.cbTimeFrame.Items.AddRange(New Object() {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"})
-        Me.cbTimeFrame.Location = New System.Drawing.Point(397, 80)
+        Me.cbTimeFrame.Location = New System.Drawing.Point(774, 45)
         Me.cbTimeFrame.Margin = New System.Windows.Forms.Padding(2)
         Me.cbTimeFrame.Name = "cbTimeFrame"
         Me.cbTimeFrame.Size = New System.Drawing.Size(82, 21)
@@ -122,7 +122,7 @@ Partial Class MainForm
         '
         'TextBox4
         '
-        Me.TextBox4.Location = New System.Drawing.Point(275, 276)
+        Me.TextBox4.Location = New System.Drawing.Point(275, 525)
         Me.TextBox4.Margin = New System.Windows.Forms.Padding(2)
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.Size = New System.Drawing.Size(115, 20)
@@ -131,7 +131,7 @@ Partial Class MainForm
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(277, 262)
+        Me.Label8.Location = New System.Drawing.Point(277, 511)
         Me.Label8.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(66, 13)
@@ -141,7 +141,7 @@ Partial Class MainForm
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(104, 278)
+        Me.Label6.Location = New System.Drawing.Point(104, 527)
         Me.Label6.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(10, 13)
@@ -151,7 +151,7 @@ Partial Class MainForm
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(31, 262)
+        Me.Label5.Location = New System.Drawing.Point(31, 511)
         Me.Label5.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(84, 13)
@@ -160,7 +160,7 @@ Partial Class MainForm
         '
         'TextBox3
         '
-        Me.TextBox3.Location = New System.Drawing.Point(117, 276)
+        Me.TextBox3.Location = New System.Drawing.Point(117, 525)
         Me.TextBox3.Margin = New System.Windows.Forms.Padding(2)
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.Size = New System.Drawing.Size(68, 20)
@@ -168,7 +168,7 @@ Partial Class MainForm
         '
         'TextBox2
         '
-        Me.TextBox2.Location = New System.Drawing.Point(33, 276)
+        Me.TextBox2.Location = New System.Drawing.Point(33, 525)
         Me.TextBox2.Margin = New System.Windows.Forms.Padding(2)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(68, 20)
@@ -176,7 +176,7 @@ Partial Class MainForm
         '
         'tbRecTimeFrame
         '
-        Me.tbRecTimeFrame.Location = New System.Drawing.Point(394, 166)
+        Me.tbRecTimeFrame.Location = New System.Drawing.Point(771, 131)
         Me.tbRecTimeFrame.Margin = New System.Windows.Forms.Padding(2)
         Me.tbRecTimeFrame.Name = "tbRecTimeFrame"
         Me.tbRecTimeFrame.ReadOnly = True
@@ -186,7 +186,7 @@ Partial Class MainForm
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(389, 151)
+        Me.Label4.Location = New System.Drawing.Point(766, 116)
         Me.Label4.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(123, 13)
@@ -195,7 +195,7 @@ Partial Class MainForm
         '
         'shrinkButton
         '
-        Me.shrinkButton.Location = New System.Drawing.Point(490, 290)
+        Me.shrinkButton.Location = New System.Drawing.Point(867, 255)
         Me.shrinkButton.Margin = New System.Windows.Forms.Padding(2)
         Me.shrinkButton.Name = "shrinkButton"
         Me.shrinkButton.Size = New System.Drawing.Size(17, 16)
@@ -205,7 +205,7 @@ Partial Class MainForm
         '
         'enlargeButton
         '
-        Me.enlargeButton.Location = New System.Drawing.Point(490, 269)
+        Me.enlargeButton.Location = New System.Drawing.Point(867, 234)
         Me.enlargeButton.Margin = New System.Windows.Forms.Padding(2)
         Me.enlargeButton.Name = "enlargeButton"
         Me.enlargeButton.Size = New System.Drawing.Size(17, 16)
@@ -216,7 +216,7 @@ Partial Class MainForm
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(185, 262)
+        Me.Label3.Location = New System.Drawing.Point(185, 511)
         Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(75, 13)
@@ -227,7 +227,7 @@ Partial Class MainForm
         '
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Items.AddRange(New Object() {"Tulpdiagramm", "Tabeldiagramm"})
-        Me.ComboBox1.Location = New System.Drawing.Point(188, 275)
+        Me.ComboBox1.Location = New System.Drawing.Point(188, 524)
         Me.ComboBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(84, 21)
@@ -255,7 +255,7 @@ Partial Class MainForm
         'lblAverageNow
         '
         Me.lblAverageNow.AutoSize = True
-        Me.lblAverageNow.Location = New System.Drawing.Point(396, 194)
+        Me.lblAverageNow.Location = New System.Drawing.Point(773, 159)
         Me.lblAverageNow.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblAverageNow.Name = "lblAverageNow"
         Me.lblAverageNow.Size = New System.Drawing.Size(82, 13)
@@ -265,7 +265,7 @@ Partial Class MainForm
         'lblAverageTF
         '
         Me.lblAverageTF.AutoSize = True
-        Me.lblAverageTF.Location = New System.Drawing.Point(396, 213)
+        Me.lblAverageTF.Location = New System.Drawing.Point(773, 178)
         Me.lblAverageTF.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblAverageTF.Name = "lblAverageTF"
         Me.lblAverageTF.Size = New System.Drawing.Size(109, 13)
@@ -275,7 +275,7 @@ Partial Class MainForm
         'lblSavedPer
         '
         Me.lblSavedPer.AutoSize = True
-        Me.lblSavedPer.Location = New System.Drawing.Point(396, 235)
+        Me.lblSavedPer.Location = New System.Drawing.Point(773, 200)
         Me.lblSavedPer.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblSavedPer.Name = "lblSavedPer"
         Me.lblSavedPer.Size = New System.Drawing.Size(62, 13)
@@ -286,14 +286,14 @@ Partial Class MainForm
         '
         Me.chartPanel.Location = New System.Drawing.Point(34, 64)
         Me.chartPanel.Name = "chartPanel"
-        Me.chartPanel.Size = New System.Drawing.Size(350, 195)
+        Me.chartPanel.Size = New System.Drawing.Size(720, 420)
         Me.chartPanel.TabIndex = 79
         '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(532, 317)
+        Me.ClientSize = New System.Drawing.Size(910, 561)
         Me.Controls.Add(Me.chartPanel)
         Me.Controls.Add(Me.lblSavedPer)
         Me.Controls.Add(Me.lblAverageTF)

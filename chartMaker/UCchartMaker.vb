@@ -1,46 +1,55 @@
-﻿Imports System.Windows.Forms.DataVisualization.Charting
+﻿Imports LiveCharts
+Imports LiveCharts.Configurations
+Imports LiveCharts.Defaults
+Imports LiveCharts.Definitions.Charts
+Imports LiveCharts.WinForms
+Imports LiveCharts.Wpf
 
 Public Class UCchartMaker
     Implements iMakeChart
 
+    Public Sub New()
+        InitializeComponent()
+        Me.Controls.Add(CartesianChart)
+        CartesianChart.Dock = DockStyle.Fill
+    End Sub
+
     Public Sub setChart(times As DateTime(), prices As Double()) Implements iMakeChart.setChart
 
-        ' Clear any existing series and data points from the chart
-        mainChart.Series.Clear()
-        mainChart.ChartAreas.Clear()
-        mainChart.ChartAreas.Add("MainChartArea")
 
-        ' Create a new series and add data points to it
-        Dim series1 As Series = New Series()
-        series1.Name = "Prices"
-        series1.ChartType = SeriesChartType.Column
-
+        Dim chartValues As New ChartValues(Of ObservablePoint)()
         For i As Integer = 0 To times.Length - 1
-            series1.Points.AddXY(times(i), prices(i))
+            chartValues.Add(New ObservablePoint(times(i).ToOADate(), prices(i)))
         Next
 
-        ' Add the series to the chart
-        mainChart.Series.Add(series1)
+        Dim columnSeries As New ColumnSeries With {
+            .Values = chartValues,
+            .Stroke = System.Windows.Media.Brushes.MediumSlateBlue,
+            .Fill = System.Windows.Media.Brushes.MediumSlateBlue,
+            .ColumnPadding = 1,
+            .MaxColumnWidth = 20
+        }
+        CartesianChart.Series.Add(columnSeries)
 
-        ' Set some basic chart properties
-        mainChart.Titles.Add("Price Chart")
-        mainChart.ChartAreas(0).AxisX.LabelStyle.Format = "HH:mm"
-        mainChart.ChartAreas(0).AxisX.Interval = 1
-        mainChart.ChartAreas(0).AxisY.Title = "Price"
-        mainChart.Series(0).Color = Color.MediumSlateBlue
+        CartesianChart.AxisX.Add(New Axis With {
+            .LabelFormatter = Function(value) DateTime.FromOADate(value).ToString("HH:mm"),
+            .MinValue = times(0).AddHours(11).ToOADate(),
+            .MaxValue = times(times.Length - 1).AddHours(15).ToOADate(),
+            .Separator = New LiveCharts.Wpf.Separator With {
+                .Step = New TimeSpan(4, 0, 0).TotalDays
+            }
+        })
 
-        ' Set the interval to 30 minutes
-        mainChart.ChartAreas(0).AxisX.Interval = New TimeSpan(0, 120, 0).TotalDays
+        CartesianChart.AxisY.Add(New Axis With {
+            .Title = "Price"
+})
 
-        ' Remove chart legend
-        mainChart.Legends.Clear()
-
-
+        CartesianChart.Zoom = ZoomingOptions.X
     End Sub
 
     Public Sub colorReset(times As DateTime()) Implements iMakeChart.colorReset
         For i As Integer = 0 To times.Count - 1
-            mainChart.Series(0).Points(i).Color = Color.MediumSlateBlue
+            CType(cartesianChart.Series(0), ColumnSeries).Fill = System.Windows.Media.Brushes.MediumSlateBlue
         Next
     End Sub
 
@@ -49,7 +58,7 @@ Public Class UCchartMaker
         colorReset(times)
 
         For i As Integer = 0 To len - 1
-            mainChart.Series(0).Points(index + i).Color = Color.Red
+            CType(cartesianChart.Series(0), ColumnSeries).Fill = System.Windows.Media.Brushes.Red
         Next
 
     End Sub

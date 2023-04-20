@@ -14,6 +14,7 @@ Public Class MainForm
     Private Async Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
 
+            ' adding chartMaker instance and setting chartPanel control collection
             CType(chartMaker, Control).Dock = DockStyle.Fill
             chartPanel.Controls.Add(CType(chartMaker, Control))
 
@@ -22,8 +23,10 @@ Public Class MainForm
             'client.DefaultRequestHeaders.Add("Authorization", "Bearer YOUR_API_KEY")
 
             ' Set start and end times for 24-hour period
-            Dim startTime As String = DateTime.Now.AddHours(-4).ToString("yyyy-MM-dd'T'HH:mm:ssZ")
-            Dim endTime As String = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd'T'HH:mm:ssZ")
+            Dim currentDate As DateTime = DateTime.Now.Date.AddHours(-3)
+            Dim startTime As String = currentDate.ToString("yyyy-MM-dd'T'HH:mm:ssZ")
+            Dim endTime As String = currentDate.AddDays(1).ToString("yyyy-MM-dd'T'HH:mm:ssZ")
+
 
             ' Send GET request to Elering API
             Dim response As HttpResponseMessage = Await client.GetAsync($"https://dashboard.elering.ee/api/nps/price/csv?start={startTime}&end={endTime}&fields=ee")

@@ -22,40 +22,27 @@ Partial Class UCchartMaker
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Me.mainChart = New System.Windows.Forms.DataVisualization.Charting.Chart()
-        CType(Me.mainChart, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.CartesianChart = New LiveCharts.WinForms.CartesianChart()
         Me.SuspendLayout()
         '
-        'mainChart
+        'CartesianChart
         '
-        ChartArea1.Name = "ChartArea1"
-        Me.mainChart.ChartAreas.Add(ChartArea1)
-        Legend1.Name = "Legend1"
-        Me.mainChart.Legends.Add(Legend1)
-        Me.mainChart.Location = New System.Drawing.Point(0, 0)
-        Me.mainChart.Name = "mainChart"
-        Series1.ChartArea = "ChartArea1"
-        Series1.Legend = "Legend1"
-        Series1.Name = "Series1"
-        Me.mainChart.Series.Add(Series1)
-        Me.mainChart.Size = New System.Drawing.Size(350, 195)
-        Me.mainChart.TabIndex = 0
-        Me.mainChart.Text = "mainChart"
+        Me.CartesianChart.Location = New System.Drawing.Point(0, 0)
+        Me.CartesianChart.Name = "CartesianChart"
+        Me.CartesianChart.Size = New System.Drawing.Size(350, 195)
+        Me.CartesianChart.TabIndex = 0
+        Me.CartesianChart.Text = "CartesianChart1"
         '
         'UCchartMaker
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.Controls.Add(Me.mainChart)
+        Me.Controls.Add(Me.CartesianChart)
         Me.Name = "UCchartMaker"
         Me.Size = New System.Drawing.Size(350, 195)
-        CType(Me.mainChart, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
 
-    Friend WithEvents mainChart As DataVisualization.Charting.Chart
+    Friend WithEvents CartesianChart As LiveCharts.WinForms.CartesianChart
 End Class

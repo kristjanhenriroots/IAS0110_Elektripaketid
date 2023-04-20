@@ -9,6 +9,8 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "PriceCalc", "..\classCheap_
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "chartMaker", "..\chartMaker\chartMaker.vbproj", "{FF4944B7-60BE-41C0-8E27-CD58D3753004}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "API_Handler", "..\API_Handler\API_Handler.vbproj", "{64CC7082-2E86-4104-B1F9-DE1F9A9C8291}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{FF4944B7-60BE-41C0-8E27-CD58D3753004}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF4944B7-60BE-41C0-8E27-CD58D3753004}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF4944B7-60BE-41C0-8E27-CD58D3753004}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64CC7082-2E86-4104-B1F9-DE1F9A9C8291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64CC7082-2E86-4104-B1F9-DE1F9A9C8291}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64CC7082-2E86-4104-B1F9-DE1F9A9C8291}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64CC7082-2E86-4104-B1F9-DE1F9A9C8291}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
