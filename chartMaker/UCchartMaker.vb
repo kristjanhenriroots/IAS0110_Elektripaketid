@@ -1,4 +1,5 @@
-﻿Imports LiveCharts
+﻿Imports System.Windows.Media
+Imports LiveCharts
 Imports LiveCharts.Configurations
 Imports LiveCharts.Defaults
 Imports LiveCharts.Definitions.Charts
@@ -37,7 +38,6 @@ Public Class UCchartMaker
 
         CartesianChart.Series.Add(columnSeries)
 
-        AddLineSeries("Average", prices.Average(), System.Windows.Media.Brushes.Red)
 
         CartesianChart.AxisX.Add(New Axis With {
             .LabelFormatter = Function(value) DateTime.FromOADate(value).AddHours(-3).ToString("HH:00"),
@@ -56,17 +56,28 @@ Public Class UCchartMaker
         })
     End Sub
 
-    Private Sub AddLineSeries(title As String, value As Double, color As System.Windows.Media.Brush)
-        Dim times = New DateTime() {DateTime.Now, DateTime.Now.AddDays(1)} ' Set some arbitrary dates for the line chart
-        Dim prices = New Double() {value, value} ' Create an array with the given price value
+    Private Sub addComparison(times As DateTime(), title As String, value As Double, index As Integer) Implements iMakeChart.addComparison
+
+        Dim prices = New Double() {value, value}        ' Create an array with the given price value
+
+        Dim colors() As System.Windows.Media.Brush = {  ' Colors for all different packages
+            System.Windows.Media.Brushes.Red,
+            System.Windows.Media.Brushes.Green,
+            System.Windows.Media.Brushes.Cyan,
+            System.Windows.Media.Brushes.Yellow,
+            System.Windows.Media.Brushes.Orange,
+            System.Windows.Media.Brushes.Purple,
+            System.Windows.Media.Brushes.Pink,
+            System.Windows.Media.Brushes.Black
+        }
 
         Dim lineSeries As New LineSeries With {
             .Title = title,
             .Values = New ChartValues(Of ObservablePoint)(New List(Of ObservablePoint) From {
-                New ObservablePoint(times(0).ToOADate(), prices(0)),
-                New ObservablePoint(times(1).ToOADate(), prices(1))
+                New ObservablePoint(times.First.ToOADate(), prices(0)),
+                New ObservablePoint(times.Last.ToOADate(), prices(1))
             }),
-            .Stroke = color,
+            .Stroke = colors(index),
             .Fill = System.Windows.Media.Brushes.Transparent,
             .PointGeometry = Nothing,
             .DataLabels = True,

@@ -22,9 +22,9 @@ Partial Class MainForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim ChartArea4 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend4 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series4 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea5 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend5 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series5 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.otsingButton = New System.Windows.Forms.Button()
         Me.vordlusButton = New System.Windows.Forms.Button()
         Me.calcButton = New System.Windows.Forms.Button()
@@ -304,17 +304,17 @@ Partial Class MainForm
         '
         'packageChart
         '
-        ChartArea4.Name = "ChartArea1"
-        Me.packageChart.ChartAreas.Add(ChartArea4)
-        Legend4.Name = "Legend1"
-        Me.packageChart.Legends.Add(Legend4)
+        ChartArea5.Name = "ChartArea1"
+        Me.packageChart.ChartAreas.Add(ChartArea5)
+        Legend5.Name = "Legend1"
+        Me.packageChart.Legends.Add(Legend5)
         Me.packageChart.Location = New System.Drawing.Point(832, 565)
         Me.packageChart.Margin = New System.Windows.Forms.Padding(2)
         Me.packageChart.Name = "packageChart"
-        Series4.ChartArea = "ChartArea1"
-        Series4.Legend = "Legend1"
-        Series4.Name = "Series1"
-        Me.packageChart.Series.Add(Series4)
+        Series5.ChartArea = "ChartArea1"
+        Series5.Legend = "Legend1"
+        Series5.Name = "Series1"
+        Me.packageChart.Series.Add(Series5)
         Me.packageChart.Size = New System.Drawing.Size(163, 122)
         Me.packageChart.TabIndex = 88
         Me.packageChart.Text = "Chart1"
