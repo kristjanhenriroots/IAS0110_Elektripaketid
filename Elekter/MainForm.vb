@@ -5,15 +5,25 @@ Imports System.Windows.Forms.DataVisualization.Charting
 Imports System.Globalization
 Imports classCheap_calculator
 Imports chartMaker
+Imports System.Security.Cryptography
+Imports packageComparator
 
 Public Class MainForm
     Dim times As New List(Of DateTime)()
     Dim prices As New List(Of Double)()
     Dim chartMaker As iMakeChart = New UCchartMaker()
+    Dim comparePackages As iComparePackages = New clPackageData()
+
 
     Private Async Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Try
 
+        ' Get all package data from prj packageComparator, call function PackageData() for all names and prices
+        Dim packagePrices = comparePackages.PackageData()
+
+        ' Populate the listbox with the packages
+        updateListBox(packagePrices)
+
+        Try
             ' adding chartMaker instance and setting chartPanel control collection
             CType(chartMaker, Control).Dock = DockStyle.Fill
             chartPanel.Controls.Add(CType(chartMaker, Control))
@@ -140,5 +150,21 @@ Public Class MainForm
 
     Private Sub Label11_Click(sender As Object, e As EventArgs) Handles lblAverageTF.Click
 
+    End Sub
+
+    Private Sub updateListBox(data As Dictionary(Of String, Double))
+        pakettCheckedListBox.Items.Clear()
+        ' Populate the listbox with the packages
+        For Each package As String In data.Keys
+            pakettCheckedListBox.Items.Add(package)
+        Next
+    End Sub
+
+    Private Sub jarjestamineComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles jarjestamineComboBox.SelectedIndexChanged
+        ' Get the option chosen
+        Dim selectedSortOption As String = jarjestamineComboBox.SelectedItem.ToString()
+
+        ' Get the new order and Update listbox
+        updateListBox(comparePackages.PackageSorter(selectedSortOption))
     End Sub
 End Class

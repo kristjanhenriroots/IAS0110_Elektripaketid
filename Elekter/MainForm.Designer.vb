@@ -22,9 +22,9 @@ Partial Class MainForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea4 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend4 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series4 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.otsingButton = New System.Windows.Forms.Button()
         Me.vordlusButton = New System.Windows.Forms.Button()
         Me.calcButton = New System.Windows.Forms.Button()
@@ -304,17 +304,17 @@ Partial Class MainForm
         '
         'packageChart
         '
-        ChartArea1.Name = "ChartArea1"
-        Me.packageChart.ChartAreas.Add(ChartArea1)
-        Legend1.Name = "Legend1"
-        Me.packageChart.Legends.Add(Legend1)
+        ChartArea4.Name = "ChartArea1"
+        Me.packageChart.ChartAreas.Add(ChartArea4)
+        Legend4.Name = "Legend1"
+        Me.packageChart.Legends.Add(Legend4)
         Me.packageChart.Location = New System.Drawing.Point(832, 565)
         Me.packageChart.Margin = New System.Windows.Forms.Padding(2)
         Me.packageChart.Name = "packageChart"
-        Series1.ChartArea = "ChartArea1"
-        Series1.Legend = "Legend1"
-        Series1.Name = "Series1"
-        Me.packageChart.Series.Add(Series1)
+        Series4.ChartArea = "ChartArea1"
+        Series4.Legend = "Legend1"
+        Series4.Name = "Series1"
+        Me.packageChart.Series.Add(Series4)
         Me.packageChart.Size = New System.Drawing.Size(163, 122)
         Me.packageChart.TabIndex = 88
         Me.packageChart.Text = "Chart1"
@@ -333,7 +333,7 @@ Partial Class MainForm
         '
         Me.CheckedListBox2.FormattingEnabled = True
         Me.CheckedListBox2.Items.AddRange(New Object() {"Filter 1", "Filter 2"})
-        Me.CheckedListBox2.Location = New System.Drawing.Point(740, 617)
+        Me.CheckedListBox2.Location = New System.Drawing.Point(883, 377)
         Me.CheckedListBox2.Margin = New System.Windows.Forms.Padding(2)
         Me.CheckedListBox2.Name = "CheckedListBox2"
         Me.CheckedListBox2.Size = New System.Drawing.Size(82, 34)
@@ -342,7 +342,7 @@ Partial Class MainForm
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(737, 594)
+        Me.Label10.Location = New System.Drawing.Point(880, 354)
         Me.Label10.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(82, 13)
@@ -352,7 +352,7 @@ Partial Class MainForm
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(737, 542)
+        Me.Label11.Location = New System.Drawing.Point(880, 302)
         Me.Label11.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(85, 13)
@@ -361,8 +361,10 @@ Partial Class MainForm
         '
         'jarjestamineComboBox
         '
+        Me.jarjestamineComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.jarjestamineComboBox.FormattingEnabled = True
-        Me.jarjestamineComboBox.Location = New System.Drawing.Point(740, 565)
+        Me.jarjestamineComboBox.Items.AddRange(New Object() {"A - Z", "Z - A", "Hind kasvav", "Hind kahanev"})
+        Me.jarjestamineComboBox.Location = New System.Drawing.Point(883, 325)
         Me.jarjestamineComboBox.Margin = New System.Windows.Forms.Padding(2)
         Me.jarjestamineComboBox.Name = "jarjestamineComboBox"
         Me.jarjestamineComboBox.Size = New System.Drawing.Size(82, 21)
@@ -382,7 +384,7 @@ Partial Class MainForm
         '
         Me.pakettCheckedListBox.CheckOnClick = True
         Me.pakettCheckedListBox.FormattingEnabled = True
-        Me.pakettCheckedListBox.Location = New System.Drawing.Point(634, 565)
+        Me.pakettCheckedListBox.Location = New System.Drawing.Point(776, 325)
         Me.pakettCheckedListBox.Margin = New System.Windows.Forms.Padding(2)
         Me.pakettCheckedListBox.Name = "pakettCheckedListBox"
         Me.pakettCheckedListBox.Size = New System.Drawing.Size(90, 124)
@@ -391,7 +393,7 @@ Partial Class MainForm
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(631, 542)
+        Me.Label12.Location = New System.Drawing.Point(773, 302)
         Me.Label12.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(93, 13)
