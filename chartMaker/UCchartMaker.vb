@@ -1,4 +1,5 @@
-﻿Imports System.Windows.Media
+﻿Imports System.Reflection
+Imports System.Windows.Media
 Imports LiveCharts
 Imports LiveCharts.Configurations
 Imports LiveCharts.Defaults
@@ -15,6 +16,7 @@ Public Class UCchartMaker
         Me.Controls.Add(CartesianChart)
         CartesianChart.Dock = DockStyle.Fill
         CartesianChart.Zoom = ZoomingOptions.X
+        CartesianChart.AnimationsSpeed = TimeSpan.FromMilliseconds(100) ' Set the animation speed to 100 milliseconds
         'CartesianChart.DisableAnimations = True
         'CartesianChart.Pan = PanningOptions.Y
     End Sub
@@ -27,7 +29,7 @@ Public Class UCchartMaker
         Next
 
         Dim columnSeries As New ColumnSeries With {
-            .Title = "börsihind",
+            .Title = "Börsihind",
             .Values = chartValues,
             .Stroke = System.Windows.Media.Brushes.MediumSlateBlue,
             .Fill = System.Windows.Media.Brushes.MediumSlateBlue,
@@ -91,7 +93,7 @@ Public Class UCchartMaker
         Dim prices = New Double() {value, value}        ' Create an array with the given price value
 
         Dim colors() As System.Windows.Media.Brush = {  ' Colors for all different packages
-            System.Windows.Media.Brushes.Red,
+            System.Windows.Media.Brushes.Firebrick,
             System.Windows.Media.Brushes.Green,
             System.Windows.Media.Brushes.Cyan,
             System.Windows.Media.Brushes.Yellow,
@@ -111,7 +113,7 @@ Public Class UCchartMaker
             .Fill = System.Windows.Media.Brushes.Transparent,
             .PointGeometry = Nothing,
             .DataLabels = True,
-            .LabelPoint = Function(point) String.Format("{0:N2} s/kWh", point.Y)
+            .LabelPoint = Function(point) FormatLabelPoint(point, title)
         }
 
         CartesianChart.Series.Add(lineSeries)
@@ -138,28 +140,42 @@ Public Class UCchartMaker
     '      CartesianChart.Series.Add(columnSeries)
     'Next
 
+    Public Sub changeColors(startTime As DateTime, amount As Integer, avg_price As Double) Implements iMakeChart.changeColors
+        removeChart("Soovitatud")
 
+        Dim lineSeries As New LineSeries With {
+            .Title = "Soovitatud",
+            .Values = New ChartValues(Of ObservablePoint)(),
+            .Stroke = System.Windows.Media.Brushes.Red,
+            .Fill = System.Windows.Media.Brushes.Transparent,
+            .PointGeometry = Nothing,
+            .DataLabels = True,
+            .LabelPoint = Function(point) FormatLabelPoint(point, "Soovitatud")
+         }
+        '.LabelPoint = Function(point) String.Format("{0:dd/MM/yyyy HH:mm} - {1:N2} s/kWh", DateTime.FromOADate(point.X), point.Y)
 
-    Public Sub colorReset() Implements iMakeChart.colorReset
-        For i As Integer = 0 To CartesianChart.Series.Count - 1
-            Dim columnSeries As ColumnSeries = CType(CartesianChart.Series(i), ColumnSeries)
-            columnSeries.Fill = System.Windows.Media.Brushes.MediumSlateBlue
-            columnSeries.Stroke = System.Windows.Media.Brushes.MediumSlateBlue
-        Next
-    End Sub
-
-    Public Sub changeColors(startIndex As Integer, amount As Integer) Implements iMakeChart.changeColors
-
-        colorReset()
-
-        For i As Integer = startIndex To startIndex + amount - 1
-            If i < CartesianChart.Series.Count Then
-                Dim columnSeries As ColumnSeries = CType(CartesianChart.Series(i), ColumnSeries)
-                columnSeries.Fill = System.Windows.Media.Brushes.Red
-                columnSeries.Stroke = System.Windows.Media.Brushes.Red
-            End If
+        ' Add an ObservablePoint for every hour between startTime and startTime + amount
+        For i As Integer = 0 To amount - 1
+            Dim currentDateTime As DateTime = startTime.AddHours(i)
+            lineSeries.Values.Add(New ObservablePoint(currentDateTime.ToOADate(), avg_price))
         Next
 
+        CartesianChart.Series.Add(lineSeries)
     End Sub
+
+    Private Function FormatLabelPoint(chartPoint As ChartPoint, title As String) As String
+        Dim lineSeries As LineSeries = CartesianChart.Series.OfType(Of LineSeries).FirstOrDefault(Function(s) s.Title = title)
+
+        If lineSeries IsNot Nothing AndAlso lineSeries.Values(0).X = chartPoint.X AndAlso lineSeries.Values(0).Y = chartPoint.Y Then
+            Return String.Format("{0}: {1:N2} s/kWh", title, chartPoint.Y)
+        Else
+            Return ""
+        End If
+    End Function
+
+
+
+
+
 
 End Class

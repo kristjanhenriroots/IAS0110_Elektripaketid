@@ -33,7 +33,7 @@ Public Class MainForm
             'client.DefaultRequestHeaders.Add("Authorization", "Bearer YOUR_API_KEY")
 
             ' Set start and end times for 24-hour period
-            Dim currentDate As DateTime = DateTime.Now.Date.AddHours(-3)
+            Dim currentDate As DateTime = DateTime.Now.AddHours(-3)
             Dim startTime As String = currentDate.ToString("yyyy-MM-dd'T'HH:mm:ssZ")
             Dim endTime As String = currentDate.AddDays(1).ToString("yyyy-MM-dd'T'HH:mm:ssZ")
 
@@ -134,7 +134,7 @@ Public Class MainForm
 
 
 
-            chartMaker.changeColors(startingIndex, Int(cbTimeFrame.SelectedItem))
+            chartMaker.changeColors(time_frame(0), Int(cbTimeFrame.SelectedItem), averageTF)
 
             lblAverageNow.Text = ("Keskmine hind: " & averageNow)
             'MessageBox.Show("Sending values: " & startingIndex.ToString())
