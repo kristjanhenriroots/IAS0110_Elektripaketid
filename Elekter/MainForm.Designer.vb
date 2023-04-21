@@ -22,6 +22,9 @@ Partial Class MainForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.otsingButton = New System.Windows.Forms.Button()
         Me.vordlusButton = New System.Windows.Forms.Button()
         Me.calcButton = New System.Windows.Forms.Button()
@@ -47,6 +50,16 @@ Partial Class MainForm
         Me.lblAverageTF = New System.Windows.Forms.Label()
         Me.lblSavedPer = New System.Windows.Forms.Label()
         Me.chartPanel = New System.Windows.Forms.Panel()
+        Me.packageChart = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.CheckedListBox2 = New System.Windows.Forms.CheckedListBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.jarjestamineComboBox = New System.Windows.Forms.ComboBox()
+        Me.compareButton = New System.Windows.Forms.Button()
+        Me.pakettCheckedListBox = New System.Windows.Forms.CheckedListBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        CType(Me.packageChart, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'otsingButton
@@ -289,11 +302,116 @@ Partial Class MainForm
         Me.chartPanel.Size = New System.Drawing.Size(720, 420)
         Me.chartPanel.TabIndex = 79
         '
+        'packageChart
+        '
+        ChartArea1.Name = "ChartArea1"
+        Me.packageChart.ChartAreas.Add(ChartArea1)
+        Legend1.Name = "Legend1"
+        Me.packageChart.Legends.Add(Legend1)
+        Me.packageChart.Location = New System.Drawing.Point(832, 565)
+        Me.packageChart.Margin = New System.Windows.Forms.Padding(2)
+        Me.packageChart.Name = "packageChart"
+        Series1.ChartArea = "ChartArea1"
+        Series1.Legend = "Legend1"
+        Series1.Name = "Series1"
+        Me.packageChart.Series.Add(Series1)
+        Me.packageChart.Size = New System.Drawing.Size(163, 122)
+        Me.packageChart.TabIndex = 88
+        Me.packageChart.Text = "Chart1"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(830, 542)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(92, 13)
+        Me.Label7.TabIndex = 87
+        Me.Label7.Text = "Pakettide võrdlus:"
+        '
+        'CheckedListBox2
+        '
+        Me.CheckedListBox2.FormattingEnabled = True
+        Me.CheckedListBox2.Items.AddRange(New Object() {"Filter 1", "Filter 2"})
+        Me.CheckedListBox2.Location = New System.Drawing.Point(740, 617)
+        Me.CheckedListBox2.Margin = New System.Windows.Forms.Padding(2)
+        Me.CheckedListBox2.Name = "CheckedListBox2"
+        Me.CheckedListBox2.Size = New System.Drawing.Size(82, 34)
+        Me.CheckedListBox2.TabIndex = 86
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(737, 594)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(82, 13)
+        Me.Label10.TabIndex = 85
+        Me.Label10.Text = "Filtreeri pakette:"
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(737, 542)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(85, 13)
+        Me.Label11.TabIndex = 84
+        Me.Label11.Text = "Järjestamise viis:"
+        '
+        'jarjestamineComboBox
+        '
+        Me.jarjestamineComboBox.FormattingEnabled = True
+        Me.jarjestamineComboBox.Location = New System.Drawing.Point(740, 565)
+        Me.jarjestamineComboBox.Margin = New System.Windows.Forms.Padding(2)
+        Me.jarjestamineComboBox.Name = "jarjestamineComboBox"
+        Me.jarjestamineComboBox.Size = New System.Drawing.Size(82, 21)
+        Me.jarjestamineComboBox.TabIndex = 83
+        '
+        'compareButton
+        '
+        Me.compareButton.Location = New System.Drawing.Point(742, 668)
+        Me.compareButton.Margin = New System.Windows.Forms.Padding(2)
+        Me.compareButton.Name = "compareButton"
+        Me.compareButton.Size = New System.Drawing.Size(81, 20)
+        Me.compareButton.TabIndex = 82
+        Me.compareButton.Text = "Võrdle pakette"
+        Me.compareButton.UseVisualStyleBackColor = True
+        '
+        'pakettCheckedListBox
+        '
+        Me.pakettCheckedListBox.CheckOnClick = True
+        Me.pakettCheckedListBox.FormattingEnabled = True
+        Me.pakettCheckedListBox.Location = New System.Drawing.Point(634, 565)
+        Me.pakettCheckedListBox.Margin = New System.Windows.Forms.Padding(2)
+        Me.pakettCheckedListBox.Name = "pakettCheckedListBox"
+        Me.pakettCheckedListBox.Size = New System.Drawing.Size(90, 124)
+        Me.pakettCheckedListBox.TabIndex = 81
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(631, 542)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(93, 13)
+        Me.Label12.TabIndex = 80
+        Me.Label12.Text = "Pakettide nimekiri:"
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(910, 561)
+        Me.ClientSize = New System.Drawing.Size(1246, 807)
+        Me.Controls.Add(Me.packageChart)
+        Me.Controls.Add(Me.Label7)
+        Me.Controls.Add(Me.CheckedListBox2)
+        Me.Controls.Add(Me.Label10)
+        Me.Controls.Add(Me.Label11)
+        Me.Controls.Add(Me.jarjestamineComboBox)
+        Me.Controls.Add(Me.compareButton)
+        Me.Controls.Add(Me.pakettCheckedListBox)
+        Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.chartPanel)
         Me.Controls.Add(Me.lblSavedPer)
         Me.Controls.Add(Me.lblAverageTF)
@@ -323,6 +441,7 @@ Partial Class MainForm
         Me.Name = "MainForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "MainForm"
+        CType(Me.packageChart, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -352,4 +471,13 @@ Partial Class MainForm
     Friend WithEvents lblAverageTF As Label
     Friend WithEvents lblSavedPer As Label
     Friend WithEvents chartPanel As Panel
+    Friend WithEvents packageChart As DataVisualization.Charting.Chart
+    Friend WithEvents Label7 As Label
+    Friend WithEvents CheckedListBox2 As CheckedListBox
+    Friend WithEvents Label10 As Label
+    Friend WithEvents Label11 As Label
+    Friend WithEvents jarjestamineComboBox As ComboBox
+    Friend WithEvents compareButton As Button
+    Friend WithEvents pakettCheckedListBox As CheckedListBox
+    Friend WithEvents Label12 As Label
 End Class
