@@ -5,6 +5,6 @@ Public Interface iMakeChart
     Sub colorReset()
     Sub changeColors(startIndex As Integer, amount As Integer)
     Sub addComparison(times As DateTime(), title As String, value As Double, index As Integer)
-
+    Sub removeChart(title As String)
 
 End Interface
