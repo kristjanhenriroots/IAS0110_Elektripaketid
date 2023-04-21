@@ -22,9 +22,6 @@ Partial Class MainForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim ChartArea7 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend7 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series7 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.otsingButton = New System.Windows.Forms.Button()
         Me.vordlusButton = New System.Windows.Forms.Button()
         Me.calcButton = New System.Windows.Forms.Button()
@@ -50,8 +47,6 @@ Partial Class MainForm
         Me.lblAverageTF = New System.Windows.Forms.Label()
         Me.lblSavedPer = New System.Windows.Forms.Label()
         Me.chartPanel = New System.Windows.Forms.Panel()
-        Me.packageChart = New System.Windows.Forms.DataVisualization.Charting.Chart()
-        Me.Label7 = New System.Windows.Forms.Label()
         Me.CheckedListBox2 = New System.Windows.Forms.CheckedListBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
@@ -59,7 +54,6 @@ Partial Class MainForm
         Me.compareButton = New System.Windows.Forms.Button()
         Me.pakettCheckedListBox = New System.Windows.Forms.CheckedListBox()
         Me.Label12 = New System.Windows.Forms.Label()
-        CType(Me.packageChart, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'otsingButton
@@ -104,7 +98,8 @@ Partial Class MainForm
         '
         'btnCalcTimeFrame
         '
-        Me.btnCalcTimeFrame.Location = New System.Drawing.Point(774, 67)
+        Me.btnCalcTimeFrame.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.btnCalcTimeFrame.Location = New System.Drawing.Point(773, 82)
         Me.btnCalcTimeFrame.Margin = New System.Windows.Forms.Padding(2)
         Me.btnCalcTimeFrame.Name = "btnCalcTimeFrame"
         Me.btnCalcTimeFrame.Size = New System.Drawing.Size(81, 36)
@@ -114,8 +109,9 @@ Partial Class MainForm
         '
         'Label9
         '
+        Me.Label9.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(771, 30)
+        Me.Label9.Location = New System.Drawing.Point(770, 45)
         Me.Label9.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(60, 13)
@@ -124,10 +120,11 @@ Partial Class MainForm
         '
         'cbTimeFrame
         '
+        Me.cbTimeFrame.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.cbTimeFrame.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbTimeFrame.FormattingEnabled = True
         Me.cbTimeFrame.Items.AddRange(New Object() {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"})
-        Me.cbTimeFrame.Location = New System.Drawing.Point(774, 45)
+        Me.cbTimeFrame.Location = New System.Drawing.Point(773, 60)
         Me.cbTimeFrame.Margin = New System.Windows.Forms.Padding(2)
         Me.cbTimeFrame.Name = "cbTimeFrame"
         Me.cbTimeFrame.Size = New System.Drawing.Size(82, 21)
@@ -135,7 +132,8 @@ Partial Class MainForm
         '
         'TextBox4
         '
-        Me.TextBox4.Location = New System.Drawing.Point(275, 525)
+        Me.TextBox4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.TextBox4.Location = New System.Drawing.Point(275, 522)
         Me.TextBox4.Margin = New System.Windows.Forms.Padding(2)
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.Size = New System.Drawing.Size(115, 20)
@@ -143,8 +141,9 @@ Partial Class MainForm
         '
         'Label8
         '
+        Me.Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(277, 511)
+        Me.Label8.Location = New System.Drawing.Point(277, 508)
         Me.Label8.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(66, 13)
@@ -153,8 +152,9 @@ Partial Class MainForm
         '
         'Label6
         '
+        Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(104, 527)
+        Me.Label6.Location = New System.Drawing.Point(104, 524)
         Me.Label6.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(10, 13)
@@ -163,8 +163,9 @@ Partial Class MainForm
         '
         'Label5
         '
+        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(31, 511)
+        Me.Label5.Location = New System.Drawing.Point(31, 508)
         Me.Label5.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(84, 13)
@@ -173,7 +174,8 @@ Partial Class MainForm
         '
         'TextBox3
         '
-        Me.TextBox3.Location = New System.Drawing.Point(117, 525)
+        Me.TextBox3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.TextBox3.Location = New System.Drawing.Point(117, 522)
         Me.TextBox3.Margin = New System.Windows.Forms.Padding(2)
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.Size = New System.Drawing.Size(68, 20)
@@ -181,7 +183,8 @@ Partial Class MainForm
         '
         'TextBox2
         '
-        Me.TextBox2.Location = New System.Drawing.Point(33, 525)
+        Me.TextBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.TextBox2.Location = New System.Drawing.Point(33, 522)
         Me.TextBox2.Margin = New System.Windows.Forms.Padding(2)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(68, 20)
@@ -189,7 +192,8 @@ Partial Class MainForm
         '
         'tbRecTimeFrame
         '
-        Me.tbRecTimeFrame.Location = New System.Drawing.Point(771, 131)
+        Me.tbRecTimeFrame.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.tbRecTimeFrame.Location = New System.Drawing.Point(770, 146)
         Me.tbRecTimeFrame.Margin = New System.Windows.Forms.Padding(2)
         Me.tbRecTimeFrame.Name = "tbRecTimeFrame"
         Me.tbRecTimeFrame.ReadOnly = True
@@ -198,8 +202,9 @@ Partial Class MainForm
         '
         'Label4
         '
+        Me.Label4.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(766, 116)
+        Me.Label4.Location = New System.Drawing.Point(765, 131)
         Me.Label4.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(123, 13)
@@ -208,7 +213,8 @@ Partial Class MainForm
         '
         'shrinkButton
         '
-        Me.shrinkButton.Location = New System.Drawing.Point(867, 255)
+        Me.shrinkButton.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.shrinkButton.Location = New System.Drawing.Point(866, 270)
         Me.shrinkButton.Margin = New System.Windows.Forms.Padding(2)
         Me.shrinkButton.Name = "shrinkButton"
         Me.shrinkButton.Size = New System.Drawing.Size(17, 16)
@@ -218,7 +224,8 @@ Partial Class MainForm
         '
         'enlargeButton
         '
-        Me.enlargeButton.Location = New System.Drawing.Point(867, 234)
+        Me.enlargeButton.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.enlargeButton.Location = New System.Drawing.Point(866, 249)
         Me.enlargeButton.Margin = New System.Windows.Forms.Padding(2)
         Me.enlargeButton.Name = "enlargeButton"
         Me.enlargeButton.Size = New System.Drawing.Size(17, 16)
@@ -228,8 +235,9 @@ Partial Class MainForm
         '
         'Label3
         '
+        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(185, 511)
+        Me.Label3.Location = New System.Drawing.Point(185, 508)
         Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(75, 13)
@@ -238,9 +246,10 @@ Partial Class MainForm
         '
         'ComboBox1
         '
+        Me.ComboBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Items.AddRange(New Object() {"Tulpdiagramm", "Tabeldiagramm"})
-        Me.ComboBox1.Location = New System.Drawing.Point(188, 524)
+        Me.ComboBox1.Location = New System.Drawing.Point(188, 521)
         Me.ComboBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(84, 21)
@@ -267,8 +276,9 @@ Partial Class MainForm
         '
         'lblAverageNow
         '
+        Me.lblAverageNow.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.lblAverageNow.AutoSize = True
-        Me.lblAverageNow.Location = New System.Drawing.Point(773, 159)
+        Me.lblAverageNow.Location = New System.Drawing.Point(772, 174)
         Me.lblAverageNow.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblAverageNow.Name = "lblAverageNow"
         Me.lblAverageNow.Size = New System.Drawing.Size(82, 13)
@@ -277,8 +287,9 @@ Partial Class MainForm
         '
         'lblAverageTF
         '
+        Me.lblAverageTF.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.lblAverageTF.AutoSize = True
-        Me.lblAverageTF.Location = New System.Drawing.Point(773, 178)
+        Me.lblAverageTF.Location = New System.Drawing.Point(772, 193)
         Me.lblAverageTF.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblAverageTF.Name = "lblAverageTF"
         Me.lblAverageTF.Size = New System.Drawing.Size(109, 13)
@@ -287,8 +298,9 @@ Partial Class MainForm
         '
         'lblSavedPer
         '
+        Me.lblSavedPer.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.lblSavedPer.AutoSize = True
-        Me.lblSavedPer.Location = New System.Drawing.Point(773, 200)
+        Me.lblSavedPer.Location = New System.Drawing.Point(772, 215)
         Me.lblSavedPer.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblSavedPer.Name = "lblSavedPer"
         Me.lblSavedPer.Size = New System.Drawing.Size(62, 13)
@@ -297,43 +309,21 @@ Partial Class MainForm
         '
         'chartPanel
         '
+        Me.chartPanel.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.chartPanel.AutoSize = True
         Me.chartPanel.Location = New System.Drawing.Point(34, 64)
         Me.chartPanel.Name = "chartPanel"
-        Me.chartPanel.Size = New System.Drawing.Size(720, 420)
+        Me.chartPanel.Size = New System.Drawing.Size(708, 417)
         Me.chartPanel.TabIndex = 79
-        '
-        'packageChart
-        '
-        ChartArea7.Name = "ChartArea1"
-        Me.packageChart.ChartAreas.Add(ChartArea7)
-        Legend7.Name = "Legend1"
-        Me.packageChart.Legends.Add(Legend7)
-        Me.packageChart.Location = New System.Drawing.Point(832, 565)
-        Me.packageChart.Margin = New System.Windows.Forms.Padding(2)
-        Me.packageChart.Name = "packageChart"
-        Series7.ChartArea = "ChartArea1"
-        Series7.Legend = "Legend1"
-        Series7.Name = "Series1"
-        Me.packageChart.Series.Add(Series7)
-        Me.packageChart.Size = New System.Drawing.Size(163, 122)
-        Me.packageChart.TabIndex = 88
-        Me.packageChart.Text = "Chart1"
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(830, 542)
-        Me.Label7.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(92, 13)
-        Me.Label7.TabIndex = 87
-        Me.Label7.Text = "Pakettide võrdlus:"
         '
         'CheckedListBox2
         '
+        Me.CheckedListBox2.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.CheckedListBox2.FormattingEnabled = True
         Me.CheckedListBox2.Items.AddRange(New Object() {"Filter 1", "Filter 2"})
-        Me.CheckedListBox2.Location = New System.Drawing.Point(883, 377)
+        Me.CheckedListBox2.Location = New System.Drawing.Point(882, 392)
         Me.CheckedListBox2.Margin = New System.Windows.Forms.Padding(2)
         Me.CheckedListBox2.Name = "CheckedListBox2"
         Me.CheckedListBox2.Size = New System.Drawing.Size(82, 34)
@@ -341,8 +331,9 @@ Partial Class MainForm
         '
         'Label10
         '
+        Me.Label10.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(880, 354)
+        Me.Label10.Location = New System.Drawing.Point(879, 369)
         Me.Label10.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(82, 13)
@@ -351,8 +342,9 @@ Partial Class MainForm
         '
         'Label11
         '
+        Me.Label11.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(880, 302)
+        Me.Label11.Location = New System.Drawing.Point(879, 317)
         Me.Label11.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(85, 13)
@@ -361,10 +353,11 @@ Partial Class MainForm
         '
         'jarjestamineComboBox
         '
+        Me.jarjestamineComboBox.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.jarjestamineComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.jarjestamineComboBox.FormattingEnabled = True
         Me.jarjestamineComboBox.Items.AddRange(New Object() {"A - Z", "Z - A", "Hind kasvav", "Hind kahanev"})
-        Me.jarjestamineComboBox.Location = New System.Drawing.Point(883, 325)
+        Me.jarjestamineComboBox.Location = New System.Drawing.Point(882, 340)
         Me.jarjestamineComboBox.Margin = New System.Windows.Forms.Padding(2)
         Me.jarjestamineComboBox.Name = "jarjestamineComboBox"
         Me.jarjestamineComboBox.Size = New System.Drawing.Size(82, 21)
@@ -372,7 +365,8 @@ Partial Class MainForm
         '
         'compareButton
         '
-        Me.compareButton.Location = New System.Drawing.Point(776, 464)
+        Me.compareButton.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.compareButton.Location = New System.Drawing.Point(775, 479)
         Me.compareButton.Margin = New System.Windows.Forms.Padding(2)
         Me.compareButton.Name = "compareButton"
         Me.compareButton.Size = New System.Drawing.Size(81, 20)
@@ -382,9 +376,10 @@ Partial Class MainForm
         '
         'pakettCheckedListBox
         '
+        Me.pakettCheckedListBox.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.pakettCheckedListBox.CheckOnClick = True
         Me.pakettCheckedListBox.FormattingEnabled = True
-        Me.pakettCheckedListBox.Location = New System.Drawing.Point(776, 325)
+        Me.pakettCheckedListBox.Location = New System.Drawing.Point(775, 340)
         Me.pakettCheckedListBox.Margin = New System.Windows.Forms.Padding(2)
         Me.pakettCheckedListBox.Name = "pakettCheckedListBox"
         Me.pakettCheckedListBox.Size = New System.Drawing.Size(90, 124)
@@ -392,8 +387,9 @@ Partial Class MainForm
         '
         'Label12
         '
+        Me.Label12.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(773, 302)
+        Me.Label12.Location = New System.Drawing.Point(772, 317)
         Me.Label12.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(93, 13)
@@ -404,9 +400,7 @@ Partial Class MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1246, 807)
-        Me.Controls.Add(Me.packageChart)
-        Me.Controls.Add(Me.Label7)
+        Me.ClientSize = New System.Drawing.Size(984, 561)
         Me.Controls.Add(Me.CheckedListBox2)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.Label11)
@@ -443,7 +437,6 @@ Partial Class MainForm
         Me.Name = "MainForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "MainForm"
-        CType(Me.packageChart, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -473,8 +466,6 @@ Partial Class MainForm
     Friend WithEvents lblAverageTF As Label
     Friend WithEvents lblSavedPer As Label
     Friend WithEvents chartPanel As Panel
-    Friend WithEvents packageChart As DataVisualization.Charting.Chart
-    Friend WithEvents Label7 As Label
     Friend WithEvents CheckedListBox2 As CheckedListBox
     Friend WithEvents Label10 As Label
     Friend WithEvents Label11 As Label
