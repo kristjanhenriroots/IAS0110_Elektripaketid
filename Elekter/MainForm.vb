@@ -168,21 +168,16 @@ Public Class MainForm
         updateListBox(comparePackages.PackageSorter(selectedSortOption))
     End Sub
 
-    Private Sub pakettCheckedListBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles pakettCheckedListBox.SelectedIndexChanged
-        Dim selectedCount As ListBox.SelectedObjectCollection = pakettCheckedListBox.SelectedItems
+    Private Sub compareButton_Click(sender As Object, e As EventArgs) Handles compareButton.Click
+        Dim selected = comparePackages.GetSelectedIndices(pakettCheckedListBox)
         Dim price As New Double
         Dim title As String = ""
 
-        If selectedCount.Count > 0 Then
-            For Each item As Object In selectedCount
-                Dim index As Integer = pakettCheckedListBox.Items.IndexOf(item)
-                Console.WriteLine("Selected index: " & index & item.ToString())
-                title = item.ToString()
-                price = comparePackages.PriceReturn(title)
-                chartMaker.addComparison(times.ToArray(), title, price, index)
-
-            Next
-        End If
-
+        For Each index As Integer In selected
+            title = pakettCheckedListBox.Items(index).ToString()
+            price = comparePackages.PriceReturn(title)
+            chartMaker.addComparison(times.ToArray(), title, price, index)
+            Console.WriteLine("Selected index: " & index.ToString())
+        Next
     End Sub
 End Class

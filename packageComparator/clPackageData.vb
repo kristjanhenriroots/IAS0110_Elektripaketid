@@ -1,18 +1,19 @@
 Imports System.Security.Cryptography
+Imports System.Windows.Forms
 
 Public Class clPackageData
     Implements iComparePackages
 
     Public Function PackageData() As Dictionary(Of String, Double) Implements iComparePackages.PackageData
         Dim deals = New Dictionary(Of String, Double) From {
-            {"Kasulik Klõps"                            , 16.73}, 'https://elektrihind.ee/paketid/
-            {"Kindel"                                   , 13.57},
-            {"Kindel 36"                                , 17.5},
-            {"Kindel 6"                                 , 15.89},
-            {"Kindel Pluss"                             , 14.49},
-            {"Tähtajaline fikseeritud hind + ühisarve"  , 13.96},
-            {"Tähtajaline fiseeritud"                   , 13.5},
-            {"Universaal"                               , 19.95}   'https://www.energia.ee/et/era/elekter/elektrileping-ja-paketid?customers=home-customer&packages=fixPlus
+            {"Kasulik Klõps", 16.73}, 'https://elektrihind.ee/paketid/
+            {"Kindel", 13.57},
+            {"Kindel 36", 17.5},
+            {"Kindel 6", 15.89},
+            {"Kindel Pluss", 14.49},
+            {"Tähtajaline fikseeritud hind + ühisarve", 13.96},
+            {"Tähtajaline fiseeritud", 13.5},
+            {"Universaal", 19.95}   'https://www.energia.ee/et/era/elekter/elektrileping-ja-paketid?customers=home-customer&packages=fixPlus
         }
 
         Return deals
@@ -83,5 +84,17 @@ Public Class clPackageData
         Next
 
         Return 0
+    End Function
+
+    ' Returns the indices of selected packages from the listbox
+    Private Function getSelectedIndices(listBox As CheckedListBox) As List(Of Integer) Implements iComparePackages.GetSelectedIndices
+        Dim selectedIndexList As New List(Of Integer)
+
+        ' Loop through the SelectedIndices collection and add each index to the list
+        For Each index As Integer In listBox.CheckedIndices
+            selectedIndexList.Add(index)
+        Next
+
+        Return selectedIndexList
     End Function
 End Class
