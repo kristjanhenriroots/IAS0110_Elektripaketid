@@ -2,7 +2,7 @@
 
 Public Interface iMakeChart
     Sub setChart(times As DateTime(), prices As Double())
-    Sub colorReset(times As DateTime())
-    Sub changeColors(times As DateTime(), len As Integer, index As Integer)
+    Sub colorReset()
+    Sub changeColors(startIndex As Integer, amount As Integer)
 
 End Interface

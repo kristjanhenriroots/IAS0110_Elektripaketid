@@ -124,7 +124,7 @@ Public Class MainForm
 
 
 
-            chartMaker.changeColors(times.ToArray(), Int(cbTimeFrame.SelectedItem), startingIndex)
+            chartMaker.changeColors(startingIndex, Int(cbTimeFrame.SelectedItem))
 
             lblAverageNow.Text = ("Keskmine hind: " & averageNow)
             'MessageBox.Show("Sending values: " & startingIndex.ToString())
