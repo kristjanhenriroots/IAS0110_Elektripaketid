@@ -13,9 +13,15 @@ Public Class MainForm
     Dim prices As New List(Of Double)()
     Dim chartMaker As iMakeChart = New UCchartMaker()
     Dim comparePackages As iComparePackages = New clPackageData()
+    Dim rs As New Resizer
+    Dim initialFormSize As SizeF
+    Dim initialFontSize As Single
+
 
 
     Private Async Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        rs.FindAllControls(Me)
+
 
         ' Setting a minimum size for the window to shrink to
         Me.MinimumSize = New Size(1000, 600)
@@ -77,7 +83,23 @@ Public Class MainForm
         Catch ex As Exception
             MessageBox.Show("An error occurred while retrieving data from the Elering API: " & ex.Message)
         End Try
+
+        initialFormSize = New SizeF(Me.Width, Me.Height)
+        initialFontSize = calcButton.Font.Size
     End Sub
+
+    Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+        rs.ResizeAllControls(Me)
+        Dim scaleFactor As Single = Math.Min(Me.Width / initialFormSize.Width, Me.Height / initialFormSize.Height)
+        Dim newFontSize As Single = initialFontSize * scaleFactor
+
+        For Each ctrl As Control In Me.Controls
+            If TypeOf ctrl Is Label Then
+                ctrl.Font = New Font(ctrl.Font.FontFamily, newFontSize, ctrl.Font.Style)
+            End If
+        Next
+    End Sub
+
 
     'Button tabs'
     Private Sub calcButton_Click(sender As Object, e As EventArgs) Handles calcButton.Click
