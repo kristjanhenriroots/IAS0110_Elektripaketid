@@ -27,12 +27,9 @@ Partial Class UCchartMaker
         '
         'CartesianChart
         '
-        Me.CartesianChart.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CartesianChart.Location = New System.Drawing.Point(0, 0)
         Me.CartesianChart.Name = "CartesianChart"
-        Me.CartesianChart.Size = New System.Drawing.Size(80, 50)
+        Me.CartesianChart.Size = New System.Drawing.Size(350, 195)
         Me.CartesianChart.TabIndex = 0
         Me.CartesianChart.Text = "CartesianChart1"
         '
@@ -40,12 +37,10 @@ Partial Class UCchartMaker
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.AutoSize = True
         Me.Controls.Add(Me.CartesianChart)
         Me.Name = "UCchartMaker"
         Me.Size = New System.Drawing.Size(350, 195)
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
 

@@ -20,9 +20,6 @@ Public Class MainForm
 
     Private Async Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        ' Setting a minimum size for the window to shrink to
-        Me.MinimumSize = New Size(1000, 600)
-
         ' Get all package data from prj packageComparator, call function PackageData() for all names and prices
         Dim packagePrices = comparePackages.PackageData()
 
@@ -167,6 +164,10 @@ Public Class MainForm
     Public Function ReturnCurrentPrice()
         Return prices.First
     End Function
+
+    Private Sub Label11_Click(sender As Object, e As EventArgs) Handles lblAverageTF.Click
+
+    End Sub
 
     Private Sub updateListBox(data As Dictionary(Of String, Double))
         pakettCheckedListBox.Items.Clear()
