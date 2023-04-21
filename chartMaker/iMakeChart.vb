@@ -6,4 +6,6 @@ Public Interface iMakeChart
     Sub addComparison(times As DateTime(), title As String, value As Double, index As Integer)
     Sub removeChart(title As String)
 
+    Sub UpdateMaxColumnWidth()
+
 End Interface

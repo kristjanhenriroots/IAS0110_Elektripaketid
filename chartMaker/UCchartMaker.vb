@@ -1,15 +1,22 @@
 ﻿Imports System.Reflection
+Imports System.Threading
 Imports System.Windows.Media
 Imports LiveCharts
 Imports LiveCharts.Configurations
 Imports LiveCharts.Defaults
 Imports LiveCharts.Definitions.Charts
+Imports LiveCharts.Events
 Imports LiveCharts.WinForms
 Imports LiveCharts.Wpf
 
 
 Public Class UCchartMaker
     Implements iMakeChart
+
+    Dim initialControlSize As SizeF
+    Dim initialAxisXFontSize As Single
+    Dim initialAxisYFontSize As Single
+
 
     Public Sub New()
         InitializeComponent()
@@ -19,11 +26,34 @@ Public Class UCchartMaker
         CartesianChart.AnimationsSpeed = TimeSpan.FromMilliseconds(100) ' Set the animation speed to 100 milliseconds
         'CartesianChart.DisableAnimations = True
         'CartesianChart.Pan = PanningOptions.Y
+        initialControlSize = New SizeF(Me.Width, Me.Height)
+
+    End Sub
+
+    Private Sub UpdateMaxColumnWidth() Implements iMakeChart.UpdateMaxColumnWidth
+        Dim scaleFactor As Single = Me.Width / initialControlSize.Width * 0.5
+        Dim newMaxColumnWidth As Single = 20 * scaleFactor ' Change 20 to the desired initial max column width
+
+
+        For Each series As Series In CartesianChart.Series
+            If TypeOf series Is ColumnSeries Then
+                Dim columnSeries As ColumnSeries = CType(series, ColumnSeries)
+                columnSeries.MaxColumnWidth = newMaxColumnWidth
+            End If
+        Next
+        For Each axis As Axis In CartesianChart.AxisX
+            axis.FontSize = initialAxisXFontSize * scaleFactor ' Use the initial font size
+            axis.LabelFormatter = Function(value) DateTime.FromOADate(value).AddHours(-3).ToString("HH:00")
+        Next
+
+        For Each axis As Axis In CartesianChart.AxisY
+            axis.FontSize = initialAxisYFontSize * scaleFactor ' Use the initial font size
+            axis.LabelFormatter = Function(value) String.Format("{0:N2}", Math.Round(value, 2))
+        Next
     End Sub
 
     Public Sub setChart(times As DateTime(), prices As Double()) Implements iMakeChart.setChart
         Dim chartValues As New ChartValues(Of ObservablePoint)()
-
         For i As Integer = 0 To times.Length - 1
             chartValues.Add(New ObservablePoint(times(i).ToOADate(), prices(i)))
         Next
@@ -56,6 +86,10 @@ Public Class UCchartMaker
                 .Step = 1
             }
         })
+
+        initialAxisXFontSize = CartesianChart.AxisX(0).FontSize
+        initialAxisYFontSize = CartesianChart.AxisY(0).FontSize
+
     End Sub
 
     Private Function seriesFinder(title As String) As LineSeries

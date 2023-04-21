@@ -98,6 +98,7 @@ Public Class MainForm
                 ctrl.Font = New Font(ctrl.Font.FontFamily, newFontSize, ctrl.Font.Style)
             End If
         Next
+        chartMaker.UpdateMaxColumnWidth()
     End Sub
 
 
