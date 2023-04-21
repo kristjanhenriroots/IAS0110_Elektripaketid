@@ -56,19 +56,24 @@ Public Class UCchartMaker
         })
     End Sub
 
-    Private Sub removeChart(title As String) Implements iMakeChart.removeChart
-        Dim seriesToRemove As New LineSeries
+    Private Function seriesFinder(title As String) As LineSeries
+        Dim foundSeries As LineSeries = Nothing
 
-        ' Find the LineSeries with the specified title
         For Each series As Series In CartesianChart.Series
             If series.Title = title AndAlso TypeOf series Is LineSeries Then
-                seriesToRemove = series
+                foundSeries = series
                 Exit For
             End If
         Next
+        Return foundSeries
+
+    End Function
+
+    Private Sub removeChart(title As String) Implements iMakeChart.removeChart
+        Dim seriesToRemove = seriesFinder(title)
 
         ' Remove the LineSeries if found
-        If seriesToRemove IsNot Nothing Then
+        If seriesFinder(title) IsNot Nothing Then
             CartesianChart.Series.Remove(seriesToRemove)
         End If
     End Sub
@@ -76,6 +81,12 @@ Public Class UCchartMaker
 
 
     Private Sub addComparison(times As DateTime(), title As String, value As Double, index As Integer) Implements iMakeChart.addComparison
+
+        If seriesFinder(title) IsNot Nothing Then
+            Console.WriteLine("seriesFinder result with " & title)
+
+            Exit Sub
+        End If
 
         Dim prices = New Double() {value, value}        ' Create an array with the given price value
 
