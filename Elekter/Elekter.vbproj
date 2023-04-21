@@ -187,6 +187,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AndmeParija\AndmeParija\AndmeParija.vbproj">
+      <Project>{4bf79796-850c-404c-8c2c-17f6c5e27485}</Project>
+      <Name>AndmeParija</Name>
+    </ProjectReference>
     <ProjectReference Include="..\API_Handler\API_Handler.vbproj">
       <Project>{64cc7082-2e86-4104-b1f9-de1f9a9c8291}</Project>
       <Name>API_Handler</Name>
