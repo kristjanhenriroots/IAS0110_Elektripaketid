@@ -9,6 +9,9 @@ Imports System.Security.Cryptography
 Imports packageComparator
 
 Public Class MainForm
+    Dim initialFormSize As SizeF
+    Dim initialFontSize As Single
+
     Dim times As New List(Of DateTime)()
     Dim prices As New List(Of Double)()
     Dim chartMaker As iMakeChart = New UCchartMaker()
@@ -36,7 +39,7 @@ Public Class MainForm
             'client.DefaultRequestHeaders.Add("Authorization", "Bearer YOUR_API_KEY")
 
             ' Set start and end times for 24-hour period
-            Dim currentDate As DateTime = DateTime.Now.AddHours(-3)
+            Dim currentDate As DateTime = DateTime.Now.AddHours(-5)
             Dim startTime As String = currentDate.ToString("yyyy-MM-dd'T'HH:mm:ssZ")
             Dim endTime As String = currentDate.AddDays(1).ToString("yyyy-MM-dd'T'HH:mm:ssZ")
 
@@ -77,7 +80,21 @@ Public Class MainForm
         Catch ex As Exception
             MessageBox.Show("An error occurred while retrieving data from the Elering API: " & ex.Message)
         End Try
+
+
+        initialFormSize = New SizeF(Me.Width, Me.Height)
+        initialFontSize = calcButton.Font.Size
     End Sub
+
+    Private Sub MainForm_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
+        Dim scaleFactor As Single = Math.Min(Me.Width / initialFormSize.Width, Me.Height / initialFormSize.Height)
+        Dim newFontSize As Single = initialFontSize * scaleFactor
+
+        For Each ctrl As Control In Me.Controls
+            ctrl.Font = New Font(ctrl.Font.FontFamily, newFontSize, ctrl.Font.Style)
+        Next
+    End Sub
+
 
     'Button tabs'
     Private Sub calcButton_Click(sender As Object, e As EventArgs) Handles calcButton.Click
@@ -91,7 +108,7 @@ Public Class MainForm
     End Sub
 
     'Size buttons
-    Private Sub enlargeButton_Click(sender As Object, e As EventArgs) Handles enlargeButton.Click
+    Private Sub enlargeButton_Click(sender As Object, e As EventArgs) 
         'Increase the size of the form and all its elements by 5%
         Me.Width *= 1.05
         Me.Height *= 1.05
@@ -104,7 +121,7 @@ Public Class MainForm
         Next
     End Sub
 
-    Private Sub shrink_Click(sender As Object, e As EventArgs) Handles shrinkButton.Click
+    Private Sub shrink_Click(sender As Object, e As EventArgs) 
         'Decrease the size of the form and all its elements by 5%
         Me.Width *= 0.95
         Me.Height *= 0.95
@@ -186,4 +203,6 @@ Public Class MainForm
             Console.WriteLine("Selected index: " & index.ToString())
         Next
     End Sub
+
+
 End Class
