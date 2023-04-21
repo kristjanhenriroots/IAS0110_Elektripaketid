@@ -14,6 +14,8 @@ Public Class MainForm
     Private comboBoxTable As New DataTable
 
     Private Async Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim testPath As String = "..\..\"
+        Console.WriteLine(testPath)
         Try
             ' Create HTTP client and set API key
             Dim client As New HttpClient()
