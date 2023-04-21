@@ -48,6 +48,21 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\chartMaker\bin\Debug\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.WinForms, Version=0.9.7.1, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\chartMaker\bin\Debug\LiveCharts.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\chartMaker\bin\Debug\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="packageComparator">
+      <HintPath>..\packageComparator\bin\Debug\net4.7.2\packageComparator.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -74,7 +89,6 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChartMaker.vb" />
     <Compile Include="formCalc.Designer.vb">
       <DependentUpon>formCalc.vb</DependentUpon>
     </Compile>
@@ -150,6 +164,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\chartMaker\chartMaker.vbproj">
+      <Project>{FF4944B7-60BE-41C0-8E27-CD58D3753004}</Project>
+      <Name>chartMaker</Name>
+    </ProjectReference>
     <ProjectReference Include="..\classCheap_calculator\PriceCalc.vbproj">
       <Project>{16f136c8-faf3-4016-a601-b06442bcc07e}</Project>
       <Name>PriceCalc</Name>

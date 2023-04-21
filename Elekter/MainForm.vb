@@ -4,21 +4,39 @@ Imports System.Text
 Imports System.Windows.Forms.DataVisualization.Charting
 Imports System.Globalization
 Imports classCheap_calculator
+Imports chartMaker
+Imports System.Security.Cryptography
+Imports packageComparator
 
 Public Class MainForm
     Dim times As New List(Of DateTime)()
     Dim prices As New List(Of Double)()
-    Dim chartMaker As New chartMaker()
+    Dim chartMaker As iMakeChart = New UCchartMaker()
+    Dim comparePackages As iComparePackages = New clPackageData()
+
 
     Private Async Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        ' Get all package data from prj packageComparator, call function PackageData() for all names and prices
+        Dim packagePrices = comparePackages.PackageData()
+
+        ' Populate the listbox with the packages
+        updateListBox(packagePrices)
+
         Try
+            ' adding chartMaker instance and setting chartPanel control collection
+            CType(chartMaker, Control).Dock = DockStyle.Fill
+            chartPanel.Controls.Add(CType(chartMaker, Control))
+
             ' Create HTTP client and set API key
             Dim client As New HttpClient()
             'client.DefaultRequestHeaders.Add("Authorization", "Bearer YOUR_API_KEY")
 
             ' Set start and end times for 24-hour period
-            Dim startTime As String = DateTime.Now.AddHours(-4).ToString("yyyy-MM-dd'T'HH:mm:ssZ")
-            Dim endTime As String = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd'T'HH:mm:ssZ")
+            Dim currentDate As DateTime = DateTime.Now.Date.AddHours(-3)
+            Dim startTime As String = currentDate.ToString("yyyy-MM-dd'T'HH:mm:ssZ")
+            Dim endTime As String = currentDate.AddDays(1).ToString("yyyy-MM-dd'T'HH:mm:ssZ")
+
 
             ' Send GET request to Elering API
             Dim response As HttpResponseMessage = Await client.GetAsync($"https://dashboard.elering.ee/api/nps/price/csv?start={startTime}&end={endTime}&fields=ee")
@@ -50,24 +68,13 @@ Public Class MainForm
             Next
 
 
-            chartMaker.setChart(MainChart, times.ToArray(), prices.ToArray())
-            AddHandler MainChart.MouseMove, AddressOf Chart_MouseMove
+            chartMaker.setChart(times.ToArray(), prices.ToArray())
+
 
         Catch ex As Exception
             MessageBox.Show("An error occurred while retrieving data from the Elering API: " & ex.Message)
         End Try
     End Sub
-
-    Private Sub Chart_MouseMove(sender As Object, e As MouseEventArgs)
-        Dim hit As HitTestResult = MainChart.HitTest(e.X, e.Y)
-
-        If hit.ChartElementType = ChartElementType.DataPoint Then
-            Dim point As DataPoint = MainChart.Series(0).Points(hit.PointIndex)
-            ' Update tooltip to display date and time properly
-            MainChart.Series(0).ToolTip = $"Time: {DateTime.FromOADate(point.XValue).ToString("dd.MM.yyyy HH:mm")}{Environment.NewLine}Price: {point.YValues(0):F2}"
-        End If
-    End Sub
-
 
     'Button tabs'
     Private Sub calcButton_Click(sender As Object, e As EventArgs) Handles calcButton.Click
@@ -111,7 +118,7 @@ Public Class MainForm
     Private Sub btnCalcTimeFrame_Click(sender As Object, e As EventArgs) Handles btnCalcTimeFrame.Click
 
         ' combobox needs to have a value selected
-        If cbTimeFrame.SelectedItem And Int(cbTimeFrame.SelectedItem) <= MainChart.Series(0).Points.Count - 1 Then
+        If cbTimeFrame.SelectedItem Then ' And Int(cbTimeFrame.SelectedItem) <= MainChart.Series(0).Points.Count - 1 Then
 
             ' get the best time frame
             Dim frame As iPriceCalc = New TimeFrameCalc
@@ -127,7 +134,7 @@ Public Class MainForm
 
 
 
-            chartMaker.changeColors(MainChart, times.ToArray(), Int(cbTimeFrame.SelectedItem), startingIndex)
+            chartMaker.changeColors(startingIndex, Int(cbTimeFrame.SelectedItem))
 
             lblAverageNow.Text = ("Keskmine hind: " & averageNow)
             'MessageBox.Show("Sending values: " & startingIndex.ToString())
@@ -143,5 +150,41 @@ Public Class MainForm
 
     Private Sub Label11_Click(sender As Object, e As EventArgs) Handles lblAverageTF.Click
 
+    End Sub
+
+    Private Sub updateListBox(data As Dictionary(Of String, Double))
+        pakettCheckedListBox.Items.Clear()
+        ' Populate the listbox with the packages
+        For Each package As String In data.Keys
+            pakettCheckedListBox.Items.Add(package)
+        Next
+    End Sub
+
+    Private Sub jarjestamineComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles jarjestamineComboBox.SelectedIndexChanged
+        ' Get the option chosen
+        Dim selectedSortOption As String = jarjestamineComboBox.SelectedItem.ToString()
+
+        ' Get the new order and Update listbox
+        updateListBox(comparePackages.PackageSorter(selectedSortOption))
+    End Sub
+
+    Private Sub compareButton_Click(sender As Object, e As EventArgs) Handles compareButton.Click
+        Dim selected = comparePackages.GetSelectedIndices(pakettCheckedListBox)
+        Dim price As New Double
+        Dim title As String = ""
+
+        For i As Integer = 0 To 7
+            If Not selected.Contains(i) Then
+                chartMaker.removeChart(pakettCheckedListBox.Items(i).ToString())
+            End If
+        Next
+
+
+        For Each index As Integer In selected
+            title = pakettCheckedListBox.Items(index).ToString()
+            price = comparePackages.PriceReturn(title)
+            chartMaker.addComparison(times.ToArray(), title, price, index)
+            Console.WriteLine("Selected index: " & index.ToString())
+        Next
     End Sub
 End Class
