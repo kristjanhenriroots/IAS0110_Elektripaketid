@@ -93,6 +93,12 @@ Public Class MainForm
         Dim scaleFactor As Single = Math.Min(Me.Width / initialFormSize.Width, Me.Height / initialFormSize.Height)
         Dim newFontSize As Single = initialFontSize * scaleFactor
 
+        ' Check if scaleFactor is valid (i.e., not NaN or Infinity)
+        If Single.IsNaN(scaleFactor) OrElse Single.IsInfinity(scaleFactor) Then
+            ' Skip resizing if scaleFactor is not valid
+            Return
+        End If
+
         For Each ctrl As Control In Me.Controls
             If TypeOf ctrl Is Label Then
                 ctrl.Font = New Font(ctrl.Font.FontFamily, newFontSize, ctrl.Font.Style)
@@ -100,6 +106,7 @@ Public Class MainForm
         Next
         chartMaker.UpdateMaxColumnWidth()
     End Sub
+
 
 
     'Button tabs'
