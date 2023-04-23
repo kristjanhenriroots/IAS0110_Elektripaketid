@@ -13,9 +13,18 @@ Public Class MainForm
     Dim prices As New List(Of Double)()
     Dim chartMaker As iMakeChart = New UCchartMaker()
     Dim comparePackages As iComparePackages = New clPackageData()
+    Dim rs As New Resizer
+    Dim initialFormSize As SizeF
+    Dim initialFontSize As Single
+
 
 
     Private Async Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        rs.FindAllControls(Me)
+
+
+        ' Setting a minimum size for the window to shrink to
+        Me.MinimumSize = New Size(1000, 600)
 
         ' Get all package data from prj packageComparator, call function PackageData() for all names and prices
         Dim packagePrices = comparePackages.PackageData()
@@ -33,7 +42,7 @@ Public Class MainForm
             'client.DefaultRequestHeaders.Add("Authorization", "Bearer YOUR_API_KEY")
 
             ' Set start and end times for 24-hour period
-            Dim currentDate As DateTime = DateTime.Now.Date.AddHours(-3)
+            Dim currentDate As DateTime = DateTime.Now.AddHours(-3)
             Dim startTime As String = currentDate.ToString("yyyy-MM-dd'T'HH:mm:ssZ")
             Dim endTime As String = currentDate.AddDays(1).ToString("yyyy-MM-dd'T'HH:mm:ssZ")
 
@@ -74,7 +83,31 @@ Public Class MainForm
         Catch ex As Exception
             MessageBox.Show("An error occurred while retrieving data from the Elering API: " & ex.Message)
         End Try
+
+        initialFormSize = New SizeF(Me.Width, Me.Height)
+        initialFontSize = calcButton.Font.Size
     End Sub
+
+    Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+        rs.ResizeAllControls(Me)
+        Dim scaleFactor As Single = Math.Min(Me.Width / initialFormSize.Width, Me.Height / initialFormSize.Height)
+        Dim newFontSize As Single = initialFontSize * scaleFactor
+
+        ' Check if scaleFactor is valid (i.e., not NaN or Infinity)
+        If Single.IsNaN(scaleFactor) OrElse Single.IsInfinity(scaleFactor) Then
+            ' Skip resizing if scaleFactor is not valid
+            Return
+        End If
+
+        For Each ctrl As Control In Me.Controls
+            If TypeOf ctrl Is Label Then
+                ctrl.Font = New Font(ctrl.Font.FontFamily, newFontSize, ctrl.Font.Style)
+            End If
+        Next
+        chartMaker.UpdateMaxColumnWidth()
+    End Sub
+
+
 
     'Button tabs'
     Private Sub calcButton_Click(sender As Object, e As EventArgs) Handles calcButton.Click
@@ -134,7 +167,7 @@ Public Class MainForm
 
 
 
-            chartMaker.changeColors(startingIndex, Int(cbTimeFrame.SelectedItem))
+            chartMaker.changeColors(time_frame(0), Int(cbTimeFrame.SelectedItem), averageTF)
 
             lblAverageNow.Text = ("Keskmine hind: " & averageNow)
             'MessageBox.Show("Sending values: " & startingIndex.ToString())
@@ -147,10 +180,6 @@ Public Class MainForm
     Public Function ReturnCurrentPrice()
         Return prices.First
     End Function
-
-    Private Sub Label11_Click(sender As Object, e As EventArgs) Handles lblAverageTF.Click
-
-    End Sub
 
     Private Sub updateListBox(data As Dictionary(Of String, Double))
         pakettCheckedListBox.Items.Clear()
