@@ -173,6 +173,13 @@ Public Class MainForm
         Dim price As New Double
         Dim title As String = ""
 
+        For i As Integer = 0 To 7
+            If Not selected.Contains(i) Then
+                chartMaker.removeChart(pakettCheckedListBox.Items(i).ToString())
+            End If
+        Next
+
+
         For Each index As Integer In selected
             title = pakettCheckedListBox.Items(index).ToString()
             price = comparePackages.PriceReturn(title)
