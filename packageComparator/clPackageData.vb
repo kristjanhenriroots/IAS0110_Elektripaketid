@@ -1,9 +1,11 @@
 Imports System.Security.Cryptography
 Imports System.Windows.Forms
 
+' Project that compares electricity packages other than börs
 Public Class clPackageData
     Implements iComparePackages
 
+    ' Current list and pricing for all electricity packages
     Public Function PackageData() As Dictionary(Of String, Double) Implements iComparePackages.PackageData
         Dim deals = New Dictionary(Of String, Double) From {
             {"Kasulik Klõps", 16.73}, 'https://elektrihind.ee/paketid/
@@ -19,14 +21,15 @@ Public Class clPackageData
         Return deals
     End Function
 
+    ' Function that gets called when the user changes the order of the packages, input is sorting mode, function will return the formatted list
     Public Function PackageSorter(ByRef sortMode As String) As Dictionary(Of String, Double) Implements iComparePackages.PackageSorter
         Dim temp = PackageData()
 
         'Sort the items in CheckedListBox based on selected sorting option
         If sortMode = "A - Z" Then
-            Return temp
+            Return temp ' because packages are always kept at an alphabetic order
 
-        ElseIf sortMode = "Z - A" Then
+        ElseIf sortMode = "Z - A" Then  ' reverse it
             Dim rev_ans As New Dictionary(Of String, Double)
 
             For i As Integer = temp.Count - 1 To 0 Step -1
@@ -75,6 +78,7 @@ Public Class clPackageData
         Return New Dictionary(Of String, Double)
     End Function
 
+    ' Function if asking for a specific package price
     Public Function PriceReturn(ByRef package As String) As Double Implements iComparePackages.PriceReturn
         Dim deals = PackageData()
         For Each kvp As KeyValuePair(Of String, Double) In deals
@@ -86,7 +90,7 @@ Public Class clPackageData
         Return 0
     End Function
 
-    ' Returns the indices of selected packages from the listbox
+    ' Returns ALL of the indices of selected packages from the listbox, 
     Private Function getSelectedIndices(listBox As CheckedListBox) As List(Of Integer) Implements iComparePackages.GetSelectedIndices
         Dim selectedIndexList As New List(Of Integer)
 
