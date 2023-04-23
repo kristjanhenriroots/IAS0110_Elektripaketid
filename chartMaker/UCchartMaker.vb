@@ -8,6 +8,8 @@ Imports LiveCharts.Definitions.Charts
 Imports LiveCharts.Events
 Imports LiveCharts.WinForms
 Imports LiveCharts.Wpf
+Imports System.Linq
+
 
 
 Public Class UCchartMaker
@@ -16,6 +18,8 @@ Public Class UCchartMaker
     Dim initialControlSize As SizeF
     Dim initialAxisXFontSize As Single
     Dim initialAxisYFontSize As Single
+    Private maxYValue As Double
+
 
 
     Public Sub New()
@@ -80,15 +84,22 @@ Public Class UCchartMaker
             }
         })
 
+        maxYValue = prices.Max()
+
         CartesianChart.AxisY.Add(New Axis With {
             .Title = "Price",
+            .MinValue = 0,
+            .MaxValue = maxYValue,
             .Separator = New LiveCharts.Wpf.Separator With {
                 .Step = 1
             }
         })
 
+
         initialAxisXFontSize = CartesianChart.AxisX(0).FontSize
         initialAxisYFontSize = CartesianChart.AxisY(0).FontSize
+
+        UpdateYAxisMaxValue()
 
     End Sub
 
@@ -111,6 +122,31 @@ Public Class UCchartMaker
         ' Remove the LineSeries if found
         If seriesFinder(title) IsNot Nothing Then
             CartesianChart.Series.Remove(seriesToRemove)
+        End If
+
+        maxYValue = 0
+        For Each series As Series In CartesianChart.Series
+            If TypeOf series Is LineSeries Then
+                For Each point As ObservablePoint In CType(series, LineSeries).Values
+                    If point.Y > maxYValue Then
+                        maxYValue = point.Y
+                    End If
+                Next
+            ElseIf TypeOf series Is ColumnSeries Then
+                For Each point As ObservablePoint In CType(series, ColumnSeries).Values
+                    If point.Y > maxYValue Then
+                        maxYValue = point.Y
+                    End If
+                Next
+            End If
+        Next
+
+        UpdateYAxisMaxValue()
+    End Sub
+
+    Private Sub UpdateYAxisMaxValue()
+        If CartesianChart.AxisY.Count > 0 Then
+            CartesianChart.AxisY(0).MaxValue = maxYValue
         End If
     End Sub
 
@@ -151,6 +187,11 @@ Public Class UCchartMaker
         }
 
         CartesianChart.Series.Add(lineSeries)
+
+        If value > maxYValue Then
+            maxYValue = value
+            UpdateYAxisMaxValue()
+        End If
     End Sub
 
 
@@ -206,10 +247,5 @@ Public Class UCchartMaker
             Return ""
         End If
     End Function
-
-
-
-
-
 
 End Class
