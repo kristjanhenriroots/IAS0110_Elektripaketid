@@ -60,7 +60,6 @@ Public Class CAPIQuery
             End While
         End Using
 
-        Console.WriteLine("Update success.")
         connection.Close()
     End Sub
 
