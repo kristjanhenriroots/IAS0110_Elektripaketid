@@ -50,7 +50,6 @@ Public Class formVordlus
         Dim dateTimeValues = New List(Of String)
         For Each row As DataRow In comboBoxTable.Rows
             dateTimeValues.Add(row(0))
-            Console.WriteLine(row(0))
         Next
 
         Dim providerValues = New List(Of String)
@@ -202,7 +201,6 @@ Public Class formVordlus
         resultTable.Columns.Add("priceMargin", GetType(Double))
         For Each row As DataRow In resultTable.Rows
             row("priceMargin") = row(1) + pakettMargin
-            Console.WriteLine(row(0) & " " & row(1) & " " & row(2))
         Next
 
         comboBoxSearch = New AndmeParija.CDatabaseQuery
