@@ -1,46 +1,47 @@
-﻿Imports System.Reflection
-Imports System.Threading
-Imports System.Windows.Media
-Imports LiveCharts
-Imports LiveCharts.Configurations
+﻿Imports LiveCharts
 Imports LiveCharts.Defaults
-Imports LiveCharts.Definitions.Charts
-Imports LiveCharts.Events
 Imports LiveCharts.WinForms
 Imports LiveCharts.Wpf
 
+' Project used to display cartesian and line charts for electricity packages using liveCharts in an user controlwindow
 
 Public Class UCchartMaker
     Implements iMakeChart
 
-    Dim initialControlSize As SizeF
+    Dim initialControlSize As SizeF     ' Keep track of initial sizes for dynamic resizing
     Dim initialAxisXFontSize As Single
     Dim initialAxisYFontSize As Single
+    Private maxYValue As Double         ' Will be used to calculate the max value for the graph y axis
 
 
+
+    ' Graph initialization things
     Public Sub New()
         InitializeComponent()
-        Me.Controls.Add(CartesianChart)
-        CartesianChart.Dock = DockStyle.Fill
-        CartesianChart.Zoom = ZoomingOptions.X
-        CartesianChart.AnimationsSpeed = TimeSpan.FromMilliseconds(100) ' Set the animation speed to 100 milliseconds
-        'CartesianChart.DisableAnimations = True
-        'CartesianChart.Pan = PanningOptions.Y
-        initialControlSize = New SizeF(Me.Width, Me.Height)
+        Me.Controls.Add(CartesianChart)                                     ' Add a chart
+        CartesianChart.Dock = DockStyle.Fill                                ' Fill the space given
+        CartesianChart.Zoom = ZoomingOptions.X                              ' Enable zoom, might be disabled later or given an option to disable
+        CartesianChart.AnimationsSpeed = TimeSpan.FromMilliseconds(100)     ' Set the animation speed to 100 milliseconds, full animations are slow
+        'CartesianChart.DisableAnimations = True                            ' option to completely disable animations
+        'CartesianChart.Pan = PanningOptions.Y                              ' Panning option letting user pan the y axis, now superseeded by y axis calculation using maxYValue
+        initialControlSize = New SizeF(Me.Width, Me.Height)                 ' Log initial form size
 
     End Sub
 
+    ' Called when the form gets resized. Will recalculate the max column width based on the new size as well as font size on the labels
     Private Sub UpdateMaxColumnWidth() Implements iMakeChart.UpdateMaxColumnWidth
-        Dim scaleFactor As Single = Me.Width / initialControlSize.Width * 0.5
-        Dim newMaxColumnWidth As Single = 20 * scaleFactor ' Change 20 to the desired initial max column width
+        Dim scaleFactor As Single = Me.Width / initialControlSize.Width * 0.5   ' Calculate scale factor, 0.5 is added because 1 is too large
+        Dim newMaxColumnWidth As Single = 20 * scaleFactor                      ' Change 20 to the desired initial max column width
 
-
+        ' Find the cartesian chart and change the max column / bar width
         For Each series As Series In CartesianChart.Series
             If TypeOf series Is ColumnSeries Then
                 Dim columnSeries As ColumnSeries = CType(series, ColumnSeries)
                 columnSeries.MaxColumnWidth = newMaxColumnWidth
             End If
         Next
+
+        ' change the font size and labels for all charts, cartesian and linecharts need to be typecast individually using CType
         For Each axis As Axis In CartesianChart.AxisX
             axis.FontSize = initialAxisXFontSize * scaleFactor ' Use the initial font size
             axis.LabelFormatter = Function(value) DateTime.FromOADate(value).AddHours(-3).ToString("HH:00")
@@ -52,51 +53,63 @@ Public Class UCchartMaker
         Next
     End Sub
 
+
+    ' main function that makes the cartesian chart with börsihind, gets the times and prices lists
     Public Sub setChart(times As DateTime(), prices As Double()) Implements iMakeChart.setChart
         Dim chartValues As New ChartValues(Of ObservablePoint)()
         For i As Integer = 0 To times.Length - 1
-            chartValues.Add(New ObservablePoint(times(i).ToOADate(), prices(i)))
+            chartValues.Add(New ObservablePoint(times(i).ToOADate(), prices(i)))    ' Add the individual lists to chartvalues, now contain x and y axis values
         Next
 
-        Dim columnSeries As New ColumnSeries With {
-            .Title = "Börsihind",
-            .Values = chartValues,
-            .Stroke = System.Windows.Media.Brushes.MediumSlateBlue,
-            .Fill = System.Windows.Media.Brushes.MediumSlateBlue,
-            .ColumnPadding = 1,
+        Dim columnSeries As New ColumnSeries With { ' Set rules for the series / bar chart
+            .Title = "Börsihind",   ' Title
+            .Values = chartValues,  ' Add values
+            .Stroke = System.Windows.Media.Brushes.MediumSlateBlue, ' Does not currently work
+            .Fill = System.Windows.Media.Brushes.MediumSlateBlue,   ' inner color of the bars, .Stroke sets the edge color but does not work, might fix
+            .ColumnPadding = 1,     ' Set padding and initial column width
             .MaxColumnWidth = 20,
-            .LabelPoint = Function(point) String.Format("{0:dd/MM/yyyy HH:mm} - {1:N2} s/kWh", DateTime.FromOADate(point.X), point.Y)
+            .LabelPoint = Function(point) String.Format("{0:dd/MM/yyyy HH:mm} - {1:N2} s/kWh", DateTime.FromOADate(point.X), point.Y)   ' Formatting for the label when hovering with mouse
         }
 
-        CartesianChart.Series.Add(columnSeries)
+        CartesianChart.Series.Add(columnSeries) ' Add the graph
 
-
+        ' Set up the x axis
         CartesianChart.AxisX.Add(New Axis With {
-            .LabelFormatter = Function(value) DateTime.FromOADate(value).AddHours(-3).ToString("HH:00"),
-            .MinValue = times(0).AddHours(11).ToOADate(),
-            .MaxValue = times(times.Length - 1).AddHours(15).ToOADate(),
+            .LabelFormatter = Function(value) DateTime.FromOADate(value).AddHours(-3).ToString("HH:00"), ' Change formatting for labels, leave only the rounded hour and account for the time zone difference
+            .MinValue = times(0).AddHours(11).ToOADate(),                           ' Chart starting location is broken without the addHours although it makes no sense, solution not found
+            .MaxValue = times(times.Length - 1).AddHours(15).ToOADate(),            ' Set the range of the chart, starting and ending location, will be first and last element in the times array
             .Separator = New LiveCharts.Wpf.Separator With {
-                .Step = New TimeSpan(4, 0, 0).TotalDays
+                .Step = New TimeSpan(2, 0, 0).TotalDays                             ' labels on the x axis bottom should appear every 2 hours, but still pretty broken
             }
         })
 
+        maxYValue = prices.Max()                                                    ' Set the limit of the y axis, if maximum price is 19.95 the y axis max will be 20 and will not change with zoom
+
+        ' Set up the y axis
         CartesianChart.AxisY.Add(New Axis With {
-            .Title = "Price",
+            .Title = "Price",   ' Title
+            .MinValue = 0,      ' Miminum value will be zero, might consider changing because sometimes pricing can be negative, but it will break with zoom
+            .MaxValue = maxYValue,
             .Separator = New LiveCharts.Wpf.Separator With {
-                .Step = 1
+                .Step = 1       ' Stepping of 1 cent
             }
         })
 
-        initialAxisXFontSize = CartesianChart.AxisX(0).FontSize
+
+        initialAxisXFontSize = CartesianChart.AxisX(0).FontSize ' Set initial font sizes for the x and y axis for dynamic font resizing
         initialAxisYFontSize = CartesianChart.AxisY(0).FontSize
+
+        UpdateYAxisMaxValue()
 
     End Sub
 
+    ' Objective is to find the series, or graph, based on the title. Used for the comparator
+    ' Function will check if a graph by that name already exist and returns it, when none are found nothing is returned
     Private Function seriesFinder(title As String) As LineSeries
         Dim foundSeries As LineSeries = Nothing
 
         For Each series As Series In CartesianChart.Series
-            If series.Title = title AndAlso TypeOf series Is LineSeries Then
+            If series.Title = title AndAlso TypeOf series Is LineSeries Then    ' Only searching lineseries / line graphs, because the cartesianchart will not be removed
                 foundSeries = series
                 Exit For
             End If
@@ -105,6 +118,7 @@ Public Class UCchartMaker
 
     End Function
 
+    ' Used for removing a chart when the user deselects it on the comparator, gets the title and check whether it exists using seriesFinder()
     Private Sub removeChart(title As String) Implements iMakeChart.removeChart
         Dim seriesToRemove = seriesFinder(title)
 
@@ -112,19 +126,50 @@ Public Class UCchartMaker
         If seriesFinder(title) IsNot Nothing Then
             CartesianChart.Series.Remove(seriesToRemove)
         End If
+
+        ' Refind the highest priced point and update the max y axis value, if a package costing 20 cents is removed the y axis will be rescaled to the next maximum point
+        maxYValue = 0
+        For Each series As Series In CartesianChart.Series
+            If TypeOf series Is LineSeries Then
+                For Each point As ObservablePoint In CType(series, LineSeries).Values   ' linecharts and the cartesian chart need to be checked separately for some reason, typecasting with CType()
+                    If point.Y > maxYValue Then
+                        maxYValue = point.Y
+                    End If
+                Next
+            ElseIf TypeOf series Is ColumnSeries Then
+                For Each point As ObservablePoint In CType(series, ColumnSeries).Values
+                    If point.Y > maxYValue Then
+                        maxYValue = point.Y
+                    End If
+                Next
+            End If
+        Next
+
+        UpdateYAxisMaxValue()
+    End Sub
+
+    ' Updates maximum y axis value, changing the value will automatically rescale the chart
+    Private Sub UpdateYAxisMaxValue()
+        If CartesianChart.AxisY.Count > 0 Then
+            CartesianChart.AxisY(0).MaxValue = maxYValue
+        End If
     End Sub
 
 
-
+    ' Sub that gets called when the user wants to compare charts, inputs are:
+    ' array of times()
+    ' title of the graph that the user wants to compare
+    ' the price for the package
+    ' the index of the package in the listbox, will be used to give the chart a color
     Private Sub addComparison(times As DateTime(), title As String, value As Double, index As Integer) Implements iMakeChart.addComparison
 
-        If seriesFinder(title) IsNot Nothing Then
-            Console.WriteLine("seriesFinder result with " & title)
+        If seriesFinder(title) IsNot Nothing Then   ' checks whether the package being compared already exists on the chart, exit if exists
+            Console.WriteLine("seriesFinder result with " & title)  ' debugging
 
             Exit Sub
         End If
 
-        Dim prices = New Double() {value, value}        ' Create an array with the given price value
+        Dim prices = New Double() {value, value}        ' Create an array with the given price value, it will be the same value, one for the beginning, one for the end
 
         Dim colors() As System.Windows.Media.Brush = {  ' Colors for all different packages
             System.Windows.Media.Brushes.Firebrick,
@@ -137,28 +182,29 @@ Public Class UCchartMaker
             System.Windows.Media.Brushes.Black
         }
 
+        ' Set rules for the new graph
         Dim lineSeries As New LineSeries With {
-            .Title = title,
+            .Title = title, ' title is given
             .Values = New ChartValues(Of ObservablePoint)(New List(Of ObservablePoint) From {
-                New ObservablePoint(times.First.ToOADate(), prices(0)),
+                New ObservablePoint(times.First.ToOADate(), prices(0)), ' linecharts only have 2 points, the beginning of times array and the end, currently the 24H window
                 New ObservablePoint(times.Last.ToOADate(), prices(1))
             }),
-            .Stroke = colors(index),
+            .Stroke = colors(index),    ' Get the color
             .Fill = System.Windows.Media.Brushes.Transparent,
             .PointGeometry = Nothing,
             .DataLabels = True,
-            .LabelPoint = Function(point) FormatLabelPoint(point, title)
+            .LabelPoint = Function(point) FormatLabelPoint(point, title)    ' Enable tooltips
         }
 
-        CartesianChart.Series.Add(lineSeries)
+        CartesianChart.Series.Add(lineSeries)   ' Add the chart
+
+        If value > maxYValue Then   ' If the package is higher priced that the previous max then rescale the y axis
+            maxYValue = value
+            UpdateYAxisMaxValue()
+        End If
     End Sub
 
-
-
-
-
-
-    ' coloring code
+    ' coloring code, allows for independently colored bars on the cartesianchart, slow and will probably be removed
     'For i As Integer = 0 To times.Length - 1
     '       chartValues = New ChartValues(Of ObservablePoint)()
     '        chartValues.Add(New ObservablePoint(times(i).ToOADate(), prices(i)))
@@ -174,21 +220,25 @@ Public Class UCchartMaker
     '      CartesianChart.Series.Add(columnSeries)
     'Next
 
+    ' Originally used for changing colors of the bars but not feasible with livecharts, now creates a new linechart for the recommended time to use electricity
+    ' inputs are starting time, the amount of hours and the average price for the timeframe
     Public Sub changeColors(startTime As DateTime, amount As Integer, avg_price As Double) Implements iMakeChart.changeColors
-        removeChart("Soovitatud")
+        removeChart("Soovitatud")   ' Remove the chart if another time was previously shown
 
+        ' Set rules for new chart
         Dim lineSeries As New LineSeries With {
-            .Title = "Soovitatud",
+            .Title = "Soovitatud",  ' set title
             .Values = New ChartValues(Of ObservablePoint)(),
             .Stroke = System.Windows.Media.Brushes.Red,
             .Fill = System.Windows.Media.Brushes.Transparent,
             .PointGeometry = Nothing,
             .DataLabels = True,
-            .LabelPoint = Function(point) FormatLabelPoint(point, "Soovitatud")
+            .LabelPoint = Function(point) FormatLabelPoint(point, "Soovitatud") ' enable tooltips
          }
         '.LabelPoint = Function(point) String.Format("{0:dd/MM/yyyy HH:mm} - {1:N2} s/kWh", DateTime.FromOADate(point.X), point.Y)
 
         ' Add an ObservablePoint for every hour between startTime and startTime + amount
+        ' Only line chart to currently have more than 2 points
         For i As Integer = 0 To amount - 1
             Dim currentDateTime As DateTime = startTime.AddHours(i)
             lineSeries.Values.Add(New ObservablePoint(currentDateTime.ToOADate(), avg_price))
@@ -197,6 +247,7 @@ Public Class UCchartMaker
         CartesianChart.Series.Add(lineSeries)
     End Sub
 
+    ' Function that enables unified custom label formatting on linecharts
     Private Function FormatLabelPoint(chartPoint As ChartPoint, title As String) As String
         Dim lineSeries As LineSeries = CartesianChart.Series.OfType(Of LineSeries).FirstOrDefault(Function(s) s.Title = title)
 
@@ -206,10 +257,5 @@ Public Class UCchartMaker
             Return ""
         End If
     End Function
-
-
-
-
-
 
 End Class
