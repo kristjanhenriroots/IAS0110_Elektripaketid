@@ -4,6 +4,7 @@ Imports AndmeParija.CAPIQuery
 Imports AndmeParija.CDatabaseQuery
 Public Class formVordlus
     Private comboBoxTable As New DataTable
+    Private dictionaryTable As New DataTable
     Private deals As New Dictionary(Of String, Double)
 
     Private Sub formVordlus_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -45,23 +46,10 @@ Public Class formVordlus
         End Try
 
         Dim loadComboBoxValues As AndmeParija.IDatabaseQuery
+        loadComboBoxValues = New AndmeParija.CDatabaseQuery
+        dictionaryTable = loadComboBoxValues.queryData("Select provider, name, avgPricePerKW FROM universaalPakett")
 
         loadComboBoxValues = New AndmeParija.CDatabaseQuery
-        comboBoxTable = loadComboBoxValues.queryData("Select name, avgPricePerKW FROM universaalPakett")
-
-        For Each row As DataRow In comboBoxTable.Rows
-            If Not deals.ContainsKey(row(0)) Then
-                Console.Write(row("name").ToString())
-                Console.WriteLine(row(1))
-                deals.Add(row("name").ToString(), row("avgPricePerKW"))
-            End If
-        Next
-        For Each dealName As String In deals.Keys
-            pakettCheckedListBox.Items.Add(dealName)
-        Next
-
-        loadComboBoxValues = New AndmeParija.CDatabaseQuery
-
         comboBoxTable = loadComboBoxValues.queryData("Select dateTime FROM bors WHERE rowid > 1 LIMIT 25")
 
         Dim dateTimeValues = New List(Of String)
@@ -94,6 +82,22 @@ Public Class formVordlus
         Dim nameRow As DataRow()
         Dim filterStr As String = "provider = '" & cbProvider.SelectedValue & "'"
         nameRow = comboBoxTable.Select(filterStr)
+        Dim dtRow As DataRow() = dictionaryTable.Select(filterStr)
+        nameRow = comboBoxTable.Select(filterStr)
+
+        deals.Clear()
+        pakettCheckedListBox.Items.Clear()
+
+        For Each row As DataRow In dtRow
+            If Not deals.ContainsKey(row("name")) Then
+                Console.Write(row("name").ToString())
+                Console.WriteLine(row("avgPricePerKW"))
+                deals.Add(row("name").ToString(), row("avgPricePerKW"))
+            End If
+        Next
+        For Each dealName As String In deals.Keys
+            pakettCheckedListBox.Items.Add(dealName)
+        Next
 
         For Each row As DataRow In nameRow
             nameValues.Add(row(1).ToString)
