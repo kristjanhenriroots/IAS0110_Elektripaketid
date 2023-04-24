@@ -193,7 +193,7 @@ Public Class formVordlus
         Dim marginsTable As DataTable = comboBoxSearch.queryData("Select margin FROM borsPakett WHERE name = '" & cbPackage.SelectedValue & "'")
         comboBoxSearch = New AndmeParija.CDatabaseQuery
 
-        Dim resultTable As DataTable = comboBoxSearch.queryData("Select DISTINCT dateTime, price/10 FROM bors WHERE rowid > 1 AND dateTime BETWEEN '" _
+        Dim resultTable As DataTable = comboBoxSearch.queryData("Select DISTINCT dateTime, price FROM bors WHERE rowid > 1 AND dateTime BETWEEN '" _
                                                                           & cbStartTime.SelectedValue & "' AND '" & cbEndTime.SelectedValue & "'")
 
         Dim pakettMargin As Object = marginsTable.Rows(0)(0)
