@@ -190,7 +190,7 @@ Partial Class formVordlus
         Me.cbProvider.FormattingEnabled = True
         Me.cbProvider.Location = New System.Drawing.Point(35, 247)
         Me.cbProvider.Name = "cbProvider"
-        Me.cbProvider.Size = New System.Drawing.Size(121, 21)
+        Me.cbProvider.Size = New System.Drawing.Size(142, 21)
         Me.cbProvider.TabIndex = 66
         '
         'cbPackage
@@ -199,7 +199,7 @@ Partial Class formVordlus
         Me.cbPackage.FormattingEnabled = True
         Me.cbPackage.Location = New System.Drawing.Point(35, 294)
         Me.cbPackage.Name = "cbPackage"
-        Me.cbPackage.Size = New System.Drawing.Size(121, 21)
+        Me.cbPackage.Size = New System.Drawing.Size(142, 21)
         Me.cbPackage.TabIndex = 67
         '
         'lblProvider
@@ -224,18 +224,18 @@ Partial Class formVordlus
         '
         Me.cbStartTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbStartTime.FormattingEnabled = True
-        Me.cbStartTime.Location = New System.Drawing.Point(181, 247)
+        Me.cbStartTime.Location = New System.Drawing.Point(221, 247)
         Me.cbStartTime.Name = "cbStartTime"
-        Me.cbStartTime.Size = New System.Drawing.Size(121, 21)
+        Me.cbStartTime.Size = New System.Drawing.Size(142, 21)
         Me.cbStartTime.TabIndex = 70
         '
         'cbEndTime
         '
         Me.cbEndTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbEndTime.FormattingEnabled = True
-        Me.cbEndTime.Location = New System.Drawing.Point(181, 294)
+        Me.cbEndTime.Location = New System.Drawing.Point(221, 294)
         Me.cbEndTime.Name = "cbEndTime"
-        Me.cbEndTime.Size = New System.Drawing.Size(121, 21)
+        Me.cbEndTime.Size = New System.Drawing.Size(142, 21)
         Me.cbEndTime.TabIndex = 71
         '
         'btnFindPackage
