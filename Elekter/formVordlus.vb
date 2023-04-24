@@ -58,11 +58,10 @@ Public Class formVordlus
         loadComboBoxValues = New AndmeParija.CDatabaseQuery
         comboBoxTable = loadComboBoxValues.queryData("Select DISTINCT provider, name FROM borsPakett")
 
-        Dim tempVar As String
+        Dim tempVar As String 'Ainult korraks vaja
         For Each row As DataRow In comboBoxTable.Rows
             tempVar = row(0).ToString
             If Not providerValues.Contains(tempVar) Then
-                Console.WriteLine(tempVar)
                 providerValues.Add(row(0))
             End If
 
