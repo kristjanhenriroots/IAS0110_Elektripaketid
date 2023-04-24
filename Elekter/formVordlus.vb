@@ -1,4 +1,5 @@
-﻿Imports System.Text
+﻿Imports System.CodeDom.Compiler
+Imports System.Text
 Imports AndmeParija.CAPIQuery
 Imports AndmeParija.CDatabaseQuery
 Public Class formVordlus
@@ -56,8 +57,16 @@ Public Class formVordlus
 
         loadComboBoxValues = New AndmeParija.CDatabaseQuery
         comboBoxTable = loadComboBoxValues.queryData("Select DISTINCT provider, name FROM borsPakett")
+
+        Dim tempVar As String
         For Each row As DataRow In comboBoxTable.Rows
-            providerValues.Add(row(0))
+            tempVar = row(0).ToString
+            If Not providerValues.Contains(tempVar) Then
+                Console.WriteLine(tempVar)
+                providerValues.Add(row(0))
+            End If
+
+
         Next
 
         cbProvider.DataSource = providerValues
