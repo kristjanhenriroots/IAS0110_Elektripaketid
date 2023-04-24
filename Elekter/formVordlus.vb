@@ -45,9 +45,25 @@ Public Class formVordlus
             MessageBox.Show("Error updating data table.")
         End Try
 
+        'New Dictionary section
+        'Get data from database
         Dim loadComboBoxValues As AndmeParija.IDatabaseQuery
         loadComboBoxValues = New AndmeParija.CDatabaseQuery
         dictionaryTable = loadComboBoxValues.queryData("Select provider, name, avgPricePerKW FROM universaalPakett")
+
+        'Write datatable to dictionary
+        For Each row As DataRow In dictionaryTable.Rows
+            If Not deals.ContainsKey(row("name")) Then
+                Console.Write(row("name").ToString())
+                Console.WriteLine(row("avgPricePerKW"))
+                deals.Add(row("provider") & " " & row("name"), row("avgPricePerKW"))
+            End If
+        Next
+        'Add dictionary to checkboxlist
+        For Each dealName As String In deals.Keys
+            pakettCheckedListBox.Items.Add(dealName)
+        Next
+
 
         loadComboBoxValues = New AndmeParija.CDatabaseQuery
         comboBoxTable = loadComboBoxValues.queryData("Select dateTime FROM bors WHERE rowid > 1 LIMIT 25")
@@ -82,22 +98,6 @@ Public Class formVordlus
         Dim nameRow As DataRow()
         Dim filterStr As String = "provider = '" & cbProvider.SelectedValue & "'"
         nameRow = comboBoxTable.Select(filterStr)
-        Dim dtRow As DataRow() = dictionaryTable.Select(filterStr)
-        nameRow = comboBoxTable.Select(filterStr)
-
-        deals.Clear()
-        pakettCheckedListBox.Items.Clear()
-
-        For Each row As DataRow In dtRow
-            If Not deals.ContainsKey(row("name")) Then
-                Console.Write(row("name").ToString())
-                Console.WriteLine(row("avgPricePerKW"))
-                deals.Add(row("name").ToString(), row("avgPricePerKW"))
-            End If
-        Next
-        For Each dealName As String In deals.Keys
-            pakettCheckedListBox.Items.Add(dealName)
-        Next
 
         For Each row As DataRow In nameRow
             nameValues.Add(row(1).ToString)
