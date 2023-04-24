@@ -50,7 +50,7 @@ Public Class CAPIQuery
                 Dim price As Double = Double.Parse(values(2).Trim("""").Replace(",", "."), CultureInfo.InvariantCulture)
 
                 commandTxt = "UPDATE bors SET timeTemplateUTC = '" & timeTemplate & "', dateTime = '" & dateValue.ToString("dd.MM.yyyy HH:mm") & 'Siin on 24h
-                "', price = '" & price & "' WHERE rowid = " & index & ";" 'Päringu teksti lisamine. Rowid peab olema alguses 2, sest esimene row on csv failis stringid :/
+                "', price = '" & price * 1.2 / 10 & "' WHERE rowid = " & index & ";" 'Päringu teksti lisamine. Rowid peab olema alguses 2, sest esimene row on csv failis stringid :/
 
                 command.Connection = connection 'Andmebaasi ühenduse lisamine
                 command.CommandText = commandTxt
