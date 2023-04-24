@@ -50,6 +50,7 @@ Public Class formVordlus
         Dim dateTimeValues = New List(Of String)
         For Each row As DataRow In comboBoxTable.Rows
             dateTimeValues.Add(row(0))
+            Console.WriteLine(row(0))
         Next
 
         Dim providerValues = New List(Of String)
@@ -233,6 +234,5 @@ Public Class formVordlus
 
         newForm.dgvTimePrice.DataSource = resultTable
         newForm.Show()
-
     End Sub
 End Class
