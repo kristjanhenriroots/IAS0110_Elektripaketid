@@ -22,8 +22,6 @@ Public Class CDatabaseQuery
         command.Connection = connection 'Andmebaasi ühenduse lisamine
         command.CommandText = commandTxt 'Päringu teksti lisamine
 
-        'Console.WriteLine("here " & dbPath) debugimiseks. Igno
-
         Dim rdr As SQLiteDataReader = command.ExecuteReader 'Päringu teostus
         answer.Load(rdr) 'Päringu sisestamine lokaalsesse muutujasse
 

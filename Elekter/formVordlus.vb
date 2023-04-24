@@ -1,6 +1,10 @@
-﻿Public Class formVordlus
-
+﻿Imports System.Text
+Imports AndmeParija.CAPIQuery
+Imports AndmeParija.CDatabaseQuery
+Public Class formVordlus
+    Private comboBoxTable As New DataTable
     Private deals As Dictionary(Of String, Double)
+
     Private Sub formVordlus_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         deals = New Dictionary(Of String, Double) From {
             {"Börss", MainForm.ReturnCurrentPrice},
@@ -28,6 +32,52 @@
         'Show clear packageChart on form load.
         packageChart.Series.Clear()
 
+        'Database section
+        Dim updateBorsTable As AndmeParija.IAPIQuery
+        updateBorsTable = New AndmeParija.CAPIQuery
+
+        Try
+            updateBorsTable.updateTable()
+        Catch ex As Exception
+            MessageBox.Show("Error updating data table.")
+        End Try
+
+        Dim loadComboBoxValues As AndmeParija.IDatabaseQuery
+        loadComboBoxValues = New AndmeParija.CDatabaseQuery
+
+        comboBoxTable = loadComboBoxValues.queryData("Select dateTime FROM bors WHERE rowid > 1 LIMIT 25")
+
+        Dim dateTimeValues = New List(Of String)
+        For Each row As DataRow In comboBoxTable.Rows
+            dateTimeValues.Add(row(0))
+        Next
+
+        Dim providerValues = New List(Of String)
+
+        loadComboBoxValues = New AndmeParija.CDatabaseQuery
+        comboBoxTable = loadComboBoxValues.queryData("Select DISTINCT provider, name FROM borsPakett")
+        For Each row As DataRow In comboBoxTable.Rows
+            providerValues.Add(row(0))
+        Next
+
+        cbProvider.DataSource = providerValues
+        cbStartTime.BindingContext = New BindingContext
+        cbStartTime.DataSource = dateTimeValues
+        cbEndTime.BindingContext = New BindingContext
+        cbEndTime.DataSource = dateTimeValues
+    End Sub
+
+    Private Sub cbProvider_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbProvider.SelectedValueChanged
+        Dim nameValues = New List(Of String)
+        Dim nameRow As DataRow()
+        Dim filterStr As String = "provider = '" & cbProvider.SelectedValue & "'"
+        nameRow = comboBoxTable.Select(filterStr)
+
+        For Each row As DataRow In nameRow
+            nameValues.Add(row(1).ToString)
+        Next
+
+        cbPackage.DataSource = nameValues
     End Sub
 
     Private Sub jarjestamineComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles jarjestamineComboBox.SelectedIndexChanged
@@ -132,5 +182,57 @@
             'Add tooltip for data point to display name and price.
             series.Points(0).ToolTip = key & " - " & Math.Round(value, 2).ToString() & " s"
         Next
+    End Sub
+
+    Private Sub btnFindPackage_Click(sender As Object, e As EventArgs) Handles btnFindPackage.Click
+        Dim sbPakettPriceMargin As StringBuilder = New StringBuilder
+
+        Dim comboBoxSearch As AndmeParija.IDatabaseQuery
+        comboBoxSearch = New AndmeParija.CDatabaseQuery
+
+        Dim marginsTable As DataTable = comboBoxSearch.queryData("Select margin FROM borsPakett WHERE name = '" & cbPackage.SelectedValue & "'")
+        comboBoxSearch = New AndmeParija.CDatabaseQuery
+
+        Dim resultTable As DataTable = comboBoxSearch.queryData("Select DISTINCT dateTime, price/10 FROM bors WHERE rowid > 1 AND dateTime BETWEEN '" _
+                                                                          & cbStartTime.SelectedValue & "' AND '" & cbEndTime.SelectedValue & "'")
+
+        Dim pakettMargin As Object = marginsTable.Rows(0)(0)
+
+        resultTable.Columns.Add("priceMargin", GetType(Double))
+        For Each row As DataRow In resultTable.Rows
+            row("priceMargin") = row(1) + pakettMargin
+            Console.WriteLine(row(0) & " " & row(1) & " " & row(2))
+        Next
+
+        comboBoxSearch = New AndmeParija.CDatabaseQuery
+
+        marginsTable = comboBoxSearch.queryData("Select name, provider, margin FROM borsPakett ORDER BY margin ASC LIMIT 3")
+        sbPakettPriceMargin.AppendLine("3 Kõige väiksemat marginaali: ")
+        For Each row As DataRow In marginsTable.Rows
+            sbPakettPriceMargin.AppendLine(row(0).ToString & " " & row(1).ToString & " " & row(2).ToString)
+        Next
+        sbPakettPriceMargin.AppendLine()
+
+        comboBoxSearch = New AndmeParija.CDatabaseQuery
+        marginsTable = comboBoxSearch.queryData("Select name, provider, margin FROM borsPakett ORDER BY margin DESC LIMIT 3")
+        sbPakettPriceMargin.AppendLine("3 Kõige suuremat marginaali: ")
+        For Each row As DataRow In marginsTable.Rows
+            sbPakettPriceMargin.AppendLine(row(0).ToString & " " & row(1).ToString & " " & row(2).ToString)
+        Next
+        sbPakettPriceMargin.AppendLine()
+
+        sbPakettPriceMargin.AppendLine("Valitud paketti ajavahemiku hinnad tunnilõikes, koos hinnaga lõpptarbijale")
+        For Each row As DataRow In resultTable.Rows
+            sbPakettPriceMargin.AppendLine(row(0) & " " & row(1) & " " & row(2))
+        Next
+
+
+
+        Dim newForm As New formPriceMargin
+        newForm.tbPriceMargins.Text += sbPakettPriceMargin.ToString
+
+        newForm.dgvTimePrice.DataSource = resultTable
+        newForm.Show()
+
     End Sub
 End Class
