@@ -1,4 +1,4 @@
-﻿Imports System.Net.Http
+Imports System.Net.Http
 Imports System.IO
 Imports System.Text
 Imports System.Windows.Forms.DataVisualization.Charting
