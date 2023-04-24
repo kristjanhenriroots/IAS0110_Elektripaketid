@@ -22,9 +22,9 @@ Partial Class formVordlus
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.otsingButton = New System.Windows.Forms.Button()
         Me.vordlusButton = New System.Windows.Forms.Button()
         Me.calcButton = New System.Windows.Forms.Button()
@@ -154,7 +154,7 @@ Partial Class formVordlus
         Me.pakettCheckedListBox.Location = New System.Drawing.Point(35, 78)
         Me.pakettCheckedListBox.Margin = New System.Windows.Forms.Padding(2)
         Me.pakettCheckedListBox.Name = "pakettCheckedListBox"
-        Me.pakettCheckedListBox.Size = New System.Drawing.Size(90, 124)
+        Me.pakettCheckedListBox.Size = New System.Drawing.Size(88, 124)
         Me.pakettCheckedListBox.TabIndex = 53
         '
         'Label1
@@ -169,17 +169,17 @@ Partial Class formVordlus
         '
         'packageChart
         '
-        ChartArea1.Name = "ChartArea1"
-        Me.packageChart.ChartAreas.Add(ChartArea1)
-        Legend1.Name = "Legend1"
-        Me.packageChart.Legends.Add(Legend1)
+        ChartArea3.Name = "ChartArea1"
+        Me.packageChart.ChartAreas.Add(ChartArea3)
+        Legend3.Name = "Legend1"
+        Me.packageChart.Legends.Add(Legend3)
         Me.packageChart.Location = New System.Drawing.Point(233, 78)
         Me.packageChart.Margin = New System.Windows.Forms.Padding(2)
         Me.packageChart.Name = "packageChart"
-        Series1.ChartArea = "ChartArea1"
-        Series1.Legend = "Legend1"
-        Series1.Name = "Series1"
-        Me.packageChart.Series.Add(Series1)
+        Series3.ChartArea = "ChartArea1"
+        Series3.Legend = "Legend1"
+        Series3.Name = "Series1"
+        Me.packageChart.Series.Add(Series3)
         Me.packageChart.Size = New System.Drawing.Size(163, 122)
         Me.packageChart.TabIndex = 65
         Me.packageChart.Text = "Chart1"
