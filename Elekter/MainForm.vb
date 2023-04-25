@@ -15,6 +15,7 @@ Public Class MainForm
     Dim chartMaker As iMakeChart = New UCchartMaker()                       ' project chartMaker interface
     Dim comparePackages As iComparePackages = New clPackageData()           ' project packageComparator interface
     Dim apiHandler As IhandleAPI = New ApiHandler()
+    Dim frame As iPriceCalc = New TimeFrameCalc                             ' PriceCalc interface
     Dim rs As New Resizer                                                   ' calls the custom class for dynamic form resizing, see Resizer.vb
     Dim initialFormSize As SizeF                                            ' saves the initial form size, used to calculate the size factor when resizing fonts
     Dim initialFontSize As Single                                           ' saves the initial font size, used to calculate new font size dynamically
@@ -44,7 +45,8 @@ Public Class MainForm
         chartPanel.Controls.Add(CType(chartMaker, Control))
 
         Try
-            Dim pricesAndTimes = Await apiHandler.Get24hData()
+            Dim currentDate As DateTime = DateTime.Now.Date
+            Dim pricesAndTimes = Await apiHandler.GetPriceData(currentDate, currentDate.AddDays(1))
             times = pricesAndTimes.Item1
             prices = pricesAndTimes.Item2
         Catch ex As Exception
@@ -102,7 +104,6 @@ Public Class MainForm
         If cbTimeFrame.SelectedItem And Int(cbTimeFrame.SelectedItem) <= times.Count Then
 
             ' get the best time frame
-            Dim frame As iPriceCalc = New TimeFrameCalc ' PriceCalc interface
             Dim time_frame = frame.CalcTimeFrame(Int(cbTimeFrame.SelectedItem), prices.ToArray(), times.ToArray())  ' get an array of 2 datetime type elements, first the beginning and then the ending time
 
             ' display the time frame and change colors accordingly
@@ -169,7 +170,28 @@ Public Class MainForm
         Next
     End Sub
 
-    Private Sub btn7Davg_Click(sender As Object, e As EventArgs) Handles btn7Davg.Click
-        chartMaker.addChart(times.ToArray(), prices.ToArray(), "Nädala keskmine", True)
+    Private Async Sub btn7Davg_Click(sender As Object, e As EventArgs) Handles btn7Davg.Click
+        Dim weekTimes As New List(Of DateTime)()
+        Dim weekPrices As New List(Of Double)()
+
+
+        Try
+            Dim currentDate As DateTime = DateTime.Now.AddHours(-3)
+            Dim weekPricesAndTimes = Await apiHandler.GetPriceData(currentDate, currentDate.AddDays(1))
+            weekTimes = weekPricesAndTimes.Item1
+            weekPrices = weekPricesAndTimes.Item2
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+
+        Dim avg_prices = frame.averagePriceWeek(weekTimes.ToArray(), weekPrices.ToArray())
+        Dim todayStart As DateTime = DateTime.Now.Date
+        Dim hoursOfDay(23) As DateTime
+        For i As Integer = 0 To 23
+            hoursOfDay(i) = todayStart.AddHours(i)
+        Next
+
+        chartMaker.addChart(hoursOfDay, weekPrices.ToArray(), "Nädala keskmine", True)
+
     End Sub
 End Class

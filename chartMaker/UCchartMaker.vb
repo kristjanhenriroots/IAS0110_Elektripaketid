@@ -36,13 +36,16 @@ Public Class UCchartMaker
         Dim scaleFactor As Single = Me.Width / initialControlSize.Width * 0.5   ' Calculate scale factor, 0.5 is added because 1 is too large
         Dim newMaxColumnWidth As Single = 20 * scaleFactor                      ' Change 20 to the desired initial max column width
 
-        ' Find the cartesian chart and change the max column / bar width
-        For Each series As Series In mainChart.Series
-            If TypeOf series Is ColumnSeries Then
-                Dim columnSeries As ColumnSeries = CType(series, ColumnSeries)
-                columnSeries.MaxColumnWidth = newMaxColumnWidth
-            End If
-        Next
+        If newMaxColumnWidth < 50 Then
+            ' Find the cartesian chart and change the max column / bar width
+            For Each series As Series In mainChart.Series
+                If TypeOf series Is ColumnSeries Then
+                    Dim columnSeries As ColumnSeries = CType(series, ColumnSeries)
+                    columnSeries.MaxColumnWidth = newMaxColumnWidth
+                End If
+            Next
+        End If
+
 
         ' change the font size and labels for all charts, cartesian and linecharts need to be typecast individually using CType
         For Each axis As Axis In mainChart.AxisX
@@ -106,8 +109,8 @@ Public Class UCchartMaker
 
     ' Objective is to find the series, or graph, based on the title. Used for the comparator
     ' Function will check if a graph by that name already exist and returns it, when none are found nothing is returned
-    Private Function seriesFinder(title As String) As LineSeries
-        Dim foundSeries As LineSeries = Nothing
+    Private Function seriesFinder(title As String) As Series
+        Dim foundSeries As Series = Nothing
 
         For Each series As Series In mainChart.Series
             If series.Title = title Then    ' Search for the title

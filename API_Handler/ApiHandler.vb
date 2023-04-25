@@ -6,16 +6,15 @@ Imports System.Text
 Public Class ApiHandler
     Implements IhandleAPI
 
-    Public Async Function Get24hData() As Task(Of Tuple(Of List(Of DateTime), List(Of Double))) Implements IhandleAPI.Get24hData
+    Public Async Function GetPriceData(startTime As DateTime, endtime As DateTime) As Task(Of Tuple(Of List(Of DateTime), List(Of Double))) Implements IhandleAPI.GetPriceData
         Dim times As New List(Of DateTime)()
         Dim prices As New List(Of Double)()
 
         Try
             Dim client As New HttpClient()
-            Dim currentDate As DateTime = DateTime.Now.AddHours(-3)
-            Dim startTime As String = currentDate.ToString("yyyy-MM-dd'T'HH:mm:ssZ")
-            Dim endTime As String = currentDate.AddDays(1).ToString("yyyy-MM-dd'T'HH:mm:ssZ")
-            Dim response As HttpResponseMessage = Await client.GetAsync($"https://dashboard.elering.ee/api/nps/price/csv?start={startTime}&end={endTime}&fields=ee")
+            Dim startTimeFormat As String = startTime.ToString("yyyy-MM-dd'T'HH:mm:ssZ")
+            Dim endTimeFormat As String = endtime.ToString("yyyy-MM-dd'T'HH:mm:ssZ")
+            Dim response As HttpResponseMessage = Await client.GetAsync($"https://dashboard.elering.ee/api/nps/price/csv?start={startTimeFormat}&end={endTimeFormat}&fields=ee")
             Dim content As Stream = Await response.Content.ReadAsStreamAsync()
             Dim csvContent As New StringBuilder()
 
