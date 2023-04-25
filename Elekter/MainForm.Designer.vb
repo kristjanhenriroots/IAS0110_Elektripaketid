@@ -57,6 +57,8 @@ Partial Class MainForm
         Me.cbProvider = New System.Windows.Forms.ComboBox()
         Me.cbPackage = New System.Windows.Forms.ComboBox()
         Me.btnConfirm = New System.Windows.Forms.Button()
+        Me.lblProvider = New System.Windows.Forms.Label()
+        Me.lblPackage = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'otsingButton
@@ -425,11 +427,31 @@ Partial Class MainForm
         Me.btnConfirm.Text = "Kinnita"
         Me.btnConfirm.UseVisualStyleBackColor = True
         '
+        'lblProvider
+        '
+        Me.lblProvider.AutoSize = True
+        Me.lblProvider.Location = New System.Drawing.Point(345, 508)
+        Me.lblProvider.Name = "lblProvider"
+        Me.lblProvider.Size = New System.Drawing.Size(49, 13)
+        Me.lblProvider.TabIndex = 90
+        Me.lblProvider.Text = "Pakkuja:"
+        '
+        'lblPackage
+        '
+        Me.lblPackage.AutoSize = True
+        Me.lblPackage.Location = New System.Drawing.Point(472, 508)
+        Me.lblPackage.Name = "lblPackage"
+        Me.lblPackage.Size = New System.Drawing.Size(41, 13)
+        Me.lblPackage.TabIndex = 91
+        Me.lblPackage.Text = "Pakett:"
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(984, 561)
+        Me.Controls.Add(Me.lblPackage)
+        Me.Controls.Add(Me.lblProvider)
         Me.Controls.Add(Me.btnConfirm)
         Me.Controls.Add(Me.cbPackage)
         Me.Controls.Add(Me.cbProvider)
@@ -508,6 +530,8 @@ Partial Class MainForm
     Friend WithEvents cbProvider As ComboBox
     Friend WithEvents cbPackage As ComboBox
     Friend WithEvents btnConfirm As Button
+    Friend WithEvents lblProvider As Label
+    Friend WithEvents lblPackage As Label
 End Class
 '=======
 '﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>

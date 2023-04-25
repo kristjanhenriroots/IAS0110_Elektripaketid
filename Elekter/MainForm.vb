@@ -106,7 +106,7 @@ Public Class MainForm
         Dim loadComboBoxValues As AndmeParija.IDatabaseQuery = New AndmeParija.CDatabaseQuery
         Dim providerValues = New List(Of String)
 
-        comboBoxTable = loadComboBoxValues.queryData("Select DISTINCT provider, name, footprint FROM borsPakett")
+        comboBoxTable = loadComboBoxValues.queryData("Select DISTINCT provider, name, footprint FROM universaalPakett")
 
         Dim tempVar As String 'Ainult korraks vaja
         For Each row As DataRow In comboBoxTable.Rows
@@ -130,6 +130,14 @@ Public Class MainForm
         Next
 
         cbPackage.DataSource = nameValues
+    End Sub
+
+    Private Sub cbPackage_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbPackage.SelectedValueChanged
+        For Each row As DataRow In comboBoxTable.Rows
+            If row(0) = cbProvider.SelectedValue And row(1) = cbPackage.SelectedValue Then
+                tbCO2.Text += "->" & row(2)
+            End If
+        Next
     End Sub
 
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
@@ -260,5 +268,14 @@ Public Class MainForm
             Console.WriteLine("Selected index: " & index.ToString())
         Next
     End Sub
+
+    Private Sub btnConfirm_Click(sender As Object, e As EventArgs) Handles btnConfirm.Click
+        For Each row As DataRow In comboBoxTable.Rows
+            If row(0) = cbProvider.SelectedValue And row(1) = cbPackage.SelectedValue Then
+                tbCO2.Text = row(2)
+            End If
+        Next
+    End Sub
+
 
 End Class
