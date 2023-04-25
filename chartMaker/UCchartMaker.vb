@@ -1,6 +1,7 @@
 ﻿Imports System.Reflection
 Imports LiveCharts
 Imports LiveCharts.Defaults
+Imports LiveCharts.Events
 Imports LiveCharts.WinForms
 Imports LiveCharts.Wpf
 
@@ -27,8 +28,8 @@ Public Class UCchartMaker
         'CartesianChart.DisableAnimations = True                            ' option to completely disable animations
         'CartesianChart.Pan = PanningOptions.Y                              ' Panning option letting user pan the y axis, now superseeded by y axis calculation using maxYValue
         initialControlSize = New SizeF(Me.Width, Me.Height)                 ' Log initial form size
-
     End Sub
+
 
     ' Called when the form gets resized. Will recalculate the max column width based on the new size as well as font size on the labels
     Private Sub UpdateMaxColumnWidth() Implements iMakeChart.UpdateMaxColumnWidth
@@ -51,7 +52,7 @@ Public Class UCchartMaker
 
         For Each axis As Axis In mainChart.AxisY
             axis.FontSize = initialAxisYFontSize * scaleFactor ' Use the initial font size
-            axis.LabelFormatter = Function(value) String.Format("{0:N2}", Math.Round(value, 2))
+            axis.LabelFormatter = Function(value) Math.Round(value).ToString()
         Next
     End Sub
 
@@ -69,6 +70,8 @@ Public Class UCchartMaker
                 .Step = New TimeSpan(2, 0, 0).TotalDays                             ' labels on the x axis bottom should appear every 2 hours, but still pretty broken
             }
         })
+
+
 
         maxYValue = prices.Max()                                                    ' Set the limit of the y axis, if maximum price is 19.95 the y axis max will be 20 and will not change with zoom
 
@@ -92,8 +95,8 @@ Public Class UCchartMaker
 
     End Sub
 
+
     Private Function GetRandomColor() As System.Windows.Media.Brush
-        Dim random As New Random()
         Dim r As Byte = CByte(random.Next(0, 256))
         Dim g As Byte = CByte(random.Next(0, 256))
         Dim b As Byte = CByte(random.Next(0, 256))
@@ -149,7 +152,7 @@ Public Class UCchartMaker
     ' Updates maximum y axis value, changing the value will automatically rescale the chart
     Private Sub UpdateYAxisMaxValue()
         If mainChart.AxisY.Count > 0 Then
-            mainChart.AxisY(0).MaxValue = maxYValue
+            mainChart.AxisY(0).MaxValue = Math.Ceiling(maxYValue)
         End If
     End Sub
 
