@@ -7,12 +7,14 @@ Imports classCheap_calculator
 Imports chartMaker
 Imports System.Security.Cryptography
 Imports packageComparator
+Imports API_Handler
 
 Public Class MainForm
     Dim times As New List(Of DateTime)()                                    ' holds the times in DateTime format dd/mm/yyyy HH:mm . Corresponding price held in prices()
     Dim prices As New List(Of Double)()                                     ' holds the price in a double corresponding a time, the indices are the same with the previous list
     Dim chartMaker As iMakeChart = New UCchartMaker()                       ' project chartMaker interface
     Dim comparePackages As iComparePackages = New clPackageData()           ' project packageComparator interface
+    Dim apiHandler As IhandleAPI = New ApiHandler()
     Dim rs As New Resizer                                                   ' calls the custom class for dynamic form resizing, see Resizer.vb
     Dim initialFormSize As SizeF                                            ' saves the initial form size, used to calculate the size factor when resizing fonts
     Dim initialFontSize As Single                                           ' saves the initial font size, used to calculate new font size dynamically
@@ -37,41 +39,18 @@ Public Class MainForm
         ' Populate the listbox with the packages
         updateListBox(packagePrices)
 
+        ' adding chartMaker instance and setting chartPanel control collection
+        CType(chartMaker, Control).Dock = DockStyle.Fill
+        chartPanel.Controls.Add(CType(chartMaker, Control))
+
         Try
-            ' adding chartMaker instance and setting chartPanel control collection
-            CType(chartMaker, Control).Dock = DockStyle.Fill
-            chartPanel.Controls.Add(CType(chartMaker, Control))
-
-
-            Dim client As New HttpClient()                                                      ' set up HTTP client
-            Dim currentDate As DateTime = DateTime.Now.AddHours(-3)                             ' get the current time
-            Dim startTime As String = currentDate.ToString("yyyy-MM-dd'T'HH:mm:ssZ")            ' set the starting to the correct format Elering API is expecting
-            Dim endTime As String = currentDate.AddDays(1).ToString("yyyy-MM-dd'T'HH:mm:ssZ")   ' set the ending time, currently 24H from now
-            Dim response As HttpResponseMessage = Await client.GetAsync($"https://dashboard.elering.ee/api/nps/price/csv?start={startTime}&end={endTime}&fields=ee")    ' send GET request
-            Dim content As Stream = Await response.Content.ReadAsStreamAsync()                  ' read response, which is a CSV file
-            Dim csvContent As New StringBuilder()                                               ' StringBuilder, reads CSV line by line
-
-
-            Using reader As New StreamReader(content, Encoding.UTF8)                            ' Read all data by line
-                ' Read header row
-                csvContent.AppendLine(reader.ReadLine())
-
-                While Not reader.EndOfStream
-                    Dim line As String = reader.ReadLine()
-                    csvContent.AppendLine(line)
-                    Dim values As String() = line.Split(";"c)
-
-                    Dim dateValue As DateTime = DateTime.ParseExact(values(1).Trim(""""), "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture) ' parse CSV into lists
-                    Dim price As Double = Double.Parse(values(2).Trim("""").Replace(",", "."), CultureInfo.InvariantCulture) * 1.2 / 10
-
-                    ' Add dateValue to the times list and price to the prices list
-                    times.Add(dateValue)
-                    prices.Add(price)
-                End While
-            End Using
+            Dim pricesAndTimes = Await apiHandler.Get24hData()
+            times = pricesAndTimes.Item1
+            prices = pricesAndTimes.Item2
         Catch ex As Exception
-            MessageBox.Show("An error occurred while retrieving data from the Elering API: " & ex.Message)  ' Catch Elering API errors
+            MessageBox.Show(ex.Message)
         End Try
+
 
         ' Print out the times and prices lists just in case
         For i As Integer = 0 To times.Count - 1
