@@ -22,27 +22,27 @@ Partial Class UCchartMaker
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.CartesianChart = New LiveCharts.WinForms.CartesianChart()
+        Me.mainChart = New LiveCharts.WinForms.CartesianChart()
         Me.SuspendLayout()
         '
-        'CartesianChart
+        'mainChart
         '
-        Me.CartesianChart.Location = New System.Drawing.Point(0, 0)
-        Me.CartesianChart.Name = "CartesianChart"
-        Me.CartesianChart.Size = New System.Drawing.Size(350, 195)
-        Me.CartesianChart.TabIndex = 0
-        Me.CartesianChart.Text = "CartesianChart1"
+        Me.mainChart.Location = New System.Drawing.Point(0, 0)
+        Me.mainChart.Name = "mainChart"
+        Me.mainChart.Size = New System.Drawing.Size(350, 195)
+        Me.mainChart.TabIndex = 0
+        Me.mainChart.Text = "CartesianChart1"
         '
         'UCchartMaker
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.Controls.Add(Me.CartesianChart)
+        Me.Controls.Add(Me.mainChart)
         Me.Name = "UCchartMaker"
         Me.Size = New System.Drawing.Size(350, 195)
         Me.ResumeLayout(False)
 
     End Sub
 
-    Friend WithEvents CartesianChart As LiveCharts.WinForms.CartesianChart
+    Friend WithEvents mainChart As LiveCharts.WinForms.CartesianChart
 End Class

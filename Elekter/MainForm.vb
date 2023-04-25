@@ -77,7 +77,7 @@ Public Class MainForm
         For i As Integer = 0 To times.Count - 1
             Console.WriteLine($"Time: {times(i)}, Price: {prices(i)}")
         Next
-        chartMaker.setChart(times.ToArray(), prices.ToArray())
+        chartMaker.setInitialChart(times.ToArray(), prices.ToArray()) ' make the chart for current market price
 
         initialFormSize = New SizeF(Me.Width, Me.Height)    ' Capture starting form and font size
         initialFontSize = calcButton.Font.Size
@@ -136,7 +136,7 @@ Public Class MainForm
 
 
 
-            chartMaker.changeColors(time_frame(0), Int(cbTimeFrame.SelectedItem), averageTF)                                                ' indicate the recommended time on the chart
+            chartMaker.addRecommendedTime(time_frame(0), Int(cbTimeFrame.SelectedItem), averageTF)                                                ' indicate the recommended time on the chart
 
             lblAverageNow.Text = ("Keskmine hind: " & averageNow)
             lblAverageTF.Text = ("Keskmine soovituslik: " & averageTF)                                                                      ' show times and savings to user
@@ -185,8 +185,12 @@ Public Class MainForm
         For Each index As Integer In selected
             title = pakettCheckedListBox.Items(index).ToString()    ' Give a title
             price = comparePackages.PriceReturn(title)              ' Give a price
-            chartMaker.addComparison(times.ToArray(), title, price, index)  ' make the graph, index will be included to select color
+            chartMaker.addChart(times.ToArray(), New Double() {price}, title, False)  ' make the graph, price is typecast to array, only one value needed for linechart
             Console.WriteLine("Selected index: " & index.ToString())        ' debugging
         Next
+    End Sub
+
+    Private Sub btn7Davg_Click(sender As Object, e As EventArgs) Handles btn7Davg.Click
+        chartMaker.addChart(times.ToArray(), prices.ToArray(), "Nädala keskmine", True)
     End Sub
 End Class

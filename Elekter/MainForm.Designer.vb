@@ -54,6 +54,7 @@ Partial Class MainForm
         Me.compareButton = New System.Windows.Forms.Button()
         Me.pakettCheckedListBox = New System.Windows.Forms.CheckedListBox()
         Me.Label12 = New System.Windows.Forms.Label()
+        Me.btn7Davg = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'otsingButton
@@ -396,11 +397,22 @@ Partial Class MainForm
         Me.Label12.TabIndex = 80
         Me.Label12.Text = "Pakettide nimekiri:"
         '
+        'btn7Davg
+        '
+        Me.btn7Davg.Location = New System.Drawing.Point(199, 38)
+        Me.btn7Davg.Margin = New System.Windows.Forms.Padding(2)
+        Me.btn7Davg.Name = "btn7Davg"
+        Me.btn7Davg.Size = New System.Drawing.Size(102, 20)
+        Me.btn7Davg.TabIndex = 87
+        Me.btn7Davg.Text = "Nädala keskmine"
+        Me.btn7Davg.UseVisualStyleBackColor = True
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(984, 561)
+        Me.Controls.Add(Me.btn7Davg)
         Me.Controls.Add(Me.CheckedListBox2)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.Label11)
@@ -473,6 +485,7 @@ Partial Class MainForm
     Friend WithEvents compareButton As Button
     Friend WithEvents pakettCheckedListBox As CheckedListBox
     Friend WithEvents Label12 As Label
+    Friend WithEvents btn7Davg As Button
 End Class
 '=======
 '﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
