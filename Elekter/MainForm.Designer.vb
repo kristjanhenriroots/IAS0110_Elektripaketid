@@ -29,7 +29,7 @@ Partial Class MainForm
         Me.btnCalcTimeFrame = New System.Windows.Forms.Button()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.cbTimeFrame = New System.Windows.Forms.ComboBox()
-        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.tbCO2 = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -54,6 +54,9 @@ Partial Class MainForm
         Me.compareButton = New System.Windows.Forms.Button()
         Me.pakettCheckedListBox = New System.Windows.Forms.CheckedListBox()
         Me.Label12 = New System.Windows.Forms.Label()
+        Me.cbProvider = New System.Windows.Forms.ComboBox()
+        Me.cbPackage = New System.Windows.Forms.ComboBox()
+        Me.btnConfirm = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'otsingButton
@@ -130,20 +133,21 @@ Partial Class MainForm
         Me.cbTimeFrame.Size = New System.Drawing.Size(82, 21)
         Me.cbTimeFrame.TabIndex = 68
         '
-        'TextBox4
+        'tbCO2
         '
-        Me.TextBox4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.TextBox4.Location = New System.Drawing.Point(275, 522)
-        Me.TextBox4.Margin = New System.Windows.Forms.Padding(2)
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(115, 20)
-        Me.TextBox4.TabIndex = 67
+        Me.tbCO2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.tbCO2.Location = New System.Drawing.Point(612, 524)
+        Me.tbCO2.Margin = New System.Windows.Forms.Padding(2)
+        Me.tbCO2.Name = "tbCO2"
+        Me.tbCO2.ReadOnly = True
+        Me.tbCO2.Size = New System.Drawing.Size(156, 20)
+        Me.tbCO2.TabIndex = 67
         '
         'Label8
         '
         Me.Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(277, 508)
+        Me.Label8.Location = New System.Drawing.Point(609, 508)
         Me.Label8.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(66, 13)
@@ -396,11 +400,39 @@ Partial Class MainForm
         Me.Label12.TabIndex = 80
         Me.Label12.Text = "Pakettide nimekiri:"
         '
+        'cbProvider
+        '
+        Me.cbProvider.FormattingEnabled = True
+        Me.cbProvider.Location = New System.Drawing.Point(348, 524)
+        Me.cbProvider.Name = "cbProvider"
+        Me.cbProvider.Size = New System.Drawing.Size(121, 21)
+        Me.cbProvider.TabIndex = 87
+        '
+        'cbPackage
+        '
+        Me.cbPackage.FormattingEnabled = True
+        Me.cbPackage.Location = New System.Drawing.Point(475, 524)
+        Me.cbPackage.Name = "cbPackage"
+        Me.cbPackage.Size = New System.Drawing.Size(121, 21)
+        Me.cbPackage.TabIndex = 88
+        '
+        'btnConfirm
+        '
+        Me.btnConfirm.Location = New System.Drawing.Point(779, 524)
+        Me.btnConfirm.Name = "btnConfirm"
+        Me.btnConfirm.Size = New System.Drawing.Size(75, 21)
+        Me.btnConfirm.TabIndex = 89
+        Me.btnConfirm.Text = "Kinnita"
+        Me.btnConfirm.UseVisualStyleBackColor = True
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(984, 561)
+        Me.Controls.Add(Me.btnConfirm)
+        Me.Controls.Add(Me.cbPackage)
+        Me.Controls.Add(Me.cbProvider)
         Me.Controls.Add(Me.CheckedListBox2)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.Label11)
@@ -419,7 +451,7 @@ Partial Class MainForm
         Me.Controls.Add(Me.btnCalcTimeFrame)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.cbTimeFrame)
-        Me.Controls.Add(Me.TextBox4)
+        Me.Controls.Add(Me.tbCO2)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label5)
@@ -448,7 +480,7 @@ Partial Class MainForm
     Friend WithEvents btnCalcTimeFrame As Button
     Friend WithEvents Label9 As Label
     Friend WithEvents cbTimeFrame As ComboBox
-    Friend WithEvents TextBox4 As TextBox
+    Friend WithEvents tbCO2 As TextBox
     Friend WithEvents Label8 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents Label5 As Label
@@ -473,6 +505,9 @@ Partial Class MainForm
     Friend WithEvents compareButton As Button
     Friend WithEvents pakettCheckedListBox As CheckedListBox
     Friend WithEvents Label12 As Label
+    Friend WithEvents cbProvider As ComboBox
+    Friend WithEvents cbPackage As ComboBox
+    Friend WithEvents btnConfirm As Button
 End Class
 '=======
 '﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>

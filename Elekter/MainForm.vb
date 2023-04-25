@@ -18,7 +18,7 @@ Public Class MainForm
     Dim initialFormSize As SizeF
     Dim initialFontSize As Single
     Private dictionaryTable As New DataTable
-
+    Private comboBoxTable As New DataTable
 
     Private Async Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         rs.FindAllControls(Me)
@@ -91,6 +91,45 @@ Public Class MainForm
 
         initialFormSize = New SizeF(Me.Width, Me.Height)
         initialFontSize = calcButton.Font.Size
+
+        'Database section
+        'Refreshi börsi andmebaas
+        Dim updateBorsTable As AndmeParija.IAPIQuery = New AndmeParija.CAPIQuery
+
+        Try
+            updateBorsTable.updateTable()
+        Catch ex As Exception
+            MessageBox.Show("Error updating data table.")
+        End Try
+
+        'Comboboxi andmed
+        Dim loadComboBoxValues As AndmeParija.IDatabaseQuery = New AndmeParija.CDatabaseQuery
+        Dim providerValues = New List(Of String)
+
+        comboBoxTable = loadComboBoxValues.queryData("Select DISTINCT provider, name, footprint FROM borsPakett")
+
+        Dim tempVar As String 'Ainult korraks vaja
+        For Each row As DataRow In comboBoxTable.Rows
+            tempVar = row(0).ToString
+            If Not providerValues.Contains(tempVar) Then
+                providerValues.Add(row(0))
+            End If
+        Next
+
+        cbProvider.DataSource = providerValues
+    End Sub
+
+    Private Sub cbProvider_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbProvider.SelectedValueChanged
+        Dim nameValues = New List(Of String)
+        Dim nameRow As DataRow()
+        Dim filterStr As String = "provider = '" & cbProvider.SelectedValue & "'"
+        nameRow = comboBoxTable.Select(filterStr)
+
+        For Each row As DataRow In nameRow
+            nameValues.Add(row(1).ToString)
+        Next
+
+        cbPackage.DataSource = nameValues
     End Sub
 
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
@@ -221,4 +260,5 @@ Public Class MainForm
             Console.WriteLine("Selected index: " & index.ToString())
         Next
     End Sub
+
 End Class
