@@ -1,4 +1,5 @@
 ﻿Imports System.Reflection
+Imports System.Windows.Media
 Imports LiveCharts
 Imports LiveCharts.Defaults
 Imports LiveCharts.Events
@@ -27,6 +28,7 @@ Public Class UCchartMaker
         mainChart.AnimationsSpeed = TimeSpan.FromMilliseconds(100)     ' Set the animation speed to 100 milliseconds, full animations are slow
         'CartesianChart.DisableAnimations = True                            ' option to completely disable animations
         'CartesianChart.Pan = PanningOptions.Y                              ' Panning option letting user pan the y axis, now superseeded by y axis calculation using maxYValue
+        mainChart.LegendLocation = LegendLocation.Right
         initialControlSize = New SizeF(Me.Width, Me.Height)                 ' Log initial form size
     End Sub
 
@@ -50,7 +52,7 @@ Public Class UCchartMaker
         ' change the font size and labels for all charts, cartesian and linecharts need to be typecast individually using CType
         For Each axis As Axis In mainChart.AxisX
             axis.FontSize = initialAxisXFontSize * scaleFactor ' Use the initial font size
-            axis.LabelFormatter = Function(value) DateTime.FromOADate(value).AddHours(-3).ToString("HH:00")
+            axis.LabelFormatter = Function(value) DateTime.FromOADate(value).ToString("HH:00")
         Next
 
         For Each axis As Axis In mainChart.AxisY
@@ -66,9 +68,9 @@ Public Class UCchartMaker
 
         ' Set up the x axis
         mainChart.AxisX.Add(New Axis With {
-            .LabelFormatter = Function(value) DateTime.FromOADate(value).AddHours(-3).ToString("HH:00"), ' Change formatting for labels, leave only the rounded hour and account for the time zone difference
-            .MinValue = times(0).AddHours(11).ToOADate(),                           ' Chart starting location is broken without the addHours although it makes no sense, solution not found
-            .MaxValue = times(times.Length - 1).AddHours(15).ToOADate(),            ' Set the range of the chart, starting and ending location, will be first and last element in the times array
+            .LabelFormatter = Function(value) DateTime.FromOADate(value).ToString("HH:00"), ' Change formatting for labels, leave only the rounded hour and account for the time zone difference
+            .MinValue = times(1).ToOADate(),                           ' Chart starting location is broken without the addHours although it makes no sense, solution not found
+            .MaxValue = times(times.Length - 1).ToOADate(),            ' Set the range of the chart, starting and ending location, will be first and last element in the times array
             .Separator = New LiveCharts.Wpf.Separator With {
                 .Step = New TimeSpan(2, 0, 0).TotalDays                             ' labels on the x axis bottom should appear every 2 hours, but still pretty broken
             }
@@ -192,33 +194,40 @@ Public Class UCchartMaker
                 .Values = chartValues,  ' Add values
                 .ColumnPadding = 1,     ' Set padding and initial column width
                 .MaxColumnWidth = 20,
-                .LabelPoint = Function(point) String.Format("{0:dd/MM/yyyy HH:mm} - {1:N2} s/kWh", DateTime.FromOADate(point.X), point.Y)   ' Formatting for the label when hovering with mouse
+                .LabelPoint = Function(point) String.Format("{0:dd.MM} - {1:N2}", DateTime.FromOADate(point.X), point.Y)   ' Formatting for the label when hovering with mouse
             }
 
             mainChart.Series.Add(columnSeries) ' Add the graph
 
         Else            ' We are making a line chart
+            Dim chartValues As New ChartValues(Of ObservablePoint)()
+
+            If title Is "Nädala keskmine" Then                        ' the 7 day average is the only line chart that has more than 2 points
+                Console.WriteLine("yup found")
+                For i As Integer = 0 To times.Length - 1
+                    chartValues.Add(New ObservablePoint(times(i).ToOADate(), prices(i)))    ' Add the individual lists to chartvalues, now contain x and y axis values
+                Next
+            Else
+                chartValues.Add(New ObservablePoint(times.First.ToOADate(), prices.First))    ' linecharts only have 2 points, the beginning of times array and the end, currently the 24H window
+                chartValues.Add(New ObservablePoint(times.Last.ToOADate(), prices.Last))
+
+            End If
 
 
             ' Set rules for the new graph
             Dim lineSeries As New LineSeries With {
                 .Title = title, ' title is given
-                .Values = New ChartValues(Of ObservablePoint)(New List(Of ObservablePoint) From {
-                    New ObservablePoint(times.First.ToOADate(), prices(0)), ' linecharts only have 2 points, the beginning of times array and the end, currently the 24H window
-                    New ObservablePoint(times.Last.ToOADate(), prices.Last())
-                }),
+                .Values = chartValues,
                 .Stroke = GetRandomColor(),    ' Get the color
                 .Fill = System.Windows.Media.Brushes.Transparent,
                 .PointGeometry = Nothing,
-                .DataLabels = True,
-                .LabelPoint = Function(point) FormatLabelPoint(point, title)    ' Enable tooltips
+                .DataLabels = False,
+                .LineSmoothness = 0.2,
+                .LabelPoint = Function(point) String.Format("{0:dd.MM} - {1:N2}", DateTime.FromOADate(point.X), point.Y)   ' Formatting for the label when hovering with mouse
             }
             mainChart.Series.Add(lineSeries)   ' Add the chart
 
         End If
-
-
-
 
         If prices.Max() > maxYValue Then   ' If the package is higher priced that the previous max then rescale the y axis
             maxYValue = prices.Max()

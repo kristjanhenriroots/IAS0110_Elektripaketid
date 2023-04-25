@@ -191,7 +191,7 @@ Public Class MainForm
             hoursOfDay(i) = todayStart.AddHours(i)
         Next
 
-        chartMaker.addChart(hoursOfDay, weekPrices.ToArray(), "Nädala keskmine", True)
+        chartMaker.addChart(hoursOfDay, avg_prices, "Nädala keskmine", True)
 
     End Sub
 End Class
