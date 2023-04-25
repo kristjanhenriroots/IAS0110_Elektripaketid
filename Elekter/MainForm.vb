@@ -19,6 +19,7 @@ Public Class MainForm
     Dim initialFontSize As Single
     Private dictionaryTable As New DataTable
     Private comboBoxTable As New DataTable
+    Private footprintVar As New Double
 
     Private Async Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         rs.FindAllControls(Me)
@@ -133,11 +134,22 @@ Public Class MainForm
     End Sub
 
     Private Sub cbPackage_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbPackage.SelectedValueChanged
-        For Each row As DataRow In comboBoxTable.Rows
-            If row(0) = cbProvider.SelectedValue And row(1) = cbPackage.SelectedValue Then
-                tbCO2.Text += "->" & row(2)
-            End If
-        Next
+
+        If String.IsNullOrEmpty(tbCO2.Text) Then
+            For Each row As DataRow In comboBoxTable.Rows
+                If row(0) = cbProvider.SelectedValue And row(1) = cbPackage.SelectedValue Then
+                    tbCO2.Text = row(2)
+                    footprintVar = row(2)
+                End If
+            Next
+        Else
+            For Each row As DataRow In comboBoxTable.Rows
+                If row(0) = cbProvider.SelectedValue And row(1) = cbPackage.SelectedValue Then
+                    tbCO2.Text = footprintVar & "->" & row(2)
+                End If
+            Next
+        End If
+
     End Sub
 
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
@@ -273,6 +285,7 @@ Public Class MainForm
         For Each row As DataRow In comboBoxTable.Rows
             If row(0) = cbProvider.SelectedValue And row(1) = cbPackage.SelectedValue Then
                 tbCO2.Text = row(2)
+                footprintVar = row(2)
             End If
         Next
     End Sub
