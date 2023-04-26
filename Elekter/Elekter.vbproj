@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\SQLite.3.13.0\build\net45\SQLite.props" Condition="Exists('packages\SQLite.3.13.0\build\net45\SQLite.props')" />
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -14,6 +16,8 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -48,12 +52,27 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PriceCalc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\classCheap_calculator\bin\Debug\net4.7.2\PriceCalc.dll</HintPath>
+    <Reference Include="AndmeParija">
+      <HintPath>..\AndmeParija\AndmeParija\bin\Debug\AndmeParija.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Soovitaja">
+      <HintPath>..\AndmeParija\Soovitaja\bin\Debug\Soovitaja.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.117.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>packages\System.Data.SQLite.EF6.1.0.117.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.117.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>packages\System.Data.SQLite.Linq.1.0.117.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -78,7 +97,6 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChartMaker.vb" />
     <Compile Include="formCalc.Designer.vb">
       <DependentUpon>formCalc.vb</DependentUpon>
     </Compile>
@@ -89,6 +107,12 @@
       <DependentUpon>formLogin.vb</DependentUpon>
     </Compile>
     <Compile Include="formLogin.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formPriceMargin.Designer.vb">
+      <DependentUpon>formPriceMargin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formPriceMargin.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formVordlus.Designer.vb">
@@ -108,7 +132,6 @@
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
-      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -120,6 +143,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Resizer.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="formCalc.resx">
@@ -127,6 +151,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formLogin.resx">
       <DependentUpon>formLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formPriceMargin.resx">
+      <DependentUpon>formPriceMargin.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formVordlus.resx">
       <DependentUpon>formVordlus.vb</DependentUpon>
@@ -152,6 +179,34 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\API_Handler\API_Handler.vbproj">
+      <Project>{64cc7082-2e86-4104-b1f9-de1f9a9c8291}</Project>
+      <Name>API_Handler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\chartMaker\chartMaker.vbproj">
+      <Project>{ff4944b7-60be-41c0-8e27-cd58d3753004}</Project>
+      <Name>chartMaker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\classCheap_calculator\PriceCalc.vbproj">
+      <Project>{16f136c8-faf3-4016-a601-b06442bcc07e}</Project>
+      <Name>PriceCalc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\packageComparator\packageComparator.vbproj">
+      <Project>{f5309078-824f-4905-98b3-13ba306ba1d7}</Project>
+      <Name>packageComparator</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('packages\SQLite.3.13.0\build\net45\SQLite.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\SQLite.3.13.0\build\net45\SQLite.props'))" />
+  </Target>
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
 </Project>

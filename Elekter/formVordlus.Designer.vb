@@ -22,21 +22,30 @@ Partial Class formVordlus
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formVordlus))
+        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.otsingButton = New System.Windows.Forms.Button()
         Me.vordlusButton = New System.Windows.Forms.Button()
         Me.calcButton = New System.Windows.Forms.Button()
         Me.homeButton = New System.Windows.Forms.Button()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.CheckedListBox2 = New System.Windows.Forms.CheckedListBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.jarjestamineComboBox = New System.Windows.Forms.ComboBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.compareButton = New System.Windows.Forms.Button()
         Me.pakettCheckedListBox = New System.Windows.Forms.CheckedListBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.packageChart = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.cbProvider = New System.Windows.Forms.ComboBox()
+        Me.cbPackage = New System.Windows.Forms.ComboBox()
+        Me.lblProvider = New System.Windows.Forms.Label()
+        Me.lblPackage = New System.Windows.Forms.Label()
+        Me.cbStartTime = New System.Windows.Forms.ComboBox()
+        Me.cbEndTime = New System.Windows.Forms.ComboBox()
+        Me.btnFindPackage = New System.Windows.Forms.Button()
+        CType(Me.packageChart, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'otsingButton
@@ -78,17 +87,6 @@ Partial Class formVordlus
         Me.homeButton.TabIndex = 61
         Me.homeButton.Text = "Home"
         Me.homeButton.UseVisualStyleBackColor = True
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(234, 78)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(137, 122)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 60
-        Me.PictureBox1.TabStop = False
         '
         'Label4
         '
@@ -139,23 +137,24 @@ Partial Class formVordlus
         Me.jarjestamineComboBox.Size = New System.Drawing.Size(82, 21)
         Me.jarjestamineComboBox.TabIndex = 55
         '
-        'Button1
+        'compareButton
         '
-        Me.Button1.Location = New System.Drawing.Point(143, 181)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(2)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(81, 20)
-        Me.Button1.TabIndex = 54
-        Me.Button1.Text = "Võrdle pakette"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.compareButton.Location = New System.Drawing.Point(143, 181)
+        Me.compareButton.Margin = New System.Windows.Forms.Padding(2)
+        Me.compareButton.Name = "compareButton"
+        Me.compareButton.Size = New System.Drawing.Size(81, 20)
+        Me.compareButton.TabIndex = 54
+        Me.compareButton.Text = "Võrdle pakette"
+        Me.compareButton.UseVisualStyleBackColor = True
         '
         'pakettCheckedListBox
         '
+        Me.pakettCheckedListBox.CheckOnClick = True
         Me.pakettCheckedListBox.FormattingEnabled = True
         Me.pakettCheckedListBox.Location = New System.Drawing.Point(35, 78)
         Me.pakettCheckedListBox.Margin = New System.Windows.Forms.Padding(2)
         Me.pakettCheckedListBox.Name = "pakettCheckedListBox"
-        Me.pakettCheckedListBox.Size = New System.Drawing.Size(90, 124)
+        Me.pakettCheckedListBox.Size = New System.Drawing.Size(88, 124)
         Me.pakettCheckedListBox.TabIndex = 53
         '
         'Label1
@@ -168,27 +167,114 @@ Partial Class formVordlus
         Me.Label1.TabIndex = 52
         Me.Label1.Text = "Pakettide nimekiri:"
         '
+        'packageChart
+        '
+        ChartArea3.Name = "ChartArea1"
+        Me.packageChart.ChartAreas.Add(ChartArea3)
+        Legend3.Name = "Legend1"
+        Me.packageChart.Legends.Add(Legend3)
+        Me.packageChart.Location = New System.Drawing.Point(233, 78)
+        Me.packageChart.Margin = New System.Windows.Forms.Padding(2)
+        Me.packageChart.Name = "packageChart"
+        Series3.ChartArea = "ChartArea1"
+        Series3.Legend = "Legend1"
+        Series3.Name = "Series1"
+        Me.packageChart.Series.Add(Series3)
+        Me.packageChart.Size = New System.Drawing.Size(163, 122)
+        Me.packageChart.TabIndex = 65
+        Me.packageChart.Text = "Chart1"
+        '
+        'cbProvider
+        '
+        Me.cbProvider.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbProvider.FormattingEnabled = True
+        Me.cbProvider.Location = New System.Drawing.Point(35, 247)
+        Me.cbProvider.Name = "cbProvider"
+        Me.cbProvider.Size = New System.Drawing.Size(142, 21)
+        Me.cbProvider.TabIndex = 66
+        '
+        'cbPackage
+        '
+        Me.cbPackage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbPackage.FormattingEnabled = True
+        Me.cbPackage.Location = New System.Drawing.Point(35, 294)
+        Me.cbPackage.Name = "cbPackage"
+        Me.cbPackage.Size = New System.Drawing.Size(142, 21)
+        Me.cbPackage.TabIndex = 67
+        '
+        'lblProvider
+        '
+        Me.lblProvider.AutoSize = True
+        Me.lblProvider.Location = New System.Drawing.Point(32, 231)
+        Me.lblProvider.Name = "lblProvider"
+        Me.lblProvider.Size = New System.Drawing.Size(46, 13)
+        Me.lblProvider.TabIndex = 68
+        Me.lblProvider.Text = "Pakkuja"
+        '
+        'lblPackage
+        '
+        Me.lblPackage.AutoSize = True
+        Me.lblPackage.Location = New System.Drawing.Point(32, 278)
+        Me.lblPackage.Name = "lblPackage"
+        Me.lblPackage.Size = New System.Drawing.Size(38, 13)
+        Me.lblPackage.TabIndex = 69
+        Me.lblPackage.Text = "Pakett"
+        '
+        'cbStartTime
+        '
+        Me.cbStartTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbStartTime.FormattingEnabled = True
+        Me.cbStartTime.Location = New System.Drawing.Point(221, 247)
+        Me.cbStartTime.Name = "cbStartTime"
+        Me.cbStartTime.Size = New System.Drawing.Size(142, 21)
+        Me.cbStartTime.TabIndex = 70
+        '
+        'cbEndTime
+        '
+        Me.cbEndTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbEndTime.FormattingEnabled = True
+        Me.cbEndTime.Location = New System.Drawing.Point(221, 294)
+        Me.cbEndTime.Name = "cbEndTime"
+        Me.cbEndTime.Size = New System.Drawing.Size(142, 21)
+        Me.cbEndTime.TabIndex = 71
+        '
+        'btnFindPackage
+        '
+        Me.btnFindPackage.Location = New System.Drawing.Point(35, 321)
+        Me.btnFindPackage.Name = "btnFindPackage"
+        Me.btnFindPackage.Size = New System.Drawing.Size(121, 22)
+        Me.btnFindPackage.TabIndex = 72
+        Me.btnFindPackage.Text = "Leia pakett"
+        Me.btnFindPackage.UseVisualStyleBackColor = True
+        '
         'formVordlus
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(407, 231)
+        Me.ClientSize = New System.Drawing.Size(419, 405)
+        Me.Controls.Add(Me.btnFindPackage)
+        Me.Controls.Add(Me.cbEndTime)
+        Me.Controls.Add(Me.cbStartTime)
+        Me.Controls.Add(Me.lblPackage)
+        Me.Controls.Add(Me.lblProvider)
+        Me.Controls.Add(Me.cbPackage)
+        Me.Controls.Add(Me.cbProvider)
+        Me.Controls.Add(Me.packageChart)
         Me.Controls.Add(Me.otsingButton)
         Me.Controls.Add(Me.vordlusButton)
         Me.Controls.Add(Me.calcButton)
         Me.Controls.Add(Me.homeButton)
-        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.CheckedListBox2)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.jarjestamineComboBox)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.compareButton)
         Me.Controls.Add(Me.pakettCheckedListBox)
         Me.Controls.Add(Me.Label1)
         Me.Name = "formVordlus"
         Me.Text = "formVordlus"
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.packageChart, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -198,13 +284,20 @@ Partial Class formVordlus
     Friend WithEvents vordlusButton As Button
     Friend WithEvents calcButton As Button
     Friend WithEvents homeButton As Button
-    Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents Label4 As Label
     Friend WithEvents CheckedListBox2 As CheckedListBox
     Friend WithEvents Label3 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents jarjestamineComboBox As ComboBox
-    Friend WithEvents Button1 As Button
+    Friend WithEvents compareButton As Button
     Friend WithEvents pakettCheckedListBox As CheckedListBox
     Friend WithEvents Label1 As Label
+    Friend WithEvents packageChart As DataVisualization.Charting.Chart
+    Friend WithEvents cbProvider As ComboBox
+    Friend WithEvents cbPackage As ComboBox
+    Friend WithEvents lblProvider As Label
+    Friend WithEvents lblPackage As Label
+    Friend WithEvents cbStartTime As ComboBox
+    Friend WithEvents cbEndTime As ComboBox
+    Friend WithEvents btnFindPackage As Button
 End Class

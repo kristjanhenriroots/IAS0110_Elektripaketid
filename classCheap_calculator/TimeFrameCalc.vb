@@ -58,4 +58,39 @@ Public Class TimeFrameCalc
         Return total / intLen
     End Function
 
+    Private Function averagePriceWeek(ByRef times As DateTime(), ByRef prices As Double()) As Double() Implements iPriceCalc.averagePriceWeek
+        Dim totalPrices(23) As Double
+        Dim countPrices(23) As Integer
+
+        ' Initialize arrays
+        For i As Integer = 0 To 23
+            totalPrices(i) = 0
+            countPrices(i) = 0
+        Next
+
+        ' Iterate through the input data and update totalPrices and countPrices arrays
+        For i As Integer = 0 To times.Length - 1
+            Dim hourOfDay As Integer = times(i).Hour
+
+            totalPrices(hourOfDay) += prices(i)
+            countPrices(hourOfDay) += 1
+        Next
+
+        ' Calculate average prices for each hour of the day
+        Dim averagePrices(23) As Double
+        For i As Integer = 0 To 23
+            If countPrices(i) > 0 Then
+                averagePrices(i) = totalPrices(i) / countPrices(i)
+            Else
+                averagePrices(i) = 0
+            End If
+        Next
+
+        Return averagePrices
+    End Function
+
+
+
+
+
 End Class

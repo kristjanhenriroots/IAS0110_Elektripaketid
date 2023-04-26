@@ -21,12 +21,13 @@
 *.sln.docstates
 *.v2
 *vsidx
+*.v5.2
+*v5.1
 
 # Ignore build output
 [Bb]in/
 [Oo]bj/
 *.exe
-*.dll
 *.pdb
 *.ilk
 *.resources
