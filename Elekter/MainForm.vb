@@ -7,169 +7,85 @@ Imports classCheap_calculator
 Imports chartMaker
 Imports System.Security.Cryptography
 Imports packageComparator
-Imports AndmeParija
+Imports API_Handler
 
 Public Class MainForm
-    Dim times As New List(Of DateTime)()
-    Dim prices As New List(Of Double)()
-    Dim chartMaker As iMakeChart = New UCchartMaker()
-    Dim comparePackages As iComparePackages = New clPackageData()
-    Dim rs As New Resizer
-    Dim initialFormSize As SizeF
-    Dim initialFontSize As Single
-    Private dictionaryTable As New DataTable
-    Private comboBoxTable As New DataTable
-    Private footprintVar As New Double
+    Dim times As New List(Of DateTime)()                                    ' holds the times in DateTime format dd/mm/yyyy HH:mm . Corresponding price held in prices()
+    Dim prices As New List(Of Double)()                                     ' holds the price in a double corresponding a time, the indices are the same with the previous list
+    Dim chartMaker As iMakeChart = New UCchartMaker()                       ' project chartMaker interface
+    Dim comparePackages As iComparePackages = New clPackageData()           ' project packageComparator interface
+    Dim apiHandler As IhandleAPI = New ApiHandler()
+    Dim frame As iPriceCalc = New TimeFrameCalc                             ' PriceCalc interface
+    Dim rs As New Resizer                                                   ' calls the custom class for dynamic form resizing, see Resizer.vb
+    Dim initialFormSize As SizeF                                            ' saves the initial form size, used to calculate the size factor when resizing fonts
+    Dim initialFontSize As Single                                           ' saves the initial font size, used to calculate new font size dynamically
 
+
+    ' Main form load, currently
+    '   1. Calls API and gets 24h pricing, will be changed to database
+    '   2. 
+    '
+    '
     Private Async Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        rs.FindAllControls(Me)
 
+        ' calls custom resizer class, used for dynamic resizing
+        rs.FindAllControls(Me)
 
         ' Setting a minimum size for the window to shrink to
         Me.MinimumSize = New Size(1000, 600)
 
-        'Get package data as datatable from database
-        Dim packageData As AndmeParija.IDatabaseQuery = New CDatabaseQuery()
-        dictionaryTable = packageData.queryData("Select provider, name, avgPricePerKW FROM universaalPakett")
-
-        ' Parse package data into dictionary
-        Dim packagePrices = comparePackages.PackageData(dictionaryTable)
+        ' Get all package data from prj packageComparator, call function PackageData() for all names and prices
+        Dim packagePrices = comparePackages.PackageData()
 
         ' Populate the listbox with the packages
         updateListBox(packagePrices)
 
+        ' adding chartMaker instance and setting chartPanel control collection
+        CType(chartMaker, Control).Dock = DockStyle.Fill
+        chartPanel.Controls.Add(CType(chartMaker, Control))
+
         Try
-            ' adding chartMaker instance and setting chartPanel control collection
-            CType(chartMaker, Control).Dock = DockStyle.Fill
-            chartPanel.Controls.Add(CType(chartMaker, Control))
-
-            ' Create HTTP client and set API key
-            Dim client As New HttpClient()
-            'client.DefaultRequestHeaders.Add("Authorization", "Bearer YOUR_API_KEY")
-
-            ' Set start and end times for 24-hour period
-            Dim currentDate As DateTime = DateTime.Now.AddHours(-3)
-            Dim startTime As String = currentDate.ToString("yyyy-MM-dd'T'HH:mm:ssZ")
-            Dim endTime As String = currentDate.AddDays(1).ToString("yyyy-MM-dd'T'HH:mm:ssZ")
-
-
-            ' Send GET request to Elering API
-            Dim response As HttpResponseMessage = Await client.GetAsync($"https://dashboard.elering.ee/api/nps/price/csv?start={startTime}&end={endTime}&fields=ee")
-            Dim content As Stream = Await response.Content.ReadAsStreamAsync()
-
-            ' Parse CSV data and extract price data
-
-            Dim csvContent As New StringBuilder()
-            Using reader As New StreamReader(content, Encoding.UTF8)
-                ' Read header row
-                csvContent.AppendLine(reader.ReadLine())
-
-                While Not reader.EndOfStream
-                    Dim line As String = reader.ReadLine()
-                    csvContent.AppendLine(line)
-                    Dim values As String() = line.Split(";"c)
-
-                    Dim dateValue As DateTime = DateTime.ParseExact(values(1).Trim(""""), "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture)
-                    Dim price As Double = Double.Parse(values(2).Trim("""").Replace(",", "."), CultureInfo.InvariantCulture) * 1.2 / 10
-
-                    ' Add dateValue to the times list and price to the prices list
-                    times.Add(dateValue)
-                    prices.Add(price)
-                End While
-            End Using
-            ' Print out the times and prices lists
-            For i As Integer = 0 To times.Count - 1
-                Console.WriteLine($"Time: {times(i)}, Price: {prices(i)}")
-            Next
-
-
-            chartMaker.setChart(times.ToArray(), prices.ToArray())
-
-
+            Dim currentDate As DateTime = DateTime.Now.Date.AddHours(-3)
+            Dim pricesAndTimes = Await apiHandler.GetPriceData(currentDate, currentDate.AddDays(1))
+            times = pricesAndTimes.Item1
+            prices = pricesAndTimes.Item2
         Catch ex As Exception
-            MessageBox.Show("An error occurred while retrieving data from the Elering API: " & ex.Message)
+            MessageBox.Show(ex.Message)
         End Try
 
-        initialFormSize = New SizeF(Me.Width, Me.Height)
+
+        ' Print out the times and prices lists just in case
+        For i As Integer = 0 To times.Count - 1
+            Console.WriteLine($"Time: {times(i)}, Price: {prices(i)}")
+        Next
+        chartMaker.setInitialChart(times.ToArray(), prices.ToArray()) ' make the chart for current market price
+        Dim currentIndex = GetCurrentPrice()
+        chartMaker.addCurrentTimeScatter(times(currentIndex), prices(currentIndex) / 2)
+
+        initialFormSize = New SizeF(Me.Width, Me.Height)    ' Capture starting form and font size
         initialFontSize = calcButton.Font.Size
-
-        'Database section
-        'Refreshi börsi andmebaas
-        Dim updateBorsTable As AndmeParija.IAPIQuery = New AndmeParija.CAPIQuery
-
-        Try
-            updateBorsTable.updateTable()
-        Catch ex As Exception
-            MessageBox.Show("Error updating data table.")
-        End Try
-
-        'Comboboxi andmed
-        Dim loadComboBoxValues As AndmeParija.IDatabaseQuery = New AndmeParija.CDatabaseQuery
-        Dim providerValues = New List(Of String)
-
-        comboBoxTable = loadComboBoxValues.queryData("Select DISTINCT provider, name, footprint FROM universaalPakett")
-
-        Dim tempVar As String 'Ainult korraks vaja
-        For Each row As DataRow In comboBoxTable.Rows
-            tempVar = row(0).ToString
-            If Not providerValues.Contains(tempVar) Then
-                providerValues.Add(row(0))
-            End If
-        Next
-
-        cbProvider.DataSource = providerValues
     End Sub
 
-    Private Sub cbProvider_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbProvider.SelectedValueChanged
-        Dim nameValues = New List(Of String)
-        Dim nameRow As DataRow()
-        Dim filterStr As String = "provider = '" & cbProvider.SelectedValue & "'"
-        nameRow = comboBoxTable.Select(filterStr)
-
-        For Each row As DataRow In nameRow
-            nameValues.Add(row(1).ToString)
-        Next
-
-        cbPackage.DataSource = nameValues
-    End Sub
-
-    Private Sub cbPackage_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbPackage.SelectedValueChanged
-
-        If String.IsNullOrEmpty(tbCO2.Text) Then
-            For Each row As DataRow In comboBoxTable.Rows
-                If row(0) = cbProvider.SelectedValue And row(1) = cbPackage.SelectedValue Then
-                    tbCO2.Text = row(2)
-                    footprintVar = row(2)
-                End If
-            Next
-        Else
-            For Each row As DataRow In comboBoxTable.Rows
-                If row(0) = cbProvider.SelectedValue And row(1) = cbPackage.SelectedValue Then
-                    tbCO2.Text = footprintVar & "->" & row(2)
-                End If
-            Next
-        End If
-
-    End Sub
-
+    ' Handles dynamic form and font resizing when the user drags the window larger or smaller
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
-        rs.ResizeAllControls(Me)
-        Dim scaleFactor As Single = Math.Min(Me.Width / initialFormSize.Width, Me.Height / initialFormSize.Height)
-        Dim newFontSize As Single = initialFontSize * scaleFactor
+        rs.ResizeAllControls(Me)                                                                                        ' Call the resizer class Resizer.vb
+        Dim scaleFactor As Single = Math.Min(Me.Width / initialFormSize.Width, Me.Height / initialFormSize.Height)      ' Calculate new scalefactor for font sizing
+        Dim newFontSize As Single = initialFontSize * scaleFactor                                                       ' New font size
 
-        ' Check if scaleFactor is valid (i.e., not NaN or Infinity)
+        ' Check if scaleFactor is valid (i.e., not NaN or Infinity), problem with slower computers
         If Single.IsNaN(scaleFactor) OrElse Single.IsInfinity(scaleFactor) Then
             ' Skip resizing if scaleFactor is not valid
             Return
         End If
 
-        For Each ctrl As Control In Me.Controls
-            If TypeOf ctrl Is Label Then
+        For Each ctrl As Control In Me.Controls ' Locate all labels and checkboxes and change the font size, Resizer.vb won't handle that
+            If TypeOf ctrl Is Label OrElse TypeOf ctrl Is CheckBox Then
                 ctrl.Font = New Font(ctrl.Font.FontFamily, newFontSize, ctrl.Font.Style)
             End If
         Next
-        chartMaker.UpdateMaxColumnWidth()
+        chartMaker.UpdateMaxColumnWidth()   ' call the chartMaker class, column sizing will be recalculated as well
     End Sub
+
 
 
 
@@ -184,67 +100,55 @@ Public Class MainForm
         Me.Hide()
     End Sub
 
-    'Size buttons
-    Private Sub enlargeButton_Click(sender As Object, e As EventArgs) Handles enlargeButton.Click
-        'Increase the size of the form and all its elements by 5%
-        Me.Width *= 1.05
-        Me.Height *= 1.05
-
-        For Each ctrl As Control In Me.Controls
-            ctrl.Width *= 1.05
-            ctrl.Height *= 1.05
-            ctrl.Left *= 1.05
-            ctrl.Top *= 1.05
-        Next
-    End Sub
-
-    Private Sub shrink_Click(sender As Object, e As EventArgs) Handles shrinkButton.Click
-        'Decrease the size of the form and all its elements by 5%
-        Me.Width *= 0.95
-        Me.Height *= 0.95
-
-        For Each ctrl As Control In Me.Controls
-            ctrl.Width *= 0.95
-            ctrl.Height *= 0.95
-            ctrl.Left *= 0.95
-            ctrl.Top *= 0.95
-        Next
-    End Sub
-
     ' Calculates the cheapest time to use electricity based on the amount of hours
     Private Sub btnCalcTimeFrame_Click(sender As Object, e As EventArgs) Handles btnCalcTimeFrame.Click
 
-        ' combobox needs to have a value selected
-        If cbTimeFrame.SelectedItem Then ' And Int(cbTimeFrame.SelectedItem) <= MainChart.Series(0).Points.Count - 1 Then
+        ' combobox needs to have a value selected, and if there are enough hours in current data
+        If cbTimeFrame.SelectedItem And Int(cbTimeFrame.SelectedItem) <= times.Count Then
 
             ' get the best time frame
-            Dim frame As iPriceCalc = New TimeFrameCalc
-            Dim time_frame = frame.CalcTimeFrame(Int(cbTimeFrame.SelectedItem), prices.ToArray(), times.ToArray())
+            Dim time_frame = frame.CalcTimeFrame(Int(cbTimeFrame.SelectedItem), prices.ToArray(), times.ToArray())  ' get an array of 2 datetime type elements, first the beginning and then the ending time
 
-
-            'MessageBox.Show("the selected value is " & Int(ComboBox2.SelectedItem))
             ' display the time frame and change colors accordingly
             tbRecTimeFrame.Text = (time_frame(0).ToString("HH:mm") & " - " & time_frame(1).ToString("HH:mm"))
-            Dim startingIndex = frame.findTimeFrame(prices.ToArray(), times.ToArray(), time_frame(0))
-            Dim averageNow = Math.Round(frame.averagePriceBors(Int(cbTimeFrame.SelectedItem), prices.ToArray(), times.ToArray()), 2)
+
+
+            Dim startingIndex = frame.findTimeFrame(prices.ToArray(), times.ToArray(), time_frame(0))                                       ' what index in the times array is the beginning time
+            Dim averageNow = Math.Round(frame.averagePriceBors(Int(cbTimeFrame.SelectedItem), prices.ToArray(), times.ToArray()), 2)        ' calculate averages for now and recommended times
             Dim averageTF = Math.Round(frame.averagePriceTimeFrame(Int(cbTimeFrame.SelectedItem), prices.ToArray(), startingIndex), 2)
 
 
 
-            chartMaker.changeColors(time_frame(0), Int(cbTimeFrame.SelectedItem), averageTF)
+            chartMaker.addRecommendedTime(time_frame(0), Int(cbTimeFrame.SelectedItem), averageTF)                                                ' indicate the recommended time on the chart
 
             lblAverageNow.Text = ("Keskmine hind: " & averageNow)
-            'MessageBox.Show("Sending values: " & startingIndex.ToString())
-            lblAverageTF.Text = ("Keskmine soovituslik: " & averageTF)
+            lblAverageTF.Text = ("Keskmine soovituslik: " & averageTF)                                                                      ' show times and savings to user
             lblSavedPer.Text = ("Säästaksid: " & 100 - Math.Round(averageTF / averageNow * 100, 0) & "%")
 
         End If
     End Sub
 
+    ' Returns current price for formCalc, might get removed later
     Public Function ReturnCurrentPrice()
-        Return prices.First
+        Return prices(GetCurrentPrice())
     End Function
 
+    Private Function GetCurrentPrice() As Double
+        Dim currentTime As DateTime = DateTime.Now
+        Dim currentHour As Integer = currentTime.Hour
+        Dim currentHourTime As DateTime = New DateTime(currentTime.Year, currentTime.Month, currentTime.Day, currentHour, 0, 0)
+
+        Dim index As Integer = times.IndexOf(currentHourTime)
+
+        If index >= 0 AndAlso index < prices.Count Then
+            Return index
+        Else
+            Return -1 ' Return -1 or throw an exception if the price cannot be determined
+        End If
+    End Function
+
+
+    ' Will update the listbox showing all electricity packages
     Private Sub updateListBox(data As Dictionary(Of String, Double))
         pakettCheckedListBox.Items.Clear()
         ' Populate the listbox with the packages
@@ -253,6 +157,7 @@ Public Class MainForm
         Next
     End Sub
 
+    ' Update the sorting of the electricity packages when the user clicks
     Private Sub jarjestamineComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles jarjestamineComboBox.SelectedIndexChanged
         ' Get the option chosen
         Dim selectedSortOption As String = jarjestamineComboBox.SelectedItem.ToString()
@@ -261,33 +166,56 @@ Public Class MainForm
         updateListBox(comparePackages.PackageSorter(selectedSortOption))
     End Sub
 
+    ' Handles comparing different electricity packages
     Private Sub compareButton_Click(sender As Object, e As EventArgs) Handles compareButton.Click
         Dim selected = comparePackages.GetSelectedIndices(pakettCheckedListBox)
         Dim price As New Double
         Dim title As String = ""
 
+        ' If the user unchecked something then we need to make sure the graph has been removed for that package, loop through and look if they are active
         For i As Integer = 0 To 7
             If Not selected.Contains(i) Then
                 chartMaker.removeChart(pakettCheckedListBox.Items(i).ToString())
             End If
         Next
 
-
+        ' For each package the user has selected draw a graph
         For Each index As Integer In selected
-            title = pakettCheckedListBox.Items(index).ToString()
-            price = comparePackages.PriceReturn(title)
-            chartMaker.addComparison(times.ToArray(), title, price, index)
-            Console.WriteLine("Selected index: " & index.ToString())
+            title = pakettCheckedListBox.Items(index).ToString()    ' Give a title
+            price = comparePackages.PriceReturn(title)              ' Give a price
+            chartMaker.addChart(times.ToArray(), New Double() {price}, title, False)  ' make the graph, price is typecast to array, only one value needed for linechart
+            Console.WriteLine("Selected index: " & index.ToString())        ' debugging
         Next
     End Sub
 
-    Private Sub btnConfirm_Click(sender As Object, e As EventArgs) Handles btnConfirm.Click
-        For Each row As DataRow In comboBoxTable.Rows
-            If row(0) = cbProvider.SelectedValue And row(1) = cbPackage.SelectedValue Then
-                tbCO2.Text = row(2)
-                footprintVar = row(2)
-            End If
-        Next
+    Private Async Sub btn7Davg_Click(sender As Object, e As EventArgs) Handles cbWeekAVG.CheckedChanged
+        If cbWeekAVG.Checked Then
+            Dim weekTimes As New List(Of DateTime)()
+            Dim weekPrices As New List(Of Double)()
+
+
+            Try
+                Dim currentDate As DateTime = DateTime.Now.Date.AddHours(-3)
+                Dim weekPricesAndTimes = Await apiHandler.GetPriceData(currentDate.AddDays(-7), currentDate)
+                weekTimes = weekPricesAndTimes.Item1
+                weekPrices = weekPricesAndTimes.Item2
+            Catch ex As Exception
+                MessageBox.Show(ex.Message)
+            End Try
+
+            Dim avg_prices = frame.averagePriceWeek(weekTimes.ToArray(), weekPrices.ToArray())
+            Dim todayStart As DateTime = DateTime.Now.Date
+            Dim hoursOfDay(23) As DateTime
+            For i As Integer = 0 To 23
+                hoursOfDay(i) = todayStart.AddHours(i)
+            Next
+
+            chartMaker.addChart(hoursOfDay, avg_prices, "Nädala keskmine", False)
+        Else
+            chartMaker.removeChart("Nädala keskmine")
+        End If
+
+
     End Sub
 
 
