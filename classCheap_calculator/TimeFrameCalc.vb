@@ -59,20 +59,37 @@ Public Class TimeFrameCalc
     End Function
 
     Private Function averagePriceWeek(ByRef times As DateTime(), ByRef prices As Double()) As Double() Implements iPriceCalc.averagePriceWeek
-        Dim hourlyPrices(23) As Double
+        Dim totalPrices(23) As Double
+        Dim countPrices(23) As Integer
 
+        ' Initialize arrays
+        For i As Integer = 0 To 23
+            totalPrices(i) = 0
+            countPrices(i) = 0
+        Next
+
+        ' Iterate through the input data and update totalPrices and countPrices arrays
         For i As Integer = 0 To times.Length - 1
-            Dim hourIndex As Integer = times(i).Hour
-            hourlyPrices(hourIndex) += prices(i)
+            Dim hourOfDay As Integer = times(i).Hour
+
+            totalPrices(hourOfDay) += prices(i)
+            countPrices(hourOfDay) += 1
         Next
 
-        For i As Integer = 0 To hourlyPrices.Length - 1
-            Dim averagePrice As Double = hourlyPrices(i) / 7  ' divide by number of days in the week (7)
-            Console.WriteLine($"Average price for hour {i:00}: {averagePrice:F2}")
+        ' Calculate average prices for each hour of the day
+        Dim averagePrices(23) As Double
+        For i As Integer = 0 To 23
+            If countPrices(i) > 0 Then
+                averagePrices(i) = totalPrices(i) / countPrices(i)
+            Else
+                averagePrices(i) = 0
+            End If
         Next
 
-        Return hourlyPrices
+        Return averagePrices
     End Function
+
+
 
 
 

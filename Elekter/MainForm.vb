@@ -45,7 +45,7 @@ Public Class MainForm
         chartPanel.Controls.Add(CType(chartMaker, Control))
 
         Try
-            Dim currentDate As DateTime = DateTime.Now.Date
+            Dim currentDate As DateTime = DateTime.Now.Date.AddHours(-3)
             Dim pricesAndTimes = Await apiHandler.GetPriceData(currentDate, currentDate.AddDays(1))
             times = pricesAndTimes.Item1
             prices = pricesAndTimes.Item2
@@ -59,6 +59,8 @@ Public Class MainForm
             Console.WriteLine($"Time: {times(i)}, Price: {prices(i)}")
         Next
         chartMaker.setInitialChart(times.ToArray(), prices.ToArray()) ' make the chart for current market price
+        Dim currentIndex = GetCurrentPrice()
+        chartMaker.addCurrentTimeScatter(times(currentIndex), prices(currentIndex) / 2)
 
         initialFormSize = New SizeF(Me.Width, Me.Height)    ' Capture starting form and font size
         initialFontSize = calcButton.Font.Size
@@ -76,13 +78,14 @@ Public Class MainForm
             Return
         End If
 
-        For Each ctrl As Control In Me.Controls ' Locate all labels and change the font size, Resizer.vb won't handle that
-            If TypeOf ctrl Is Label Then
+        For Each ctrl As Control In Me.Controls ' Locate all labels and checkboxes and change the font size, Resizer.vb won't handle that
+            If TypeOf ctrl Is Label OrElse TypeOf ctrl Is CheckBox Then
                 ctrl.Font = New Font(ctrl.Font.FontFamily, newFontSize, ctrl.Font.Style)
             End If
         Next
         chartMaker.UpdateMaxColumnWidth()   ' call the chartMaker class, column sizing will be recalculated as well
     End Sub
+
 
 
 
@@ -127,8 +130,23 @@ Public Class MainForm
 
     ' Returns current price for formCalc, might get removed later
     Public Function ReturnCurrentPrice()
-        Return prices.First
+        Return prices(GetCurrentPrice())
     End Function
+
+    Private Function GetCurrentPrice() As Double
+        Dim currentTime As DateTime = DateTime.Now
+        Dim currentHour As Integer = currentTime.Hour
+        Dim currentHourTime As DateTime = New DateTime(currentTime.Year, currentTime.Month, currentTime.Day, currentHour, 0, 0)
+
+        Dim index As Integer = times.IndexOf(currentHourTime)
+
+        If index >= 0 AndAlso index < prices.Count Then
+            Return index
+        Else
+            Return -1 ' Return -1 or throw an exception if the price cannot be determined
+        End If
+    End Function
+
 
     ' Will update the listbox showing all electricity packages
     Private Sub updateListBox(data As Dictionary(Of String, Double))
@@ -170,28 +188,35 @@ Public Class MainForm
         Next
     End Sub
 
-    Private Async Sub btn7Davg_Click(sender As Object, e As EventArgs) Handles btn7Davg.Click
-        Dim weekTimes As New List(Of DateTime)()
-        Dim weekPrices As New List(Of Double)()
+    Private Async Sub btn7Davg_Click(sender As Object, e As EventArgs) Handles cbWeekAVG.CheckedChanged
+        If cbWeekAVG.Checked Then
+            Dim weekTimes As New List(Of DateTime)()
+            Dim weekPrices As New List(Of Double)()
 
 
-        Try
-            Dim currentDate As DateTime = DateTime.Now.AddHours(-3)
-            Dim weekPricesAndTimes = Await apiHandler.GetPriceData(currentDate, currentDate.AddDays(1))
-            weekTimes = weekPricesAndTimes.Item1
-            weekPrices = weekPricesAndTimes.Item2
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-        End Try
+            Try
+                Dim currentDate As DateTime = DateTime.Now.Date.AddHours(-3)
+                Dim weekPricesAndTimes = Await apiHandler.GetPriceData(currentDate.AddDays(-7), currentDate)
+                weekTimes = weekPricesAndTimes.Item1
+                weekPrices = weekPricesAndTimes.Item2
+            Catch ex As Exception
+                MessageBox.Show(ex.Message)
+            End Try
 
-        Dim avg_prices = frame.averagePriceWeek(weekTimes.ToArray(), weekPrices.ToArray())
-        Dim todayStart As DateTime = DateTime.Now.Date
-        Dim hoursOfDay(23) As DateTime
-        For i As Integer = 0 To 23
-            hoursOfDay(i) = todayStart.AddHours(i)
-        Next
+            Dim avg_prices = frame.averagePriceWeek(weekTimes.ToArray(), weekPrices.ToArray())
+            Dim todayStart As DateTime = DateTime.Now.Date
+            Dim hoursOfDay(23) As DateTime
+            For i As Integer = 0 To 23
+                hoursOfDay(i) = todayStart.AddHours(i)
+            Next
 
-        chartMaker.addChart(hoursOfDay, avg_prices, "Nädala keskmine", True)
+            chartMaker.addChart(hoursOfDay, avg_prices, "Nädala keskmine", False)
+        Else
+            chartMaker.removeChart("Nädala keskmine")
+        End If
+
 
     End Sub
+
+
 End Class

@@ -7,5 +7,6 @@ Public Interface iMakeChart
     Sub removeChart(title As String)
 
     Sub UpdateMaxColumnWidth()
+    Sub addCurrentTimeScatter(time As DateTime, price As Double)
 
 End Interface

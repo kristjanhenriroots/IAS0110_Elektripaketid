@@ -30,6 +30,7 @@ Public Class UCchartMaker
         'CartesianChart.Pan = PanningOptions.Y                              ' Panning option letting user pan the y axis, now superseeded by y axis calculation using maxYValue
         mainChart.LegendLocation = LegendLocation.Right
         initialControlSize = New SizeF(Me.Width, Me.Height)                 ' Log initial form size
+
     End Sub
 
 
@@ -38,13 +39,18 @@ Public Class UCchartMaker
         Dim scaleFactor As Single = Me.Width / initialControlSize.Width * 0.5   ' Calculate scale factor, 0.5 is added because 1 is too large
         Dim newMaxColumnWidth As Single = 20 * scaleFactor                      ' Change 20 to the desired initial max column width
 
-        If newMaxColumnWidth < 50 Then
+        If newMaxColumnWidth < 70 Then
             ' Find the cartesian chart and change the max column / bar width
             For Each series As Series In mainChart.Series
                 If TypeOf series Is ColumnSeries Then
                     Dim columnSeries As ColumnSeries = CType(series, ColumnSeries)
                     columnSeries.MaxColumnWidth = newMaxColumnWidth
                 End If
+                If TypeOf series Is LineSeries Then
+                    Dim lineSeries As LineSeries = CType(series, LineSeries)
+                    lineSeries.StrokeThickness = 2 * scaleFactor ' Modify this value as needed for the initial stroke thickness
+                End If
+
             Next
         End If
 
@@ -221,10 +227,17 @@ Public Class UCchartMaker
                 .Stroke = GetRandomColor(),    ' Get the color
                 .Fill = System.Windows.Media.Brushes.Transparent,
                 .PointGeometry = Nothing,
-                .DataLabels = False,
                 .LineSmoothness = 0.2,
                 .LabelPoint = Function(point) String.Format("{0:dd.MM} - {1:N2}", DateTime.FromOADate(point.X), point.Y)   ' Formatting for the label when hovering with mouse
             }
+
+            If title <> "Nädala keskmine" Then
+                lineSeries.DataLabels = True
+                lineSeries.LabelPoint = Function(point) FormatLabelPoint(point, title)
+            Else
+                lineSeries.DataLabels = False
+            End If
+
             mainChart.Series.Add(lineSeries)   ' Add the chart
 
         End If
@@ -234,22 +247,6 @@ Public Class UCchartMaker
             UpdateYAxisMaxValue()
         End If
     End Sub
-
-    ' coloring code, allows for independently colored bars on the cartesianchart, slow and will probably be removed
-    'For i As Integer = 0 To times.Length - 1
-    '       chartValues = New ChartValues(Of ObservablePoint)()
-    '        chartValues.Add(New ObservablePoint(times(i).ToOADate(), prices(i)))
-    '
-    'Dim columnSeries As New ColumnSeries With {
-    '.Values = ChartValues,
-    '.Stroke = System.Windows.Media.Brushes.MediumSlateBlue,
-    '.Fill = System.Windows.Media.Brushes.MediumSlateBlue,
-    '.ColumnPadding = 1,
-    '.MaxColumnWidth = 20,
-    '.LabelPoint = Function(point) String.Format("{0:dd/MM/yyyy} - {1:N2} s/kWh", DateTime.FromOADate(point.X), point.Y)
-    '       }
-    '      CartesianChart.Series.Add(columnSeries)
-    'Next
 
     ' Originally used for changing colors of the bars but not feasible with livecharts, now creates a new linechart for the recommended time to use electricity
     ' inputs are starting time, the amount of hours and the average price for the timeframe
@@ -288,5 +285,26 @@ Public Class UCchartMaker
             Return ""
         End If
     End Function
+
+    Private Sub addCurrentTimeScatter(time As DateTime, price As Double) Implements iMakeChart.addCurrentTimeScatter
+        removeChart("Hetke aeg") ' Remove the chart if another point was previously shown
+
+        Dim scatterSeries As New ScatterSeries With {
+            .Title = "Hetke aeg", ' set title
+            .Values = New ChartValues(Of ObservablePoint)(),
+            .Stroke = System.Windows.Media.Brushes.Green,
+            .Fill = System.Windows.Media.Brushes.Green,
+            .PointGeometry = DefaultGeometries.Circle,
+            .MinPointShapeDiameter = 10,
+            .MaxPointShapeDiameter = 10,
+            .DataLabels = False,
+            .LabelPoint = Function(point) FormatLabelPoint(point, "") ' enable tooltips
+        }
+
+        scatterSeries.Values.Add(New ObservablePoint(time.ToOADate(), price))
+        mainChart.Series.Add(scatterSeries)
+    End Sub
+
+
 
 End Class
