@@ -8,6 +8,7 @@ Imports chartMaker
 Imports System.Security.Cryptography
 Imports packageComparator
 Imports API_Handler
+Imports AndmeParija
 
 Public Class MainForm
     Dim times As New List(Of DateTime)()                                    ' holds the times in DateTime format dd/mm/yyyy HH:mm . Corresponding price held in prices()
@@ -20,6 +21,9 @@ Public Class MainForm
     Dim initialFormSize As SizeF                                            ' saves the initial form size, used to calculate the size factor when resizing fonts
     Dim initialFontSize As Single                                           ' saves the initial font size, used to calculate new font size dynamically
 
+    Private dictionaryTable As New DataTable
+    Private comboBoxTable As New DataTable
+    Private footprintVar As New Double
 
     ' Main form load, currently
     '   1. Calls API and gets 24h pricing, will be changed to database
@@ -34,8 +38,12 @@ Public Class MainForm
         ' Setting a minimum size for the window to shrink to
         Me.MinimumSize = New Size(1000, 600)
 
+        'Get package data as datatable from database
+        Dim packageData As AndmeParija.IDatabaseQuery = New CDatabaseQuery()
+        dictionaryTable = packageData.queryData("Select provider, name, avgPricePerKW FROM universaalPakett")
+
         ' Get all package data from prj packageComparator, call function PackageData() for all names and prices
-        Dim packagePrices = comparePackages.PackageData()
+        Dim packagePrices = comparePackages.PackageData(dictionaryTable)
 
         ' Populate the listbox with the packages
         updateListBox(packagePrices)
@@ -64,6 +72,34 @@ Public Class MainForm
 
         initialFormSize = New SizeF(Me.Width, Me.Height)    ' Capture starting form and font size
         initialFontSize = calcButton.Font.Size
+
+        'Database section
+        'Refreshi börsi andmebaas
+        Dim updateBorsTable As AndmeParija.IAPIQuery = New AndmeParija.CAPIQuery
+
+        Try
+            updateBorsTable.updateTable()
+        Catch ex As Exception
+            MessageBox.Show("Error updating data table.")
+        End Try
+
+        'Comboboxi andmed
+        Dim loadComboBoxValues As AndmeParija.IDatabaseQuery = New AndmeParija.CDatabaseQuery
+        Dim providerValues = New List(Of String)
+
+        comboBoxTable = loadComboBoxValues.queryData("Select DISTINCT provider, name, footprint FROM universaalPakett")
+
+        Dim tempVar As String 'Ainult korraks vaja
+        For Each row As DataRow In comboBoxTable.Rows
+            tempVar = row(0).ToString
+            If Not providerValues.Contains(tempVar) Then
+                providerValues.Add(row(0))
+            End If
+        Next
+
+        cbProvider.DataSource = providerValues
+
+
     End Sub
 
     ' Handles dynamic form and font resizing when the user drags the window larger or smaller
@@ -218,5 +254,43 @@ Public Class MainForm
 
     End Sub
 
+    Private Sub cbProvider_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbProvider.SelectedValueChanged
+        Dim nameValues = New List(Of String)
+        Dim nameRow As DataRow()
+        Dim filterStr As String = "provider = '" & cbProvider.SelectedValue & "'"
+        nameRow = comboBoxTable.Select(filterStr)
 
+        For Each row As DataRow In nameRow
+            nameValues.Add(row(1).ToString)
+        Next
+
+        cbPackage.DataSource = nameValues
+    End Sub
+
+    Private Sub cbPackage_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbPackage.SelectedValueChanged
+
+        If String.IsNullOrEmpty(tbCO2.Text) Then
+            For Each row As DataRow In comboBoxTable.Rows
+                If row(0) = cbProvider.SelectedValue And row(1) = cbPackage.SelectedValue Then
+                    tbCO2.Text = row(2)
+                    footprintVar = row(2)
+                End If
+            Next
+        Else
+            For Each row As DataRow In comboBoxTable.Rows
+                If row(0) = cbProvider.SelectedValue And row(1) = cbPackage.SelectedValue Then
+                    tbCO2.Text = footprintVar & "->" & row(2)
+                End If
+            Next
+        End If
+    End Sub
+
+    Private Sub btnConfirm_Click(sender As Object, e As EventArgs) Handles btnConfirm.Click
+        For Each row As DataRow In comboBoxTable.Rows
+            If row(0) = cbProvider.SelectedValue And row(1) = cbPackage.SelectedValue Then
+                tbCO2.Text = row(2)
+                footprintVar = row(2)
+            End If
+        Next
+    End Sub
 End Class
