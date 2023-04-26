@@ -6,16 +6,6 @@ Public Class clPackageData
     Private deals As New Dictionary(Of String, Double)
 
     Public Function PackageData(ByRef dictDT As DataTable) As Dictionary(Of String, Double) Implements iComparePackages.PackageData
-        'Dim deals = New Dictionary(Of String, Double) From {
-        '    {"Kasulik Klõps", 16.73}, 'https://elektrihind.ee/paketid/
-        '    {"Kindel", 13.57},
-        '    {"Kindel 36", 17.5},
-        '    {"Kindel 6", 15.89},
-        '    {"Kindel Pluss", 14.49},
-        '    {"Tähtajaline fikseeritud hind + ühisarve", 13.96},
-        '    {"Tähtajaline fiseeritud", 13.5},
-        '    {"Universaal", 19.95}   'https://www.energia.ee/et/era/elekter/elektrileping-ja-paketid?customers=home-customer&packages=fixPlus
-        '}
         For Each row As DataRow In dictDT.Rows
             If Not deals.ContainsKey(row("name")) Then
                 Console.Write(row("name").ToString())

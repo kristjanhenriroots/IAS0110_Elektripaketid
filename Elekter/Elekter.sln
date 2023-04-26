@@ -11,7 +11,7 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "chartMaker", "..\chartMaker
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "API_Handler", "..\API_Handler\API_Handler.vbproj", "{64CC7082-2E86-4104-B1F9-DE1F9A9C8291}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "packageComparator", "..\packageComparator\packageComparator.vbproj", "{F5309078-824F-4905-98B3-13BA306BA1D7}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "packageComparator", "..\packageComparator\packageComparator.vbproj", "{F5309078-824F-4905-98B3-13BA306BA1D7}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "AndmeParija", "..\AndmeParija\AndmeParija\AndmeParija.vbproj", "{4BF79796-850C-404C-8C2C-17F6C5E27485}"
 EndProject
