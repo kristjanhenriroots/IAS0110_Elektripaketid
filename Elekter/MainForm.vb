@@ -21,9 +21,9 @@ Public Class MainForm
     Dim initialFormSize As SizeF                                            ' saves the initial form size, used to calculate the size factor when resizing fonts
     Dim initialFontSize As Single                                           ' saves the initial font size, used to calculate new font size dynamically
 
-    Private dictionaryTable As New DataTable
-    Private comboBoxTable As New DataTable
-    Private footprintVar As New Double
+    Private dictionaryTable As New DataTable 'Datatableid universaal pakettide jaoks
+    Private comboBoxTable As New DataTable 'Esimene on vajalik pakettide võrdlemiseks, teine pakettide valimiseks
+    Private footprintVar As New Double ' globaalne muutuja valitud paketti co2 jalajälje jaoks
 
     ' Main form load, currently
     '   1. Calls API and gets 24h pricing, will be changed to database
@@ -87,19 +87,18 @@ Public Class MainForm
         Dim loadComboBoxValues As AndmeParija.IDatabaseQuery = New AndmeParija.CDatabaseQuery
         Dim providerValues = New List(Of String)
 
-        comboBoxTable = loadComboBoxValues.queryData("Select DISTINCT provider, name, footprint FROM universaalPakett")
+        comboBoxTable = loadComboBoxValues.queryData("Select DISTINCT provider, name, footprint FROM universaalPakett") 'Valitakse unikaalsed pakettid koos nende jalajälgedega
 
         Dim tempVar As String 'Ainult korraks vaja
+        'Vajalik loop pakkujate filtreerimiseks
         For Each row As DataRow In comboBoxTable.Rows
             tempVar = row(0).ToString
-            If Not providerValues.Contains(tempVar) Then
+            If Not providerValues.Contains(tempVar) Then 'Kontrollib, kas pakkuja on juba olemas
                 providerValues.Add(row(0))
             End If
         Next
 
-        cbProvider.DataSource = providerValues
-
-
+        cbProvider.DataSource = providerValues 'Täidab comboboxi pakkujatega
     End Sub
 
     ' Handles dynamic form and font resizing when the user drags the window larger or smaller
@@ -254,21 +253,23 @@ Public Class MainForm
 
     End Sub
 
+    'Täidab pakettide valiku ainult antud pakkuja pakettidega
     Private Sub cbProvider_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbProvider.SelectedValueChanged
         Dim nameValues = New List(Of String)
         Dim nameRow As DataRow()
-        Dim filterStr As String = "provider = '" & cbProvider.SelectedValue & "'"
-        nameRow = comboBoxTable.Select(filterStr)
+        Dim filterStr As String = "provider = '" & cbProvider.SelectedValue & "'" 'Filter pakkuja jaoks
+        nameRow = comboBoxTable.Select(filterStr) 'Filtreerib datatablei ja paneb tulemuse datarowsse
 
         For Each row As DataRow In nameRow
-            nameValues.Add(row(1).ToString)
+            nameValues.Add(row(1).ToString) 'Lisab rows olevate pakettide nimed listi
         Next
 
-        cbPackage.DataSource = nameValues
+        cbPackage.DataSource = nameValues 'Täidab comboboxi
     End Sub
 
+    'Kuvab jalajälje muutumist pakettide vahel
     Private Sub cbPackage_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbPackage.SelectedValueChanged
-
+        'Esimesel käivitusel on tühi, seega täida esimese ettejuhtuva paketti CO2 jalajäljega
         If String.IsNullOrEmpty(tbCO2.Text) Then
             For Each row As DataRow In comboBoxTable.Rows
                 If row(0) = cbProvider.SelectedValue And row(1) = cbPackage.SelectedValue Then
@@ -277,6 +278,7 @@ Public Class MainForm
                 End If
             Next
         Else
+            'Kui on juba, siis võtab olemasoleva jalajälje ning näitab paketi vahetuse uut jalajälge
             For Each row As DataRow In comboBoxTable.Rows
                 If row(0) = cbProvider.SelectedValue And row(1) = cbPackage.SelectedValue Then
                     tbCO2.Text = footprintVar & "->" & row(2)
@@ -285,6 +287,7 @@ Public Class MainForm
         End If
     End Sub
 
+    'Kinnitab paketti ja paneb CO2 jalajälje lahtrisse
     Private Sub btnConfirm_Click(sender As Object, e As EventArgs) Handles btnConfirm.Click
         For Each row As DataRow In comboBoxTable.Rows
             If row(0) = cbProvider.SelectedValue And row(1) = cbPackage.SelectedValue Then
