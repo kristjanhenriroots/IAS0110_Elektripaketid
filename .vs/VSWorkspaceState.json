@@ -1,10 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\AndmeParija",
-    "\\AndmeParija\\AndmeParija",
     "\\Elekter"
   ],
-  "SelectedNode": "\\Elekter\\formVordlus.vb",
+  "SelectedNode": "\\Elekter\\MainForm.vb",
   "PreviewInSolutionExplorer": false
 }

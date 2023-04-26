@@ -1,11 +1,12 @@
 ﻿Imports System.Windows.Forms.DataVisualization.Charting
 
 Public Interface iMakeChart
-    Sub setChart(times As DateTime(), prices As Double())
-    Sub changeColors(startTime As DateTime, amount As Integer, avg_price As Double)
-    Sub addComparison(times As DateTime(), title As String, value As Double, index As Integer)
+    Sub setInitialChart(times As DateTime(), prices As Double())
+    Sub addRecommendedTime(startTime As DateTime, amount As Integer, avg_price As Double)
+    Sub addChart(times As DateTime(), prices As Double(), title As String, type As Boolean)
     Sub removeChart(title As String)
 
     Sub UpdateMaxColumnWidth()
+    Sub addCurrentTimeScatter(time As DateTime, price As Double)
 
 End Interface

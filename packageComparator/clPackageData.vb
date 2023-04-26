@@ -1,35 +1,30 @@
 Imports System.Security.Cryptography
 Imports System.Windows.Forms
 
-' Project that compares electricity packages other than börs
 Public Class clPackageData
     Implements iComparePackages
+    Private deals As New Dictionary(Of String, Double)
 
-    ' Current list and pricing for all electricity packages
-    Public Function PackageData() As Dictionary(Of String, Double) Implements iComparePackages.PackageData
-        Dim deals = New Dictionary(Of String, Double) From {
-            {"Kasulik Klõps", 16.73}, 'https://elektrihind.ee/paketid/
-            {"Kindel", 13.57},
-            {"Kindel 36", 17.5},
-            {"Kindel 6", 15.89},
-            {"Kindel Pluss", 14.49},
-            {"Tähtajaline fikseeritud hind + ühisarve", 13.96},
-            {"Tähtajaline fiseeritud", 13.5},
-            {"Universaal", 19.95}   'https://www.energia.ee/et/era/elekter/elektrileping-ja-paketid?customers=home-customer&packages=fixPlus
-        }
+    Public Function PackageData(ByRef dictDT As DataTable) As Dictionary(Of String, Double) Implements iComparePackages.PackageData
+        For Each row As DataRow In dictDT.Rows
+            If Not deals.ContainsKey(row("name")) Then
+                Console.Write(row("name").ToString())
+                Console.WriteLine(row("avgPricePerKW"))
+                deals.Add(row("provider") & " " & row("name"), row("avgPricePerKW"))
+            End If
+        Next
 
         Return deals
     End Function
 
-    ' Function that gets called when the user changes the order of the packages, input is sorting mode, function will return the formatted list
     Public Function PackageSorter(ByRef sortMode As String) As Dictionary(Of String, Double) Implements iComparePackages.PackageSorter
-        Dim temp = PackageData()
+        Dim temp = deals
 
         'Sort the items in CheckedListBox based on selected sorting option
         If sortMode = "A - Z" Then
-            Return temp ' because packages are always kept at an alphabetic order
+            Return temp
 
-        ElseIf sortMode = "Z - A" Then  ' reverse it
+        ElseIf sortMode = "Z - A" Then
             Dim rev_ans As New Dictionary(Of String, Double)
 
             For i As Integer = temp.Count - 1 To 0 Step -1
@@ -78,9 +73,8 @@ Public Class clPackageData
         Return New Dictionary(Of String, Double)
     End Function
 
-    ' Function if asking for a specific package price
     Public Function PriceReturn(ByRef package As String) As Double Implements iComparePackages.PriceReturn
-        Dim deals = PackageData()
+        'Dim deals = PackageData()
         For Each kvp As KeyValuePair(Of String, Double) In deals
             If kvp.Key = package Then
                 Return kvp.Value
@@ -90,7 +84,7 @@ Public Class clPackageData
         Return 0
     End Function
 
-    ' Returns ALL of the indices of selected packages from the listbox, 
+    ' Returns the indices of selected packages from the listbox
     Private Function getSelectedIndices(listBox As CheckedListBox) As List(Of Integer) Implements iComparePackages.GetSelectedIndices
         Dim selectedIndexList As New List(Of Integer)
 

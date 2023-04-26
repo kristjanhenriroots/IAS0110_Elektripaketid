@@ -1,27 +1,30 @@
-﻿Imports System.Text
+﻿Imports System.CodeDom.Compiler
+Imports System.Text
 Imports AndmeParija.CAPIQuery
 Imports AndmeParija.CDatabaseQuery
 Public Class formVordlus
     Private comboBoxTable As New DataTable
-    Private deals As Dictionary(Of String, Double)
+    Private dictionaryTable As New DataTable
+    Private deals As New Dictionary(Of String, Double)
 
     Private Sub formVordlus_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        deals = New Dictionary(Of String, Double) From {
-            {"Börss", MainForm.ReturnCurrentPrice},
-            {"Universaal", 19.95}, 'https://www.energia.ee/et/era/elekter/elektrileping-ja-paketid?customers=home-customer&packages=fixPlus
-            {"Kindel 6", 15.89},
-            {"Kindel 36", 17.5},
-            {"Kindel Pluss", 14.49},
-            {"Kasulik Klõps", 16.73}, 'https://elektrihind.ee/paketid/
-            {"Tähtajaline fiseeritud", 13.5},
-            {"Kindel", 13.57},
-            {"Tähtajaline fikseeritud hind + ühisarve", 13.96}
-        }
 
-        'Go through each deal in deals dictionary and them to pakettCheckedListBox.
-        For Each dealName As String In deals.Keys
-            pakettCheckedListBox.Items.Add(dealName)
-        Next
+        'deals = New Dictionary(Of String, Double) From {
+        '    {"Börss", MainForm.ReturnCurrentPrice},
+        '    {"Universaal", 19.95}, 'https://www.energia.ee/et/era/elekter/elektrileping-ja-paketid?customers=home-customer&packages=fixPlus
+        '    {"Kindel 6", 15.89},
+        '    {"Kindel 36", 17.5},
+        '    {"Kindel Pluss", 14.49},
+        '    {"Kasulik Klõps", 16.73}, 'https://elektrihind.ee/paketid/
+        '    {"Tähtajaline fiseeritud", 13.5},
+        '    {"Kindel", 13.57},
+        '    {"Tähtajaline fikseeritud hind + ühisarve", 13.96}
+        '}
+
+        ''Go through each deal in deals dictionary and them to pakettCheckedListBox.
+        'For Each dealName As String In deals.Keys
+        '    pakettCheckedListBox.Items.Add(dealName)
+        'Next
 
         'Sorting options for jarjestamineComboBox
         jarjestamineComboBox.Items.Add("A-Z")
@@ -42,9 +45,27 @@ Public Class formVordlus
             MessageBox.Show("Error updating data table.")
         End Try
 
+        'New Dictionary section
+        'Get data from database
         Dim loadComboBoxValues As AndmeParija.IDatabaseQuery
         loadComboBoxValues = New AndmeParija.CDatabaseQuery
+        dictionaryTable = loadComboBoxValues.queryData("Select provider, name, avgPricePerKW FROM universaalPakett")
 
+        'Write datatable to dictionary
+        For Each row As DataRow In dictionaryTable.Rows
+            If Not deals.ContainsKey(row("name")) Then
+                Console.Write(row("name").ToString())
+                Console.WriteLine(row("avgPricePerKW"))
+                deals.Add(row("provider") & " " & row("name"), row("avgPricePerKW"))
+            End If
+        Next
+        'Add dictionary to checkboxlist
+        For Each dealName As String In deals.Keys
+            pakettCheckedListBox.Items.Add(dealName)
+        Next
+
+
+        loadComboBoxValues = New AndmeParija.CDatabaseQuery
         comboBoxTable = loadComboBoxValues.queryData("Select dateTime FROM bors WHERE rowid > 1 LIMIT 25")
 
         Dim dateTimeValues = New List(Of String)
@@ -56,8 +77,13 @@ Public Class formVordlus
 
         loadComboBoxValues = New AndmeParija.CDatabaseQuery
         comboBoxTable = loadComboBoxValues.queryData("Select DISTINCT provider, name FROM borsPakett")
+
+        Dim tempVar As String 'Ainult korraks vaja
         For Each row As DataRow In comboBoxTable.Rows
-            providerValues.Add(row(0))
+            tempVar = row(0).ToString
+            If Not providerValues.Contains(tempVar) Then
+                providerValues.Add(row(0))
+            End If
         Next
 
         cbProvider.DataSource = providerValues

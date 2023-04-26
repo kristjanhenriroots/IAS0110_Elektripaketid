@@ -12,7 +12,7 @@ Public Class CAPIQuery
     'DB stuff
     Private dbName As String = "enpakDB.db" 'Andmebaasi nimi
 
-    Private dbPath As String = "..\..\..\databases\" & dbName 'Tee andmebaasini. Ideaalis saaks relatiivselt, aga hetkel see ei toimi
+    Private dbPath As String = "..\..\..\databases\" & dbName 'Tee andmebaasini.
     Private connString As String = "Data Source=" & dbPath & ";Version=3" 'Ühenduse string. 
 
     Private connection As New SQLiteConnection(connString) 'Muutuja ühenduse loomiseks 

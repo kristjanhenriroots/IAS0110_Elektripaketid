@@ -22,9 +22,9 @@ Partial Class formVordlus
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.otsingButton = New System.Windows.Forms.Button()
         Me.vordlusButton = New System.Windows.Forms.Button()
         Me.calcButton = New System.Windows.Forms.Button()
@@ -154,7 +154,7 @@ Partial Class formVordlus
         Me.pakettCheckedListBox.Location = New System.Drawing.Point(35, 78)
         Me.pakettCheckedListBox.Margin = New System.Windows.Forms.Padding(2)
         Me.pakettCheckedListBox.Name = "pakettCheckedListBox"
-        Me.pakettCheckedListBox.Size = New System.Drawing.Size(90, 124)
+        Me.pakettCheckedListBox.Size = New System.Drawing.Size(88, 124)
         Me.pakettCheckedListBox.TabIndex = 53
         '
         'Label1
@@ -169,17 +169,17 @@ Partial Class formVordlus
         '
         'packageChart
         '
-        ChartArea1.Name = "ChartArea1"
-        Me.packageChart.ChartAreas.Add(ChartArea1)
-        Legend1.Name = "Legend1"
-        Me.packageChart.Legends.Add(Legend1)
+        ChartArea3.Name = "ChartArea1"
+        Me.packageChart.ChartAreas.Add(ChartArea3)
+        Legend3.Name = "Legend1"
+        Me.packageChart.Legends.Add(Legend3)
         Me.packageChart.Location = New System.Drawing.Point(233, 78)
         Me.packageChart.Margin = New System.Windows.Forms.Padding(2)
         Me.packageChart.Name = "packageChart"
-        Series1.ChartArea = "ChartArea1"
-        Series1.Legend = "Legend1"
-        Series1.Name = "Series1"
-        Me.packageChart.Series.Add(Series1)
+        Series3.ChartArea = "ChartArea1"
+        Series3.Legend = "Legend1"
+        Series3.Name = "Series1"
+        Me.packageChart.Series.Add(Series3)
         Me.packageChart.Size = New System.Drawing.Size(163, 122)
         Me.packageChart.TabIndex = 65
         Me.packageChart.Text = "Chart1"
@@ -190,7 +190,7 @@ Partial Class formVordlus
         Me.cbProvider.FormattingEnabled = True
         Me.cbProvider.Location = New System.Drawing.Point(35, 247)
         Me.cbProvider.Name = "cbProvider"
-        Me.cbProvider.Size = New System.Drawing.Size(121, 21)
+        Me.cbProvider.Size = New System.Drawing.Size(142, 21)
         Me.cbProvider.TabIndex = 66
         '
         'cbPackage
@@ -199,7 +199,7 @@ Partial Class formVordlus
         Me.cbPackage.FormattingEnabled = True
         Me.cbPackage.Location = New System.Drawing.Point(35, 294)
         Me.cbPackage.Name = "cbPackage"
-        Me.cbPackage.Size = New System.Drawing.Size(121, 21)
+        Me.cbPackage.Size = New System.Drawing.Size(142, 21)
         Me.cbPackage.TabIndex = 67
         '
         'lblProvider
@@ -224,18 +224,18 @@ Partial Class formVordlus
         '
         Me.cbStartTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbStartTime.FormattingEnabled = True
-        Me.cbStartTime.Location = New System.Drawing.Point(181, 247)
+        Me.cbStartTime.Location = New System.Drawing.Point(221, 247)
         Me.cbStartTime.Name = "cbStartTime"
-        Me.cbStartTime.Size = New System.Drawing.Size(121, 21)
+        Me.cbStartTime.Size = New System.Drawing.Size(142, 21)
         Me.cbStartTime.TabIndex = 70
         '
         'cbEndTime
         '
         Me.cbEndTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbEndTime.FormattingEnabled = True
-        Me.cbEndTime.Location = New System.Drawing.Point(181, 294)
+        Me.cbEndTime.Location = New System.Drawing.Point(221, 294)
         Me.cbEndTime.Name = "cbEndTime"
-        Me.cbEndTime.Size = New System.Drawing.Size(121, 21)
+        Me.cbEndTime.Size = New System.Drawing.Size(142, 21)
         Me.cbEndTime.TabIndex = 71
         '
         'btnFindPackage
