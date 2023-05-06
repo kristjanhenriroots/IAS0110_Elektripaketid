@@ -48,7 +48,7 @@ Public Class CAPIQuery
                 Dim dateValue As DateTime = DateTime.ParseExact(values(1).Trim(""""), "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture) 'Siin on AM/PM
                 Dim price As Double = Double.Parse(values(2).Trim("""").Replace(",", "."), CultureInfo.InvariantCulture)
 
-                commandTxt = "UPDATE bors SET timeTemplateUTC = '" & timeTemplate & "', dateTime = '" & dateValue.ToString("dd.MM.yyyy HH:mm") & 'Siin on 24h
+                commandTxt = "UPDATE bors SET dateTime = '" & dateValue.ToString("dd.MM.yyyy HH:mm") & 'Siin on 24h
                 "', price = '" & price * 1.2 / 10 & "' WHERE rowid = " & index & ";" 'Päringu teksti lisamine. Rowid peab olema alguses 2, sest esimene row on csv failis stringid :/
 
                 command.Connection = connection 'Andmebaasi ühenduse lisamine

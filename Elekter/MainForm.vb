@@ -58,7 +58,7 @@ Public Class MainForm
 
         Try
             Dim currentDate As DateTime = DateTime.Now.Date.AddHours(-3)
-            Dim pricesAndTimes = Await apiHandler.GetPriceData(currentDate, currentDate.AddDays(1))
+            Dim pricesAndTimes = Await apiHandler.GetPriceData(currentDate.AddDays(-7), currentDate.AddDays(1))
             priceTimeTable = databaseQuery.queryData("Select dateTime, price FROM bors WHERE dateTime BETWEEN '" &
                                                 DateTime.Now.Date.ToString("yyyy.MM.dd HH:mm") &
                                                 "' AND '" & DateTime.Now.Date.AddDays(1).ToString("yyyy.MM.dd HH:mm") & "'")
@@ -242,14 +242,8 @@ Public Class MainForm
 
 
             Try
-                Dim currentDate As DateTime = DateTime.Now.Date.AddHours(-3)
-                Dim weekPricesAndTimes = Await apiHandler.GetPriceData(currentDate.AddDays(-7), currentDate.AddDays(1))
-
-                databaseQuery.updateTable(weekPricesAndTimes)
-
-                Console.WriteLine(DateTime.Now.Date.AddDays(-7).ToString("yyyy.MM.dd HH:mm"))
-                Console.WriteLine(DateTime.Now.Date.ToString("yyyy.MM.dd HH:mm"))
-
+                'Dim currentDate As DateTime = DateTime.Now.Date.AddHours(-3)
+                'Dim weekPricesAndTimes = Await apiHandler.GetPriceData(currentDate.AddDays(-7), currentDate.AddDays(1))
                 weekPriceTimeTable = databaseQuery.queryData("Select dateTime, price FROM bors WHERE dateTime BETWEEN '" &
                                                DateTime.Now.Date.AddDays(-7).ToString("yyyy.MM.dd HH:mm") &
                                                "' AND '" & DateTime.Now.Date.ToString("yyyy.MM.dd HH:mm") & "'")
@@ -261,7 +255,6 @@ Public Class MainForm
             End Try
 
             Dim a As DateTime
-            Console.WriteLine("HERE!!!!!")
             For Each row As DataRow In weekPriceTimeTable.Rows
                 a = DateTime.ParseExact(row("dateTime"), "yyyy.MM.dd HH:mm", CultureInfo.InvariantCulture)
                 Console.WriteLine(a)
