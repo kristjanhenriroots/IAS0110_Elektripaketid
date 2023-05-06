@@ -30,6 +30,7 @@ Public Class CDatabaseQuery
         answer.Load(rdr) 'Päringu sisestamine lokaalsesse muutujasse
 
         connection.Close() 'Sulge ühendus
+        Console.WriteLine("Retrieved")
     End Sub
 
     Private Sub processUpdate(timeAndPrice As Tuple(Of List(Of Date), List(Of Double)))

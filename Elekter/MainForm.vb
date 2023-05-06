@@ -52,16 +52,28 @@ Public Class MainForm
         CType(chartMaker, Control).Dock = DockStyle.Fill
         chartPanel.Controls.Add(CType(chartMaker, Control))
 
+        Dim testData As AndmeParija.IDatabaseQuery = New CDatabaseQuery()
+        Dim testTable As New DataTable
+
+
         Try
             Dim currentDate As DateTime = DateTime.Now.Date.AddHours(-3)
             Dim pricesAndTimes = Await apiHandler.GetPriceData(currentDate, currentDate.AddDays(1))
-            times = pricesAndTimes.Item1
-            prices = pricesAndTimes.Item2
+            testTable = testData.queryData("Select dateTime, price FROM bors WHERE dateTime BETWEEN '" & DateTime.Now.Date.ToString("dd.MM.yyyy HH:mm") &
+                                           "' AND '" & DateTime.Now.Date.AddDays(1).ToString("dd.MM.yyyy HH:mm") & "'")
+            'times = pricesAndTimes.Item1
+            'prices = pricesAndTimes.Item2
+
             packageData.updateTable(pricesAndTimes)
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
-
+        Dim a As DateTime
+        For Each row As DataRow In testTable.Rows
+            a = DateTime.ParseExact(row("dateTime"), "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture)
+            times.Add(a)
+            prices.Add(row("price"))
+        Next
 
         ' Print out the times and prices lists just in case
         For i As Integer = 0 To times.Count - 1
@@ -75,15 +87,6 @@ Public Class MainForm
         initialFontSize = calcButton.Font.Size
 
         'Database section
-        'Refreshi börsi andmebaas
-        'Dim updateBorsTable As AndmeParija.IAPIQuery = New AndmeParija.CAPIQuery
-
-        'Try
-        '    updateBorsTable.updateTable()
-        'Catch ex As Exception
-        '    MessageBox.Show("Error updating data table.")
-        'End Try
-
         'Comboboxi andmed
         Dim loadComboBoxValues As AndmeParija.IDatabaseQuery = New AndmeParija.CDatabaseQuery
         Dim providerValues = New List(Of String)
@@ -173,6 +176,8 @@ Public Class MainForm
         Dim currentTime As DateTime = DateTime.Now
         Dim currentHour As Integer = currentTime.Hour
         Dim currentHourTime As DateTime = New DateTime(currentTime.Year, currentTime.Month, currentTime.Day, currentHour, 0, 0)
+
+        Console.WriteLine(currentHourTime)
 
         Dim index As Integer = times.IndexOf(currentHourTime)
 
