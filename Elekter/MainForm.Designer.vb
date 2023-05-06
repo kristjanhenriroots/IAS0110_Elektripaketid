@@ -47,8 +47,6 @@ Partial Class MainForm
         Me.lblAverageTF = New System.Windows.Forms.Label()
         Me.lblSavedPer = New System.Windows.Forms.Label()
         Me.chartPanel = New System.Windows.Forms.Panel()
-        Me.CheckedListBox2 = New System.Windows.Forms.CheckedListBox()
-        Me.Label10 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.jarjestamineComboBox = New System.Windows.Forms.ComboBox()
         Me.compareButton = New System.Windows.Forms.Button()
@@ -60,6 +58,13 @@ Partial Class MainForm
         Me.btnConfirm = New System.Windows.Forms.Button()
         Me.lblProvider = New System.Windows.Forms.Label()
         Me.lblPackage = New System.Windows.Forms.Label()
+        Me.dgvUniversalPackages = New System.Windows.Forms.DataGridView()
+        Me.dgvFixedPackages = New System.Windows.Forms.DataGridView()
+        Me.dgvBorsPackages = New System.Windows.Forms.DataGridView()
+        Me.chartPanel.SuspendLayout()
+        CType(Me.dgvUniversalPackages, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvFixedPackages, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvBorsPackages, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'otsingButton
@@ -319,38 +324,19 @@ Partial Class MainForm
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.chartPanel.AutoSize = True
+        Me.chartPanel.Controls.Add(Me.dgvBorsPackages)
+        Me.chartPanel.Controls.Add(Me.dgvFixedPackages)
+        Me.chartPanel.Controls.Add(Me.dgvUniversalPackages)
         Me.chartPanel.Location = New System.Drawing.Point(34, 64)
         Me.chartPanel.Name = "chartPanel"
-        Me.chartPanel.Size = New System.Drawing.Size(708, 417)
+        Me.chartPanel.Size = New System.Drawing.Size(712, 429)
         Me.chartPanel.TabIndex = 79
-        '
-        'CheckedListBox2
-        '
-        Me.CheckedListBox2.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.CheckedListBox2.FormattingEnabled = True
-        Me.CheckedListBox2.Items.AddRange(New Object() {"Filter 1", "Filter 2"})
-        Me.CheckedListBox2.Location = New System.Drawing.Point(882, 392)
-        Me.CheckedListBox2.Margin = New System.Windows.Forms.Padding(2)
-        Me.CheckedListBox2.Name = "CheckedListBox2"
-        Me.CheckedListBox2.Size = New System.Drawing.Size(82, 34)
-        Me.CheckedListBox2.TabIndex = 86
-        '
-        'Label10
-        '
-        Me.Label10.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(879, 369)
-        Me.Label10.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(82, 13)
-        Me.Label10.TabIndex = 85
-        Me.Label10.Text = "Filtreeri pakette:"
         '
         'Label11
         '
         Me.Label11.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(879, 317)
+        Me.Label11.Location = New System.Drawing.Point(888, 464)
         Me.Label11.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(85, 13)
@@ -363,7 +349,7 @@ Partial Class MainForm
         Me.jarjestamineComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.jarjestamineComboBox.FormattingEnabled = True
         Me.jarjestamineComboBox.Items.AddRange(New Object() {"A - Z", "Z - A", "Hind kasvav", "Hind kahanev"})
-        Me.jarjestamineComboBox.Location = New System.Drawing.Point(882, 340)
+        Me.jarjestamineComboBox.Location = New System.Drawing.Point(891, 480)
         Me.jarjestamineComboBox.Margin = New System.Windows.Forms.Padding(2)
         Me.jarjestamineComboBox.Name = "jarjestamineComboBox"
         Me.jarjestamineComboBox.Size = New System.Drawing.Size(82, 21)
@@ -388,7 +374,7 @@ Partial Class MainForm
         Me.pakettCheckedListBox.Location = New System.Drawing.Point(775, 340)
         Me.pakettCheckedListBox.Margin = New System.Windows.Forms.Padding(2)
         Me.pakettCheckedListBox.Name = "pakettCheckedListBox"
-        Me.pakettCheckedListBox.Size = New System.Drawing.Size(90, 124)
+        Me.pakettCheckedListBox.Size = New System.Drawing.Size(198, 124)
         Me.pakettCheckedListBox.TabIndex = 81
         '
         'Label12
@@ -455,6 +441,45 @@ Partial Class MainForm
         Me.lblPackage.TabIndex = 95
         Me.lblPackage.Text = "Pakett:"
         '
+        'dgvUniversalPackages
+        '
+        Me.dgvUniversalPackages.AllowUserToAddRows = False
+        Me.dgvUniversalPackages.AllowUserToDeleteRows = False
+        Me.dgvUniversalPackages.BackgroundColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvUniversalPackages.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dgvUniversalPackages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvUniversalPackages.Location = New System.Drawing.Point(0, 0)
+        Me.dgvUniversalPackages.Name = "dgvUniversalPackages"
+        Me.dgvUniversalPackages.ReadOnly = True
+        Me.dgvUniversalPackages.Size = New System.Drawing.Size(709, 123)
+        Me.dgvUniversalPackages.TabIndex = 0
+        '
+        'dgvFixedPackages
+        '
+        Me.dgvFixedPackages.AllowUserToAddRows = False
+        Me.dgvFixedPackages.AllowUserToDeleteRows = False
+        Me.dgvFixedPackages.BackgroundColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvFixedPackages.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dgvFixedPackages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvFixedPackages.Location = New System.Drawing.Point(0, 151)
+        Me.dgvFixedPackages.Name = "dgvFixedPackages"
+        Me.dgvFixedPackages.ReadOnly = True
+        Me.dgvFixedPackages.Size = New System.Drawing.Size(709, 123)
+        Me.dgvFixedPackages.TabIndex = 1
+        '
+        'dgvBorsPackages
+        '
+        Me.dgvBorsPackages.AllowUserToAddRows = False
+        Me.dgvBorsPackages.AllowUserToDeleteRows = False
+        Me.dgvBorsPackages.BackgroundColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvBorsPackages.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dgvBorsPackages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvBorsPackages.Location = New System.Drawing.Point(-1, 303)
+        Me.dgvBorsPackages.Name = "dgvBorsPackages"
+        Me.dgvBorsPackages.ReadOnly = True
+        Me.dgvBorsPackages.Size = New System.Drawing.Size(709, 123)
+        Me.dgvBorsPackages.TabIndex = 2
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -466,14 +491,11 @@ Partial Class MainForm
         Me.Controls.Add(Me.cbPackage)
         Me.Controls.Add(Me.cbProvider)
         Me.Controls.Add(Me.cbWeekAVG)
-        Me.Controls.Add(Me.CheckedListBox2)
-        Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.jarjestamineComboBox)
         Me.Controls.Add(Me.compareButton)
         Me.Controls.Add(Me.pakettCheckedListBox)
         Me.Controls.Add(Me.Label12)
-        Me.Controls.Add(Me.chartPanel)
         Me.Controls.Add(Me.lblSavedPer)
         Me.Controls.Add(Me.lblAverageTF)
         Me.Controls.Add(Me.lblAverageNow)
@@ -498,10 +520,15 @@ Partial Class MainForm
         Me.Controls.Add(Me.ComboBox1)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.chartPanel)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "MainForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "MainForm"
+        Me.chartPanel.ResumeLayout(False)
+        CType(Me.dgvUniversalPackages, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvFixedPackages, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvBorsPackages, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -531,8 +558,6 @@ Partial Class MainForm
     Friend WithEvents lblAverageTF As Label
     Friend WithEvents lblSavedPer As Label
     Friend WithEvents chartPanel As Panel
-    Friend WithEvents CheckedListBox2 As CheckedListBox
-    Friend WithEvents Label10 As Label
     Friend WithEvents Label11 As Label
     Friend WithEvents jarjestamineComboBox As ComboBox
     Friend WithEvents compareButton As Button
@@ -544,6 +569,9 @@ Partial Class MainForm
     Friend WithEvents btnConfirm As Button
     Friend WithEvents lblProvider As Label
     Friend WithEvents lblPackage As Label
+    Friend WithEvents dgvUniversalPackages As DataGridView
+    Friend WithEvents dgvBorsPackages As DataGridView
+    Friend WithEvents dgvFixedPackages As DataGridView
 End Class
 '=======
 '﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>

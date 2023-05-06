@@ -103,7 +103,22 @@ Public Class MainForm
             End If
         Next
 
-        cbProvider.DataSource = providerValues 'Täidab comboboxi pakkujatega
+        cbProvider.DataSource = providerValues           'Täidab comboboxi pakkujatega
+
+        'Parent kontroll 
+        dgvUniversalPackages.Hide()
+        dgvUniversalPackages.Parent = Me
+        dgvUniversalPackages.Left = chartPanel.Left
+        dgvUniversalPackages.Top = chartPanel.Top
+        dgvFixedPackages.Hide()
+        dgvFixedPackages.Parent = Me
+        dgvFixedPackages.Left = chartPanel.Left
+        dgvFixedPackages.Top = chartPanel.Top + dgvUniversalPackages.Height + 20
+        dgvBorsPackages.Hide()
+        dgvBorsPackages.Parent = Me
+        dgvBorsPackages.Left = chartPanel.Left
+        dgvBorsPackages.Top = chartPanel.Top + dgvUniversalPackages.Height + dgvFixedPackages.Height + 40
+
     End Sub
 
     ' Handles dynamic form and font resizing when the user drags the window larger or smaller
@@ -316,5 +331,65 @@ Public Class MainForm
                 footprintVar = row(2)
             End If
         Next
+    End Sub
+
+    Private Sub otsingButton_Click(sender As Object, e As EventArgs) Handles otsingButton.Click
+        databaseQuery = New AndmeParija.CDatabaseQuery
+        Dim universalPackages As DataTable = databaseQuery.queryData("SELECT name, provider, baseHourPrice, margin,
+                                                            avgPricePerKW, averageMonthPrice, monthTax, source, 
+                                                            footprint, attributes FROM universaalPakett")
+
+        universalPackages.Columns("name").ColumnName = "Nimi"
+        universalPackages.Columns("provider").ColumnName = "Pakkuja"
+        universalPackages.Columns("baseHourPrice").ColumnName = "Tunnihind"
+        universalPackages.Columns("avgPricePerKW").ColumnName = "Keskmine KW hind"
+        universalPackages.Columns("margin").ColumnName = "Marginaal"
+        universalPackages.Columns("averageMonthPrice").ColumnName = "Kuuhind"
+        universalPackages.Columns("monthTax").ColumnName = "Kuumaks"
+        universalPackages.Columns("attributes").ColumnName = "Lisa"
+        universalPackages.Columns("footprint").ColumnName = "CO2 jalajälg"
+        universalPackages.Columns("source").ColumnName = "Allikas"
+
+        dgvUniversalPackages.DataSource = universalPackages
+
+        databaseQuery = New AndmeParija.CDatabaseQuery
+        Dim fixedPackages As DataTable = databaseQuery.queryData("SELECT name, provider,
+                                                            avgPricePerKW, averageMonthPrice, monthTax, 
+                                                            durationMonths, dayPrice,
+                                                            nightPrice FROM fikseeritudPakett")
+
+        fixedPackages.Columns("name").ColumnName = "Nimi"
+        fixedPackages.Columns("provider").ColumnName = "Pakkuja"
+        fixedPackages.Columns("avgPricePerKW").ColumnName = "Keskmine KW hind"
+        fixedPackages.Columns("averageMonthPrice").ColumnName = "Kuuhind"
+        fixedPackages.Columns("monthTax").ColumnName = "Kuumaks"
+        fixedPackages.Columns("durationMonths").ColumnName = "Paketi kestvus"
+        fixedPackages.Columns("dayPrice").ColumnName = "Päeva hind"
+        fixedPackages.Columns("nightPrice").ColumnName = "Öö hind"
+        'fixedPackages.Columns("24hPrice").ColumnName = "Ööpäeva hind"
+        'universalPackages.Columns("footprint").ColumnName = "CO2 jalajälg"
+        'universalPackages.Columns("source").ColumnName = "Allikas"
+
+        dgvFixedPackages.DataSource = fixedPackages
+
+        databaseQuery = New AndmeParija.CDatabaseQuery
+        Dim borsPackages As DataTable = databaseQuery.queryData("SELECT name, provider, baseHourPrice, margin,
+                                                            avgPricePerKW, averageMonthPrice, source, 
+                                                            footprint, attributes FROM universaalpakett")
+
+        dgvBorsPackages.DataSource = borsPackages
+
+        chartPanel.Hide()
+        dgvUniversalPackages.Show()
+        dgvFixedPackages.Show()
+        dgvBorsPackages.Show()
+    End Sub
+
+    Private Sub homeButton_Click(sender As Object, e As EventArgs) Handles homeButton.Click
+
+
+
+        chartPanel.Show()
+        dgvUniversalPackages.Hide()
     End Sub
 End Class

@@ -10,23 +10,6 @@ Public Class formVordlus
 
     Private Sub formVordlus_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        'deals = New Dictionary(Of String, Double) From {
-        '    {"Börss", MainForm.ReturnCurrentPrice},
-        '    {"Universaal", 19.95}, 'https://www.energia.ee/et/era/elekter/elektrileping-ja-paketid?customers=home-customer&packages=fixPlus
-        '    {"Kindel 6", 15.89},
-        '    {"Kindel 36", 17.5},
-        '    {"Kindel Pluss", 14.49},
-        '    {"Kasulik Klõps", 16.73}, 'https://elektrihind.ee/paketid/
-        '    {"Tähtajaline fiseeritud", 13.5},
-        '    {"Kindel", 13.57},
-        '    {"Tähtajaline fikseeritud hind + ühisarve", 13.96}
-        '}
-
-        ''Go through each deal in deals dictionary and them to pakettCheckedListBox.
-        'For Each dealName As String In deals.Keys
-        '    pakettCheckedListBox.Items.Add(dealName)
-        'Next
-
         'Sorting options for jarjestamineComboBox
         jarjestamineComboBox.Items.Add("A-Z")
         jarjestamineComboBox.Items.Add("Z-A")
@@ -37,14 +20,6 @@ Public Class formVordlus
         packageChart.Series.Clear()
 
         'Database section
-        Dim updateBorsTable As AndmeParija.IAPIQuery
-        updateBorsTable = New AndmeParija.CAPIQuery
-
-        Try
-            updateBorsTable.updateTable()
-        Catch ex As Exception
-            MessageBox.Show("Error updating data table.")
-        End Try
 
         'New Dictionary section
         'Get data from database
