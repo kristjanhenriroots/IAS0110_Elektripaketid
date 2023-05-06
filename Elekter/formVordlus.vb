@@ -1,4 +1,5 @@
 ﻿Imports System.CodeDom.Compiler
+Imports System.Globalization
 Imports System.Text
 Imports AndmeParija.CAPIQuery
 Imports AndmeParija.CDatabaseQuery
@@ -64,13 +65,19 @@ Public Class formVordlus
             pakettCheckedListBox.Items.Add(dealName)
         Next
 
-
+        Dim taba As String = DateTime.Now.Date.AddHours(-3).ToString("dd.MM.yyyy HH:mm")
+        Console.WriteLine(taba)
+        Dim dateValue As DateTime = DateTime.ParseExact(taba, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture)
+        Console.WriteLine("Select dateTime FROM bors WHERE rowid > 1 AND dateTime > '" & taba & "' LIMIT 25")
         loadComboBoxValues = New AndmeParija.CDatabaseQuery
-        comboBoxTable = loadComboBoxValues.queryData("Select dateTime FROM bors WHERE rowid > 1 LIMIT 25")
+        comboBoxTable = loadComboBoxValues.queryData("Select dateTime FROM bors WHERE rowid > 1 AND dateTime BETWEEN '" &
+                                                     DateTime.Now.Date.AddHours(-3).ToString("dd.MM.yyyy HH:mm") & "' AND '" &
+                                                     DateTime.Now.Date.AddHours(21).ToString("dd.MM.yyyy HH:mm") & "'")
 
         Dim dateTimeValues = New List(Of String)
         For Each row As DataRow In comboBoxTable.Rows
             dateTimeValues.Add(row(0))
+            Console.WriteLine(row(0))
         Next
 
         Dim providerValues = New List(Of String)

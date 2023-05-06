@@ -57,6 +57,7 @@ Public Class MainForm
             Dim pricesAndTimes = Await apiHandler.GetPriceData(currentDate, currentDate.AddDays(1))
             times = pricesAndTimes.Item1
             prices = pricesAndTimes.Item2
+            packageData.updateTable(pricesAndTimes)
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -75,13 +76,13 @@ Public Class MainForm
 
         'Database section
         'Refreshi börsi andmebaas
-        Dim updateBorsTable As AndmeParija.IAPIQuery = New AndmeParija.CAPIQuery
+        'Dim updateBorsTable As AndmeParija.IAPIQuery = New AndmeParija.CAPIQuery
 
-        Try
-            updateBorsTable.updateTable()
-        Catch ex As Exception
-            MessageBox.Show("Error updating data table.")
-        End Try
+        'Try
+        '    updateBorsTable.updateTable()
+        'Catch ex As Exception
+        '    MessageBox.Show("Error updating data table.")
+        'End Try
 
         'Comboboxi andmed
         Dim loadComboBoxValues As AndmeParija.IDatabaseQuery = New AndmeParija.CDatabaseQuery
