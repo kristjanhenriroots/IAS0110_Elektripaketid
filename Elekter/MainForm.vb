@@ -231,7 +231,7 @@ Public Class MainForm
         Next
     End Sub
 
-    Private Async Sub btn7Davg_Click(sender As Object, e As EventArgs) Handles cbWeekAVG.CheckedChanged
+    Private Sub btn7Davg_Click(sender As Object, e As EventArgs) Handles cbWeekAVG.CheckedChanged
         If cbWeekAVG.Checked Then
             Dim weekTimes As New List(Of DateTime)()
             Dim weekPrices As New List(Of Double)()
