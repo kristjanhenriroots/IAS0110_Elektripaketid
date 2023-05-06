@@ -45,7 +45,7 @@ Public Class CDatabaseQuery
             Dim dateValue As DateTime = t
             Dim price As Double = prices(index)
 
-            commandTxt = "UPDATE bors SET dateTime = '" & t.ToString("dd.MM.yyyy HH:mm") & 'Siin on 24h
+            commandTxt = "UPDATE bors SET dateTime = '" & t.ToString("yyyy.MM.dd HH:mm") & 'Siin on 24h
             "', price = '" & price & "' WHERE rowid = " & index & ";"
 
             command.Connection = connection 'Andmebaasi ühenduse lisamine

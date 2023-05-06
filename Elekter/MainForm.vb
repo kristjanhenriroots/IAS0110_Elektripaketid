@@ -21,6 +21,8 @@ Public Class MainForm
     Dim initialFormSize As SizeF                                            ' saves the initial form size, used to calculate the size factor when resizing fonts
     Dim initialFontSize As Single                                           ' saves the initial font size, used to calculate new font size dynamically
 
+
+    Private databaseQuery As AndmeParija.IDatabaseQuery = New CDatabaseQuery()
     Private dictionaryTable As New DataTable 'Datatableid universaal pakettide jaoks
     Private comboBoxTable As New DataTable 'Esimene on vajalik pakettide võrdlemiseks, teine pakettide valimiseks
     Private footprintVar As New Double ' globaalne muutuja valitud paketti co2 jalajälje jaoks
@@ -39,8 +41,7 @@ Public Class MainForm
         Me.MinimumSize = New Size(1000, 600)
 
         'Get package data as datatable from database
-        Dim packageData As AndmeParija.IDatabaseQuery = New CDatabaseQuery()
-        dictionaryTable = packageData.queryData("Select provider, name, avgPricePerKW FROM universaalPakett")
+        dictionaryTable = databaseQuery.queryData("Select provider, name, avgPricePerKW FROM universaalPakett")
 
         ' Get all package data from prj packageComparator, call function PackageData() for all names and prices
         Dim packagePrices = comparePackages.PackageData(dictionaryTable)
@@ -52,25 +53,26 @@ Public Class MainForm
         CType(chartMaker, Control).Dock = DockStyle.Fill
         chartPanel.Controls.Add(CType(chartMaker, Control))
 
-        Dim testData As AndmeParija.IDatabaseQuery = New CDatabaseQuery()
-        Dim testTable As New DataTable
-
+        databaseQuery = New CDatabaseQuery()
+        Dim priceTimeTable As New DataTable
 
         Try
             Dim currentDate As DateTime = DateTime.Now.Date.AddHours(-3)
             Dim pricesAndTimes = Await apiHandler.GetPriceData(currentDate, currentDate.AddDays(1))
-            testTable = testData.queryData("Select dateTime, price FROM bors WHERE dateTime BETWEEN '" & DateTime.Now.Date.ToString("dd.MM.yyyy HH:mm") &
-                                           "' AND '" & DateTime.Now.Date.AddDays(1).ToString("dd.MM.yyyy HH:mm") & "'")
+            priceTimeTable = databaseQuery.queryData("Select dateTime, price FROM bors WHERE dateTime BETWEEN '" &
+                                                DateTime.Now.Date.ToString("yyyy.MM.dd HH:mm") &
+                                                "' AND '" & DateTime.Now.Date.AddDays(1).ToString("yyyy.MM.dd HH:mm") & "'")
             'times = pricesAndTimes.Item1
             'prices = pricesAndTimes.Item2
-
-            packageData.updateTable(pricesAndTimes)
+            databaseQuery.updateTable(pricesAndTimes)
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
+
         Dim a As DateTime
-        For Each row As DataRow In testTable.Rows
-            a = DateTime.ParseExact(row("dateTime"), "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture)
+        For Each row As DataRow In priceTimeTable.Rows
+            a = DateTime.ParseExact(row("dateTime"), "yyyy.MM.dd HH:mm", CultureInfo.InvariantCulture)
+            Console.WriteLine(a & " " & row("price"))
             times.Add(a)
             prices.Add(row("price"))
         Next
@@ -235,14 +237,38 @@ Public Class MainForm
             Dim weekPrices As New List(Of Double)()
 
 
+            databaseQuery = New CDatabaseQuery()
+            Dim weekPriceTimeTable As New DataTable
+
+
             Try
                 Dim currentDate As DateTime = DateTime.Now.Date.AddHours(-3)
-                Dim weekPricesAndTimes = Await apiHandler.GetPriceData(currentDate.AddDays(-7), currentDate)
-                weekTimes = weekPricesAndTimes.Item1
-                weekPrices = weekPricesAndTimes.Item2
+                Dim weekPricesAndTimes = Await apiHandler.GetPriceData(currentDate.AddDays(-7), currentDate.AddDays(1))
+
+                databaseQuery.updateTable(weekPricesAndTimes)
+
+                Console.WriteLine(DateTime.Now.Date.AddDays(-7).ToString("yyyy.MM.dd HH:mm"))
+                Console.WriteLine(DateTime.Now.Date.ToString("yyyy.MM.dd HH:mm"))
+
+                weekPriceTimeTable = databaseQuery.queryData("Select dateTime, price FROM bors WHERE dateTime BETWEEN '" &
+                                               DateTime.Now.Date.AddDays(-7).ToString("yyyy.MM.dd HH:mm") &
+                                               "' AND '" & DateTime.Now.Date.ToString("yyyy.MM.dd HH:mm") & "'")
+
+                'weekTimes = weekPricesAndTimes.Item1
+                'weekPrices = weekPricesAndTimes.Item2
             Catch ex As Exception
                 MessageBox.Show(ex.Message)
             End Try
+
+            Dim a As DateTime
+            Console.WriteLine("HERE!!!!!")
+            For Each row As DataRow In weekPriceTimeTable.Rows
+                a = DateTime.ParseExact(row("dateTime"), "yyyy.MM.dd HH:mm", CultureInfo.InvariantCulture)
+                Console.WriteLine(a)
+                Console.WriteLine(row("price"))
+                weekTimes.Add(a)
+                weekPrices.Add(row("price"))
+            Next
 
             Dim avg_prices = frame.averagePriceWeek(weekTimes.ToArray(), weekPrices.ToArray())
             Dim todayStart As DateTime = DateTime.Now.Date
