@@ -72,7 +72,6 @@ Public Class MainForm
         Dim a As DateTime
         For Each row As DataRow In priceTimeTable.Rows
             a = DateTime.ParseExact(row("dateTime"), "yyyy.MM.dd HH:mm", CultureInfo.InvariantCulture)
-            Console.WriteLine(a & " " & row("price"))
             times.Add(a)
             prices.Add(row("price"))
         Next
@@ -90,10 +89,10 @@ Public Class MainForm
 
         'Database section
         'Comboboxi andmed
-        Dim loadComboBoxValues As AndmeParija.IDatabaseQuery = New AndmeParija.CDatabaseQuery
+        databaseQuery = New AndmeParija.CDatabaseQuery
         Dim providerValues = New List(Of String)
 
-        comboBoxTable = loadComboBoxValues.queryData("Select DISTINCT provider, name, footprint FROM universaalPakett") 'Valitakse unikaalsed pakettid koos nende jalajälgedega
+        comboBoxTable = databaseQuery.queryData("Select DISTINCT provider, name, footprint FROM universaalPakett") 'Valitakse unikaalsed pakettid koos nende jalajälgedega
 
         Dim tempVar As String 'Ainult korraks vaja
         'Vajalik loop pakkujate filtreerimiseks
@@ -236,7 +235,6 @@ Public Class MainForm
             Dim weekTimes As New List(Of DateTime)()
             Dim weekPrices As New List(Of Double)()
 
-
             databaseQuery = New CDatabaseQuery()
             Dim weekPriceTimeTable As New DataTable
 
@@ -257,8 +255,6 @@ Public Class MainForm
             Dim a As DateTime
             For Each row As DataRow In weekPriceTimeTable.Rows
                 a = DateTime.ParseExact(row("dateTime"), "yyyy.MM.dd HH:mm", CultureInfo.InvariantCulture)
-                Console.WriteLine(a)
-                Console.WriteLine(row("price"))
                 weekTimes.Add(a)
                 weekPrices.Add(row("price"))
             Next
