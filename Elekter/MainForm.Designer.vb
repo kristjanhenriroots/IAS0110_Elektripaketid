@@ -61,6 +61,9 @@ Partial Class MainForm
         Me.dgvUniversalPackages = New System.Windows.Forms.DataGridView()
         Me.dgvFixedPackages = New System.Windows.Forms.DataGridView()
         Me.dgvBorsPackages = New System.Windows.Forms.DataGridView()
+        Me.cbPackagesFilter = New System.Windows.Forms.ComboBox()
+        Me.ComboBox3 = New System.Windows.Forms.ComboBox()
+        Me.btnFilter = New System.Windows.Forms.Button()
         Me.chartPanel.SuspendLayout()
         CType(Me.dgvUniversalPackages, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvFixedPackages, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -225,7 +228,7 @@ Partial Class MainForm
         'shrinkButton
         '
         Me.shrinkButton.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.shrinkButton.Location = New System.Drawing.Point(866, 270)
+        Me.shrinkButton.Location = New System.Drawing.Point(956, 31)
         Me.shrinkButton.Margin = New System.Windows.Forms.Padding(2)
         Me.shrinkButton.Name = "shrinkButton"
         Me.shrinkButton.Size = New System.Drawing.Size(17, 16)
@@ -236,7 +239,7 @@ Partial Class MainForm
         'enlargeButton
         '
         Me.enlargeButton.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.enlargeButton.Location = New System.Drawing.Point(866, 249)
+        Me.enlargeButton.Location = New System.Drawing.Point(956, 11)
         Me.enlargeButton.Margin = New System.Windows.Forms.Padding(2)
         Me.enlargeButton.Name = "enlargeButton"
         Me.enlargeButton.Size = New System.Drawing.Size(17, 16)
@@ -480,11 +483,39 @@ Partial Class MainForm
         Me.dgvBorsPackages.Size = New System.Drawing.Size(709, 123)
         Me.dgvBorsPackages.TabIndex = 2
         '
+        'cbPackagesFilter
+        '
+        Me.cbPackagesFilter.FormattingEnabled = True
+        Me.cbPackagesFilter.Location = New System.Drawing.Point(775, 243)
+        Me.cbPackagesFilter.Name = "cbPackagesFilter"
+        Me.cbPackagesFilter.Size = New System.Drawing.Size(121, 21)
+        Me.cbPackagesFilter.TabIndex = 96
+        '
+        'ComboBox3
+        '
+        Me.ComboBox3.FormattingEnabled = True
+        Me.ComboBox3.Location = New System.Drawing.Point(775, 283)
+        Me.ComboBox3.Name = "ComboBox3"
+        Me.ComboBox3.Size = New System.Drawing.Size(121, 21)
+        Me.ComboBox3.TabIndex = 97
+        '
+        'btnFilter
+        '
+        Me.btnFilter.Location = New System.Drawing.Point(902, 243)
+        Me.btnFilter.Name = "btnFilter"
+        Me.btnFilter.Size = New System.Drawing.Size(75, 23)
+        Me.btnFilter.TabIndex = 98
+        Me.btnFilter.Text = "filter"
+        Me.btnFilter.UseVisualStyleBackColor = True
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(984, 561)
+        Me.Controls.Add(Me.btnFilter)
+        Me.Controls.Add(Me.ComboBox3)
+        Me.Controls.Add(Me.cbPackagesFilter)
         Me.Controls.Add(Me.lblPackage)
         Me.Controls.Add(Me.lblProvider)
         Me.Controls.Add(Me.btnConfirm)
@@ -572,6 +603,9 @@ Partial Class MainForm
     Friend WithEvents dgvUniversalPackages As DataGridView
     Friend WithEvents dgvBorsPackages As DataGridView
     Friend WithEvents dgvFixedPackages As DataGridView
+    Friend WithEvents cbPackagesFilter As ComboBox
+    Friend WithEvents ComboBox3 As ComboBox
+    Friend WithEvents btnFilter As Button
 End Class
 '=======
 '﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
