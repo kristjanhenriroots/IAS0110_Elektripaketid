@@ -142,7 +142,7 @@ Public Class MainForm
         Dim fixedPackages As DataTable = databaseQuery.queryData("SELECT name, provider,
                                                             avgPricePerKW, averageMonthPrice, monthTax, 
                                                             durationMonths, dayPrice,
-                                                            nightPrice FROM fikseeritudPakett")
+                                                            nightPrice, ""24HPrice"" FROM fikseeritudPakett")
 
         fixedPackages.Columns("name").ColumnName = "Nimi"
         fixedPackages.Columns("provider").ColumnName = "Pakkuja"
@@ -152,7 +152,7 @@ Public Class MainForm
         fixedPackages.Columns("durationMonths").ColumnName = "Paketi kestvus"
         fixedPackages.Columns("dayPrice").ColumnName = "Päeva hind"
         fixedPackages.Columns("nightPrice").ColumnName = "Öö hind"
-        'fixedPackages.Columns("24hPrice").ColumnName = "Ööpäeva hind"
+        fixedPackages.Columns("24hPrice").ColumnName = "Ööpäeva hind"
         'universalPackages.Columns("footprint").ColumnName = "CO2 jalajälg"
         'universalPackages.Columns("source").ColumnName = "Allikas"
 
@@ -198,6 +198,7 @@ Public Class MainForm
         Next
 
         cbPackagesFilter.DataSource = packageInfo
+        cbPackagesFilter.Hide()
     End Sub
 
     ' Handles dynamic form and font resizing when the user drags the window larger or smaller
@@ -414,21 +415,22 @@ Public Class MainForm
 
     Private Sub otsingButton_Click(sender As Object, e As EventArgs) Handles otsingButton.Click
 
-
         chartPanel.Hide()
         dgvUniversalPackages.Show()
         dgvFixedPackages.Show()
         dgvBorsPackages.Show()
+        cbPackagesFilter.Show()
+
     End Sub
 
     Private Sub homeButton_Click(sender As Object, e As EventArgs) Handles homeButton.Click
-
-
 
         chartPanel.Show()
         dgvUniversalPackages.Hide()
         dgvFixedPackages.Hide()
         dgvBorsPackages.Hide()
+        cbPackagesFilter.Hide()
+
     End Sub
 
 
@@ -445,10 +447,6 @@ Public Class MainForm
         If dgvBorsPackages.Columns.Contains(cbPackagesFilter.SelectedItem) Then
             dgvBorsPackages.Sort(dgvBorsPackages.Columns(cbPackagesFilter.SelectedItem), ListSortDirection.Ascending)
         End If
-
-
-
-
 
     End Sub
 End Class
