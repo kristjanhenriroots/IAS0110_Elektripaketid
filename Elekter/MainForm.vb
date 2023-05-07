@@ -10,7 +10,6 @@ Imports packageComparator
 Imports API_Handler
 Imports AndmeParija
 Imports System.ComponentModel
-Imports PriceCalc
 
 Public Class MainForm
     Dim times As New List(Of DateTime)()                                    ' holds the times in DateTime format dd/mm/yyyy HH:mm . Corresponding price held in prices()
@@ -36,6 +35,8 @@ Public Class MainForm
 
     Private selectedPackage As String
     Private selectedPackageText As String = "Hetkel valitud pakett: "
+
+    Private appliances As Dictionary(Of String, Double)
 
     ' Main form load, currently
     '   1. Calls API and gets 24h pricing, will be changed to database
@@ -112,13 +113,51 @@ Public Class MainForm
             End If
         Next
 
-        cbProvider.DataSource = providerValues           'Täidab comboboxi pakkujatega
+        'cbProvider.DataSource = providerValues           'Täidab comboboxi pakkujatega
 
         'Pakettide pask. Parent kontroll 
-        dgvPackages.Hide()
+
         dgvPackages.Parent = Me
         dgvPackages.Left = chartPanel.Left
         dgvPackages.Top = chartPanel.Top
+
+        applianceComboBox.Parent = Me
+        applianceComboBox.Top = chartPanel.Top + 50
+        applianceComboBox.Left = chartPanel.Left + 100
+        powerRatingTextBox.Parent = Me
+        powerRatingTextBox.Top = applianceComboBox.Top + 30
+        powerRatingTextBox.Left = applianceComboBox.Left
+        timeUsedTextBox.Parent = Me
+        timeUsedTextBox.Top = powerRatingTextBox.Top + 30
+        timeUsedTextBox.Left = applianceComboBox.Left
+        electricityRateTextBox.Parent = Me
+        electricityRateTextBox.Top = timeUsedTextBox.Top + 30
+        electricityRateTextBox.Left = applianceComboBox.Left
+        costTextBox.Parent = Me
+        costTextBox.Top = electricityRateTextBox.Top + 30
+        costTextBox.Left = applianceComboBox.Left
+        calculateButton.Parent = Me
+        calculateButton.Top = costTextBox.Top + 30
+        calculateButton.Left = applianceComboBox.Left
+
+        applianceLabel.Parent = Me
+        applianceLabel.Top = applianceComboBox.Top
+        applianceLabel.Left = applianceComboBox.Left - 100
+        powerRatingLabel.Parent = Me
+        powerRatingLabel.Top =  powerRatingTextBox.Top
+        powerRatingLabel.Left = powerRatingTextBox.Left - 105
+        timeUsedLabel.Parent = Me
+        timeUsedLabel.Top = timeUsedTextBox.Top
+        timeUsedLabel.Left = timeUsedTextBox.Left - 97
+        electricityRateLabel.Parent = Me
+        electricityRateLabel.Top = electricityRateTextBox.Top
+        electricityRateLabel.Left = electricityRateTextBox.Left - 90
+        costLabel.Parent = Me
+        costLabel.Top = costTextBox.Top
+        costLabel.Left = costTextBox.Left - 87
+
+
+
 
         databaseQuery = New AndmeParija.CDatabaseQuery
         universalPackages = databaseQuery.queryData("SELECT name, provider, baseHourPrice, margin,
@@ -204,6 +243,8 @@ Public Class MainForm
         Next
 
         cbPackageFilter.DataSource = packageInfo
+
+        dgvPackages.Hide()
         cbPackageFilter.Hide()
         cbPackageType.Hide()
         btnFilter.Hide()
@@ -235,6 +276,46 @@ Public Class MainForm
         cbStartTime.DataSource = borsTimes
         cbEndTime.BindingContext = New BindingContext
         cbEndTime.DataSource = borsTimes
+
+        'Kalkulaator
+
+        'Set combobox dropdown style so user can't write'
+        applianceComboBox.DropDownStyle = ComboBoxStyle.DropDownList
+
+        'Disable calculateButton until all required entries are filled'
+        calculateButton.Enabled = False
+
+        'Set costTextBox to read-only'
+        costTextBox.ReadOnly = True
+
+        'Fill appliances dictionary'
+        'Data from: https://rohe.geenius.ee/rubriik/uudis/millised-su-kodumasinad-kulutavad-aastas-enim-elektrit-ei-see-pole-pesumasin-voi-elektripliit/'
+        appliances = New Dictionary(Of String, Double) From {
+            {"Mikrolaineahi [1000W]", 1000},
+            {"Kohvimasin [1000 W]", 1000},
+            {"Veekeetja [1500 W]", 1500},
+            {"Keraamiline pliit [2000 W]", 2000},
+            {"Induktsioonpliit [2500 W]", 2500},
+            {"Elektripliit [2500 W]", 2500},
+            {"Elektriahi [3000 W]", 3000},
+            {"Triikraud [2000 W]", 2000},
+            {"Tolmuimeja [800 W]", 800},
+            {"Mängukonsool [90 W]", 90},
+            {"Digiboks [60 W]", 60},
+            {"Wifi ruuter [20 W]", 20},
+            {"Kell-raadio [10 W]", 10},
+            {"Elektriboiler 100 l [2200 W]", 2200},
+            {"Elektriradiaator [2000 W]", 2000},
+            {"Valgusti Halogeen [60 W]", 60},
+            {"Valgusti LED [10 W]", 10},
+            {"Laptop [50 W]", 50},
+            {"Arvuti [250 W]", 250},
+            {"Televisioon [100 W]", 100}
+        }
+
+        For Each applianceName As String In appliances.Keys
+            applianceComboBox.Items.Add(applianceName)
+        Next
     End Sub
 
     ' Handles dynamic form and font resizing when the user drags the window larger or smaller
@@ -391,20 +472,6 @@ Public Class MainForm
 
     End Sub
 
-    'Täidab pakettide valiku ainult antud pakkuja pakettidega
-    Private Sub cbProvider_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbProvider.SelectedValueChanged
-        Dim nameValues = New List(Of String)
-        Dim nameRow As DataRow()
-        Dim filterStr As String = "provider = '" & cbProvider.SelectedValue & "'" 'Filter pakkuja jaoks
-        nameRow = comboBoxTable.Select(filterStr) 'Filtreerib datatablei ja paneb tulemuse datarowsse
-
-        For Each row As DataRow In nameRow
-            nameValues.Add(row(1).ToString) 'Lisab rows olevate pakettide nimed listi
-        Next
-
-        cbPackage.DataSource = nameValues 'Täidab comboboxi
-    End Sub
-
     Private Sub dgvPackages_Click(sender As Object, e As EventArgs) Handles dgvPackages.Click
 
         If String.IsNullOrEmpty(tbCO2.Text) Then
@@ -425,17 +492,25 @@ Public Class MainForm
 
         selectedPackage = dgvPackages.CurrentRow.Cells("Pakkuja").Value + " " + dgvPackages.CurrentRow.Cells("Nimi").Value
         lblSelectedPackage.Text = selectedPackageText + selectedPackage
+
+        If cbPackageType.SelectedItem = "Börs" Then
+            electricityRateTextBox.Text = dgvPackages.CurrentRow.Cells("Hind Marginaaliga").Value
+        Else
+            electricityRateTextBox.Text = dgvPackages.CurrentRow.Cells("Keskmine KW hind").Value
+
+        End If
+
     End Sub
 
     'Button tabs'
     Private Sub otsingButton_Click(sender As Object, e As EventArgs) Handles otsingButton.Click
+
         chartPanel.Hide()
         cbWeekAVG.Hide()
         cbTimeFrame.Hide()
         tbRecTimeFrame.Hide()
         btnCalcTimeFrame.Hide()
         pakettCheckedListBox.Hide()
-
         lblValik.Hide()
         lblAverageTF.Hide()
         lblAverageNow.Hide()
@@ -455,6 +530,17 @@ Public Class MainForm
         tbMargins.Show()
         lblCO2.Show()
         tbCO2.Show()
+
+        applianceComboBox.Hide()
+        costTextBox.Hide()
+        electricityRateTextBox.Hide()
+        powerRatingTextBox.Hide()
+        timeUsedTextBox.Hide()
+        applianceLabel.Hide()
+        costLabel.Hide()
+        electricityRateLabel.Hide()
+        powerRatingLabel.Hide()
+        timeUsedLabel.Hide()
 
     End Sub
 
@@ -487,6 +573,17 @@ Public Class MainForm
         lblCO2.Hide()
         tbCO2.Hide()
 
+        applianceComboBox.Hide()
+        costTextBox.Hide()
+        electricityRateTextBox.Hide()
+        powerRatingTextBox.Hide()
+        timeUsedTextBox.Hide()
+        applianceLabel.Hide()
+        costLabel.Hide()
+        electricityRateLabel.Hide()
+        powerRatingLabel.Hide()
+        timeUsedLabel.Hide()
+
     End Sub
 
     Private Sub calcButton_Click(sender As Object, e As EventArgs) Handles calcButton.Click
@@ -517,6 +614,18 @@ Public Class MainForm
         tbMargins.Hide()
         lblCO2.Hide()
         tbCO2.Hide()
+
+        applianceComboBox.Show()
+        costTextBox.Show()
+        electricityRateTextBox.Show()
+        powerRatingTextBox.Show()
+        timeUsedTextBox.Show()
+        calculateButton.Show()
+        applianceLabel.Show()
+        costLabel.Show()
+        electricityRateLabel.Show()
+        powerRatingLabel.Show()
+        timeUsedLabel.Show()
 
     End Sub
 
@@ -569,6 +678,45 @@ Public Class MainForm
         End If
 
         tbMargins.Text = sbPackagePriceMargin.ToString
+    End Sub
+
+    'Kalkulaator osa
+    Private Sub applianceComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles applianceComboBox.SelectedIndexChanged
+        ' When the user selects an appliance from the ComboBox, update the powerRatingTextBox with its power rating.
+        Dim selectedAppliance As String = applianceComboBox.SelectedItem.ToString()
+        Dim powerRating As Double = appliances(selectedAppliance)
+        powerRatingTextBox.Text = powerRating.ToString()
+    End Sub
+
+    Private Sub anyTextBox_TextChanged(sender As Object, e As EventArgs) Handles powerRatingTextBox.TextChanged, electricityRateTextBox.TextChanged, timeUsedTextBox.TextChanged
+        ' Enable the calculateButton if all inputs are entered.
+        If Not String.IsNullOrEmpty(powerRatingTextBox.Text) And Not String.IsNullOrEmpty(timeUsedTextBox.Text) And Not String.IsNullOrEmpty(electricityRateTextBox.Text) Then
+            calculateButton.Enabled = True
+        Else
+            calculateButton.Enabled = False
+        End If
+    End Sub
+
+    Private Sub calculateButton_Click(sender As Object, e As EventArgs) Handles calculateButton.Click
+        Dim powerRating As Double
+        Dim timeUsed As Double
+        Dim electricityRate As Double
+        Dim cost As Double
+
+        powerRating = Double.Parse(powerRatingTextBox.Text)
+        timeUsed = Double.Parse(timeUsedTextBox.Text)
+        electricityRate = Double.Parse(electricityRateTextBox.Text)
+
+        cost = ((powerRating * timeUsed) / 1000) * electricityRate
+
+        'Convert cost to Eur if over 100 cents
+        If cost < 100.0 Then
+            costTextBox.Text = cost.ToString() + " s"
+        Else
+            'Round to 2 digits after separator
+            costTextBox.Text = Math.Round(cost / 100, 2).ToString() + " €"
+        End If
+
     End Sub
 
 End Class

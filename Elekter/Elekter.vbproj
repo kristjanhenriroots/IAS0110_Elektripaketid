@@ -94,30 +94,6 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="formCalc.Designer.vb">
-      <DependentUpon>formCalc.vb</DependentUpon>
-    </Compile>
-    <Compile Include="formCalc.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="formLogin.Designer.vb">
-      <DependentUpon>formLogin.vb</DependentUpon>
-    </Compile>
-    <Compile Include="formLogin.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="formPriceMargin.Designer.vb">
-      <DependentUpon>formPriceMargin.vb</DependentUpon>
-    </Compile>
-    <Compile Include="formPriceMargin.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="formVordlus.Designer.vb">
-      <DependentUpon>formVordlus.vb</DependentUpon>
-    </Compile>
-    <Compile Include="formVordlus.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="MainForm.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -143,18 +119,6 @@
     <Compile Include="Resizer.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="formCalc.resx">
-      <DependentUpon>formCalc.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="formLogin.resx">
-      <DependentUpon>formLogin.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="formPriceMargin.resx">
-      <DependentUpon>formPriceMargin.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="formVordlus.resx">
-      <DependentUpon>formVordlus.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.vb</DependentUpon>
     </EmbeddedResource>

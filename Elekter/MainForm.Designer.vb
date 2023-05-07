@@ -31,22 +31,27 @@ Partial Class MainForm
         Me.cbTimeFrame = New System.Windows.Forms.ComboBox()
         Me.tbCO2 = New System.Windows.Forms.TextBox()
         Me.lblCO2 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.tbRecTimeFrame = New System.Windows.Forms.TextBox()
         Me.lblTarbimisaeg = New System.Windows.Forms.Label()
         Me.shrinkButton = New System.Windows.Forms.Button()
         Me.enlargeButton = New System.Windows.Forms.Button()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.lblSelectedPackage = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lblAverageNow = New System.Windows.Forms.Label()
         Me.lblAverageTF = New System.Windows.Forms.Label()
         Me.lblSavedPer = New System.Windows.Forms.Label()
         Me.chartPanel = New System.Windows.Forms.Panel()
+        Me.calculateButton = New System.Windows.Forms.Button()
+        Me.costLabel = New System.Windows.Forms.Label()
+        Me.applianceComboBox = New System.Windows.Forms.ComboBox()
+        Me.costTextBox = New System.Windows.Forms.TextBox()
+        Me.electricityRateTextBox = New System.Windows.Forms.TextBox()
+        Me.timeUsedTextBox = New System.Windows.Forms.TextBox()
+        Me.powerRatingTextBox = New System.Windows.Forms.TextBox()
+        Me.electricityRateLabel = New System.Windows.Forms.Label()
+        Me.timeUsedLabel = New System.Windows.Forms.Label()
+        Me.powerRatingLabel = New System.Windows.Forms.Label()
+        Me.applianceLabel = New System.Windows.Forms.Label()
         Me.dgvPackages = New System.Windows.Forms.DataGridView()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.jarjestamineComboBox = New System.Windows.Forms.ComboBox()
@@ -54,11 +59,7 @@ Partial Class MainForm
         Me.pakettCheckedListBox = New System.Windows.Forms.CheckedListBox()
         Me.lblPackageList = New System.Windows.Forms.Label()
         Me.cbWeekAVG = New System.Windows.Forms.CheckBox()
-        Me.cbProvider = New System.Windows.Forms.ComboBox()
-        Me.cbPackage = New System.Windows.Forms.ComboBox()
         Me.btnConfirm = New System.Windows.Forms.Button()
-        Me.lblProvider = New System.Windows.Forms.Label()
-        Me.lblPackage = New System.Windows.Forms.Label()
         Me.cbPackageFilter = New System.Windows.Forms.ComboBox()
         Me.cbPackageType = New System.Windows.Forms.ComboBox()
         Me.btnFilter = New System.Windows.Forms.Button()
@@ -73,7 +74,7 @@ Partial Class MainForm
         '
         'otsingButton
         '
-        Me.otsingButton.Location = New System.Drawing.Point(173, 11)
+        Me.otsingButton.Location = New System.Drawing.Point(119, 11)
         Me.otsingButton.Margin = New System.Windows.Forms.Padding(2)
         Me.otsingButton.Name = "otsingButton"
         Me.otsingButton.Size = New System.Drawing.Size(50, 20)
@@ -155,46 +156,6 @@ Partial Class MainForm
         Me.lblCO2.TabIndex = 66
         Me.lblCO2.Text = "CO2 jalajälg:"
         '
-        'Label6
-        '
-        Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(104, 524)
-        Me.Label6.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(10, 13)
-        Me.Label6.TabIndex = 64
-        Me.Label6.Text = "-"
-        '
-        'Label5
-        '
-        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(31, 508)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(84, 13)
-        Me.Label5.TabIndex = 63
-        Me.Label5.Text = "Vali ajavahemik:"
-        '
-        'TextBox3
-        '
-        Me.TextBox3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.TextBox3.Location = New System.Drawing.Point(117, 522)
-        Me.TextBox3.Margin = New System.Windows.Forms.Padding(2)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(68, 20)
-        Me.TextBox3.TabIndex = 62
-        '
-        'TextBox2
-        '
-        Me.TextBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.TextBox2.Location = New System.Drawing.Point(33, 522)
-        Me.TextBox2.Margin = New System.Windows.Forms.Padding(2)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(68, 20)
-        Me.TextBox2.TabIndex = 61
-        '
         'tbRecTimeFrame
         '
         Me.tbRecTimeFrame.Anchor = System.Windows.Forms.AnchorStyles.Right
@@ -237,28 +198,6 @@ Partial Class MainForm
         Me.enlargeButton.TabIndex = 57
         Me.enlargeButton.Text = "+"
         Me.enlargeButton.UseVisualStyleBackColor = True
-        '
-        'Label3
-        '
-        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(185, 508)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(75, 13)
-        Me.Label3.TabIndex = 56
-        Me.Label3.Text = "Graafiku valik:"
-        '
-        'ComboBox1
-        '
-        Me.ComboBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"Tulpdiagramm", "Tabeldiagramm"})
-        Me.ComboBox1.Location = New System.Drawing.Point(188, 521)
-        Me.ComboBox1.Margin = New System.Windows.Forms.Padding(2)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(84, 21)
-        Me.ComboBox1.TabIndex = 55
         '
         'lblSelectedPackage
         '
@@ -318,11 +257,112 @@ Partial Class MainForm
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.chartPanel.AutoSize = True
+        Me.chartPanel.Controls.Add(Me.calculateButton)
+        Me.chartPanel.Controls.Add(Me.costLabel)
+        Me.chartPanel.Controls.Add(Me.applianceComboBox)
+        Me.chartPanel.Controls.Add(Me.costTextBox)
+        Me.chartPanel.Controls.Add(Me.electricityRateTextBox)
+        Me.chartPanel.Controls.Add(Me.timeUsedTextBox)
+        Me.chartPanel.Controls.Add(Me.powerRatingTextBox)
+        Me.chartPanel.Controls.Add(Me.electricityRateLabel)
+        Me.chartPanel.Controls.Add(Me.timeUsedLabel)
+        Me.chartPanel.Controls.Add(Me.powerRatingLabel)
+        Me.chartPanel.Controls.Add(Me.applianceLabel)
         Me.chartPanel.Controls.Add(Me.dgvPackages)
         Me.chartPanel.Location = New System.Drawing.Point(34, 64)
         Me.chartPanel.Name = "chartPanel"
         Me.chartPanel.Size = New System.Drawing.Size(712, 429)
         Me.chartPanel.TabIndex = 79
+        '
+        'calculateButton
+        '
+        Me.calculateButton.Location = New System.Drawing.Point(126, 170)
+        Me.calculateButton.Name = "calculateButton"
+        Me.calculateButton.Size = New System.Drawing.Size(79, 21)
+        Me.calculateButton.TabIndex = 11
+        Me.calculateButton.Text = "Kuva"
+        Me.calculateButton.UseVisualStyleBackColor = True
+        '
+        'costLabel
+        '
+        Me.costLabel.AutoSize = True
+        Me.costLabel.Location = New System.Drawing.Point(28, 145)
+        Me.costLabel.Name = "costLabel"
+        Me.costLabel.Size = New System.Drawing.Size(91, 13)
+        Me.costLabel.TabIndex = 10
+        Me.costLabel.Text = "Orienteeruv hind: "
+        '
+        'applianceComboBox
+        '
+        Me.applianceComboBox.FormattingEnabled = True
+        Me.applianceComboBox.Location = New System.Drawing.Point(126, 40)
+        Me.applianceComboBox.Name = "applianceComboBox"
+        Me.applianceComboBox.Size = New System.Drawing.Size(121, 21)
+        Me.applianceComboBox.TabIndex = 9
+        '
+        'costTextBox
+        '
+        Me.costTextBox.Location = New System.Drawing.Point(126, 144)
+        Me.costTextBox.Name = "costTextBox"
+        Me.costTextBox.Size = New System.Drawing.Size(100, 20)
+        Me.costTextBox.TabIndex = 8
+        '
+        'electricityRateTextBox
+        '
+        Me.electricityRateTextBox.Location = New System.Drawing.Point(126, 119)
+        Me.electricityRateTextBox.Name = "electricityRateTextBox"
+        Me.electricityRateTextBox.Size = New System.Drawing.Size(100, 20)
+        Me.electricityRateTextBox.TabIndex = 7
+        '
+        'timeUsedTextBox
+        '
+        Me.timeUsedTextBox.Location = New System.Drawing.Point(126, 93)
+        Me.timeUsedTextBox.Name = "timeUsedTextBox"
+        Me.timeUsedTextBox.Size = New System.Drawing.Size(100, 20)
+        Me.timeUsedTextBox.TabIndex = 6
+        '
+        'powerRatingTextBox
+        '
+        Me.powerRatingTextBox.Location = New System.Drawing.Point(126, 67)
+        Me.powerRatingTextBox.Name = "powerRatingTextBox"
+        Me.powerRatingTextBox.Size = New System.Drawing.Size(100, 20)
+        Me.powerRatingTextBox.TabIndex = 5
+        '
+        'electricityRateLabel
+        '
+        Me.electricityRateLabel.AutoSize = True
+        Me.electricityRateLabel.Location = New System.Drawing.Point(25, 122)
+        Me.electricityRateLabel.Name = "electricityRateLabel"
+        Me.electricityRateLabel.Size = New System.Drawing.Size(95, 13)
+        Me.electricityRateLabel.TabIndex = 4
+        Me.electricityRateLabel.Text = "Paketihind (kWh): "
+        '
+        'timeUsedLabel
+        '
+        Me.timeUsedLabel.AutoSize = True
+        Me.timeUsedLabel.Location = New System.Drawing.Point(16, 96)
+        Me.timeUsedLabel.Name = "timeUsedLabel"
+        Me.timeUsedLabel.Size = New System.Drawing.Size(103, 13)
+        Me.timeUsedLabel.TabIndex = 3
+        Me.timeUsedLabel.Text = "Kasutamise aeg (h): "
+        '
+        'powerRatingLabel
+        '
+        Me.powerRatingLabel.AutoSize = True
+        Me.powerRatingLabel.Location = New System.Drawing.Point(9, 67)
+        Me.powerRatingLabel.Name = "powerRatingLabel"
+        Me.powerRatingLabel.Size = New System.Drawing.Size(110, 13)
+        Me.powerRatingLabel.TabIndex = 2
+        Me.powerRatingLabel.Text = "Tarbimisvõimsus (W): "
+        '
+        'applianceLabel
+        '
+        Me.applianceLabel.AutoSize = True
+        Me.applianceLabel.Location = New System.Drawing.Point(14, 43)
+        Me.applianceLabel.Name = "applianceLabel"
+        Me.applianceLabel.Size = New System.Drawing.Size(105, 13)
+        Me.applianceLabel.TabIndex = 1
+        Me.applianceLabel.Text = "Vali tüüpkodumasin: "
         '
         'dgvPackages
         '
@@ -406,22 +446,6 @@ Partial Class MainForm
         Me.cbWeekAVG.Text = "Nädala keskmine"
         Me.cbWeekAVG.UseVisualStyleBackColor = True
         '
-        'cbProvider
-        '
-        Me.cbProvider.FormattingEnabled = True
-        Me.cbProvider.Location = New System.Drawing.Point(356, 520)
-        Me.cbProvider.Name = "cbProvider"
-        Me.cbProvider.Size = New System.Drawing.Size(121, 21)
-        Me.cbProvider.TabIndex = 91
-        '
-        'cbPackage
-        '
-        Me.cbPackage.FormattingEnabled = True
-        Me.cbPackage.Location = New System.Drawing.Point(483, 520)
-        Me.cbPackage.Name = "cbPackage"
-        Me.cbPackage.Size = New System.Drawing.Size(121, 21)
-        Me.cbPackage.TabIndex = 92
-        '
         'btnConfirm
         '
         Me.btnConfirm.Location = New System.Drawing.Point(773, 203)
@@ -430,24 +454,6 @@ Partial Class MainForm
         Me.btnConfirm.TabIndex = 93
         Me.btnConfirm.Text = "Kinnita Pakett"
         Me.btnConfirm.UseVisualStyleBackColor = True
-        '
-        'lblProvider
-        '
-        Me.lblProvider.AutoSize = True
-        Me.lblProvider.Location = New System.Drawing.Point(353, 506)
-        Me.lblProvider.Name = "lblProvider"
-        Me.lblProvider.Size = New System.Drawing.Size(49, 13)
-        Me.lblProvider.TabIndex = 94
-        Me.lblProvider.Text = "Pakkuja:"
-        '
-        'lblPackage
-        '
-        Me.lblPackage.AutoSize = True
-        Me.lblPackage.Location = New System.Drawing.Point(483, 506)
-        Me.lblPackage.Name = "lblPackage"
-        Me.lblPackage.Size = New System.Drawing.Size(41, 13)
-        Me.lblPackage.TabIndex = 95
-        Me.lblPackage.Text = "Pakett:"
         '
         'cbPackageFilter
         '
@@ -532,11 +538,7 @@ Partial Class MainForm
         Me.Controls.Add(Me.btnFilter)
         Me.Controls.Add(Me.cbPackageType)
         Me.Controls.Add(Me.cbPackageFilter)
-        Me.Controls.Add(Me.lblPackage)
-        Me.Controls.Add(Me.lblProvider)
         Me.Controls.Add(Me.btnConfirm)
-        Me.Controls.Add(Me.cbPackage)
-        Me.Controls.Add(Me.cbProvider)
         Me.Controls.Add(Me.cbWeekAVG)
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.jarjestamineComboBox)
@@ -554,16 +556,10 @@ Partial Class MainForm
         Me.Controls.Add(Me.cbTimeFrame)
         Me.Controls.Add(Me.tbCO2)
         Me.Controls.Add(Me.lblCO2)
-        Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.Label5)
-        Me.Controls.Add(Me.TextBox3)
-        Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.tbRecTimeFrame)
         Me.Controls.Add(Me.lblTarbimisaeg)
         Me.Controls.Add(Me.shrinkButton)
         Me.Controls.Add(Me.enlargeButton)
-        Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.ComboBox1)
         Me.Controls.Add(Me.lblSelectedPackage)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.chartPanel)
@@ -573,6 +569,7 @@ Partial Class MainForm
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "MainForm"
         Me.chartPanel.ResumeLayout(False)
+        Me.chartPanel.PerformLayout()
         CType(Me.dgvPackages, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -586,16 +583,10 @@ Partial Class MainForm
     Friend WithEvents cbTimeFrame As ComboBox
     Friend WithEvents tbCO2 As TextBox
     Friend WithEvents lblCO2 As Label
-    Friend WithEvents Label6 As Label
-    Friend WithEvents Label5 As Label
-    Friend WithEvents TextBox3 As TextBox
-    Friend WithEvents TextBox2 As TextBox
     Friend WithEvents tbRecTimeFrame As TextBox
     Friend WithEvents lblTarbimisaeg As Label
     Friend WithEvents shrinkButton As Button
     Friend WithEvents enlargeButton As Button
-    Friend WithEvents Label3 As Label
-    Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents lblSelectedPackage As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents lblAverageNow As Label
@@ -608,11 +599,7 @@ Partial Class MainForm
     Friend WithEvents pakettCheckedListBox As CheckedListBox
     Friend WithEvents lblPackageList As Label
     Friend WithEvents cbWeekAVG As CheckBox
-    Friend WithEvents cbProvider As ComboBox
-    Friend WithEvents cbPackage As ComboBox
     Friend WithEvents btnConfirm As Button
-    Friend WithEvents lblProvider As Label
-    Friend WithEvents lblPackage As Label
     Friend WithEvents dgvPackages As DataGridView
     Friend WithEvents cbPackageFilter As ComboBox
     Friend WithEvents cbPackageType As ComboBox
@@ -622,6 +609,17 @@ Partial Class MainForm
     Friend WithEvents cbStartTime As ComboBox
     Friend WithEvents cbEndTime As ComboBox
     Friend WithEvents tbMargins As TextBox
+    Friend WithEvents electricityRateLabel As Label
+    Friend WithEvents timeUsedLabel As Label
+    Friend WithEvents powerRatingLabel As Label
+    Friend WithEvents applianceLabel As Label
+    Friend WithEvents applianceComboBox As ComboBox
+    Friend WithEvents costTextBox As TextBox
+    Friend WithEvents electricityRateTextBox As TextBox
+    Friend WithEvents timeUsedTextBox As TextBox
+    Friend WithEvents powerRatingTextBox As TextBox
+    Friend WithEvents costLabel As Label
+    Friend WithEvents calculateButton As Button
 End Class
 '=======
 '﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
