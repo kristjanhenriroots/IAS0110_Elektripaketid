@@ -255,6 +255,9 @@ Public Class MainForm
         tbMargins.Hide()
         lblCO2.Hide()
         tbCO2.Hide()
+        lblSort.Hide()
+        lblOrder.Hide()
+        lblPackageType.Hide()
 
         dgvPackages.CurrentRow.Selected = False
 
@@ -518,6 +521,7 @@ Public Class MainForm
         lblTarbimisaeg.Hide()
         lblPackageList.Hide()
 
+
         dgvPackages.Show()
         cbPackageType.Show()
         cbPackageFilter.Show()
@@ -530,6 +534,9 @@ Public Class MainForm
         tbMargins.Show()
         lblCO2.Show()
         tbCO2.Show()
+        lblSort.Show()
+        lblOrder.Show()
+        lblPackageType.Show()
 
         applianceComboBox.Hide()
         costTextBox.Hide()
@@ -560,6 +567,7 @@ Public Class MainForm
         lblTarbimisaeg.Show()
         lblPackageList.Show()
 
+
         dgvPackages.Hide()
         cbPackageType.Hide()
         cbPackageFilter.Hide()
@@ -572,6 +580,9 @@ Public Class MainForm
         tbMargins.Hide()
         lblCO2.Hide()
         tbCO2.Hide()
+        lblSort.Hide()
+        lblOrder.Hide()
+        lblPackageType.Hide()
 
         applianceComboBox.Hide()
         costTextBox.Hide()
@@ -594,6 +605,8 @@ Public Class MainForm
         tbRecTimeFrame.Hide()
         btnCalcTimeFrame.Hide()
         pakettCheckedListBox.Hide()
+        compareButton.Hide()
+        jarjestamineComboBox.Hide()
 
         lblValik.Hide()
         lblAverageTF.Hide()
@@ -601,6 +614,7 @@ Public Class MainForm
         lblSavedPer.Hide()
         lblTarbimisaeg.Hide()
         lblPackageList.Hide()
+        lblJarjestamine.Hide()
 
         dgvPackages.Hide()
         cbPackageType.Hide()
@@ -614,6 +628,9 @@ Public Class MainForm
         tbMargins.Hide()
         lblCO2.Hide()
         tbCO2.Hide()
+        lblSort.Hide()
+        lblOrder.Hide()
+        lblPackageType.Hide()
 
         applianceComboBox.Show()
         costTextBox.Show()

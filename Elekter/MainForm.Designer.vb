@@ -53,7 +53,7 @@ Partial Class MainForm
         Me.powerRatingLabel = New System.Windows.Forms.Label()
         Me.applianceLabel = New System.Windows.Forms.Label()
         Me.dgvPackages = New System.Windows.Forms.DataGridView()
-        Me.Label11 = New System.Windows.Forms.Label()
+        Me.lblJarjestamine = New System.Windows.Forms.Label()
         Me.jarjestamineComboBox = New System.Windows.Forms.ComboBox()
         Me.compareButton = New System.Windows.Forms.Button()
         Me.pakettCheckedListBox = New System.Windows.Forms.CheckedListBox()
@@ -68,6 +68,9 @@ Partial Class MainForm
         Me.cbStartTime = New System.Windows.Forms.ComboBox()
         Me.cbEndTime = New System.Windows.Forms.ComboBox()
         Me.tbMargins = New System.Windows.Forms.TextBox()
+        Me.lblPackageType = New System.Windows.Forms.Label()
+        Me.lblSort = New System.Windows.Forms.Label()
+        Me.lblOrder = New System.Windows.Forms.Label()
         Me.chartPanel.SuspendLayout()
         CType(Me.dgvPackages, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -380,16 +383,16 @@ Partial Class MainForm
         Me.dgvPackages.Size = New System.Drawing.Size(709, 425)
         Me.dgvPackages.TabIndex = 0
         '
-        'Label11
+        'lblJarjestamine
         '
-        Me.Label11.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(888, 464)
-        Me.Label11.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(85, 13)
-        Me.Label11.TabIndex = 84
-        Me.Label11.Text = "Järjestamise viis:"
+        Me.lblJarjestamine.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.lblJarjestamine.AutoSize = True
+        Me.lblJarjestamine.Location = New System.Drawing.Point(888, 464)
+        Me.lblJarjestamine.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblJarjestamine.Name = "lblJarjestamine"
+        Me.lblJarjestamine.Size = New System.Drawing.Size(85, 13)
+        Me.lblJarjestamine.TabIndex = 84
+        Me.lblJarjestamine.Text = "Järjestamise viis:"
         '
         'jarjestamineComboBox
         '
@@ -525,11 +528,41 @@ Partial Class MainForm
         Me.tbMargins.Size = New System.Drawing.Size(188, 164)
         Me.tbMargins.TabIndex = 104
         '
+        'lblPackageType
+        '
+        Me.lblPackageType.AutoSize = True
+        Me.lblPackageType.Location = New System.Drawing.Point(772, 45)
+        Me.lblPackageType.Name = "lblPackageType"
+        Me.lblPackageType.Size = New System.Drawing.Size(72, 13)
+        Me.lblPackageType.TabIndex = 105
+        Me.lblPackageType.Text = "Lepingu tüüp:"
+        '
+        'lblSort
+        '
+        Me.lblSort.AutoSize = True
+        Me.lblSort.Location = New System.Drawing.Point(772, 91)
+        Me.lblSort.Name = "lblSort"
+        Me.lblSort.Size = New System.Drawing.Size(89, 13)
+        Me.lblSort.TabIndex = 106
+        Me.lblSort.Text = "Sorteerimise alus:"
+        '
+        'lblOrder
+        '
+        Me.lblOrder.AutoSize = True
+        Me.lblOrder.Location = New System.Drawing.Point(898, 91)
+        Me.lblOrder.Name = "lblOrder"
+        Me.lblOrder.Size = New System.Drawing.Size(53, 13)
+        Me.lblOrder.TabIndex = 107
+        Me.lblOrder.Text = "Järjekord:"
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(984, 561)
+        Me.Controls.Add(Me.lblOrder)
+        Me.Controls.Add(Me.lblSort)
+        Me.Controls.Add(Me.lblPackageType)
         Me.Controls.Add(Me.tbMargins)
         Me.Controls.Add(Me.cbEndTime)
         Me.Controls.Add(Me.cbStartTime)
@@ -540,7 +573,7 @@ Partial Class MainForm
         Me.Controls.Add(Me.cbPackageFilter)
         Me.Controls.Add(Me.btnConfirm)
         Me.Controls.Add(Me.cbWeekAVG)
-        Me.Controls.Add(Me.Label11)
+        Me.Controls.Add(Me.lblJarjestamine)
         Me.Controls.Add(Me.jarjestamineComboBox)
         Me.Controls.Add(Me.compareButton)
         Me.Controls.Add(Me.pakettCheckedListBox)
@@ -593,7 +626,7 @@ Partial Class MainForm
     Friend WithEvents lblAverageTF As Label
     Friend WithEvents lblSavedPer As Label
     Friend WithEvents chartPanel As Panel
-    Friend WithEvents Label11 As Label
+    Friend WithEvents lblJarjestamine As Label
     Friend WithEvents jarjestamineComboBox As ComboBox
     Friend WithEvents compareButton As Button
     Friend WithEvents pakettCheckedListBox As CheckedListBox
@@ -620,6 +653,9 @@ Partial Class MainForm
     Friend WithEvents powerRatingTextBox As TextBox
     Friend WithEvents costLabel As Label
     Friend WithEvents calculateButton As Button
+    Friend WithEvents lblPackageType As Label
+    Friend WithEvents lblSort As Label
+    Friend WithEvents lblOrder As Label
 End Class
 '=======
 '﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
