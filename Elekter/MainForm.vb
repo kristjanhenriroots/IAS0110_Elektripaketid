@@ -23,7 +23,7 @@ Public Class MainForm
     Dim rs As New Resizer                                                   ' calls the custom class for dynamic form resizing, see Resizer.vb
     Dim initialFormSize As SizeF                                            ' saves the initial form size, used to calculate the size factor when resizing fonts
     Dim initialFontSize As Single                                           ' saves the initial font size, used to calculate new font size dynamically
-    Dim exporter As IExporter = New CExporter
+    Dim exporter As IExporter = New CExporter                               ' CSV exporter component
 
     Private databaseQuery As AndmeParija.IDatabaseQuery = New CDatabaseQuery()
     Private dictionaryTable As New DataTable 'Datatableid universaal pakettide jaoks
@@ -40,11 +40,6 @@ Public Class MainForm
 
     Private appliances As Dictionary(Of String, Double)
 
-    ' Main form load, currently
-    '   1. Calls API and gets 24h pricing, will be changed to database
-    '   2. 
-    '
-    '
     Private Async Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ' calls custom resizer class, used for dynamic resizing

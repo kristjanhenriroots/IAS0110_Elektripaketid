@@ -202,7 +202,6 @@ Partial Class MainForm
         '
         'lblSelectedPackage
         '
-        Me.lblSelectedPackage.AutoSize = True
         Me.lblSelectedPackage.Location = New System.Drawing.Point(31, 43)
         Me.lblSelectedPackage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblSelectedPackage.Name = "lblSelectedPackage"
