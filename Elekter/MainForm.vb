@@ -123,7 +123,7 @@ Public Class MainForm
         databaseQuery = New AndmeParija.CDatabaseQuery
         Dim universalPackages As DataTable = databaseQuery.queryData("SELECT name, provider, baseHourPrice, margin,
                                                             avgPricePerKW, averageMonthPrice, monthTax, source, 
-                                                            footprint, attributes FROM universaalPakett")
+                                                            footprint FROM universaalPakett")
 
         universalPackages.Columns("name").ColumnName = "Nimi"
         universalPackages.Columns("provider").ColumnName = "Pakkuja"
@@ -132,7 +132,6 @@ Public Class MainForm
         universalPackages.Columns("margin").ColumnName = "Marginaal"
         universalPackages.Columns("averageMonthPrice").ColumnName = "Kuuhind"
         universalPackages.Columns("monthTax").ColumnName = "Kuumaks"
-        universalPackages.Columns("attributes").ColumnName = "Lisa"
         universalPackages.Columns("footprint").ColumnName = "CO2 jalajälg"
         universalPackages.Columns("source").ColumnName = "Allikas"
 
@@ -142,7 +141,9 @@ Public Class MainForm
         Dim fixedPackages As DataTable = databaseQuery.queryData("SELECT name, provider,
                                                             avgPricePerKW, averageMonthPrice, monthTax, 
                                                             durationMonths, dayPrice,
-                                                            nightPrice, ""24HPrice"" FROM fikseeritudPakett")
+                                                            nightPrice, ""24HPrice"",
+                                                            source, footprint
+                                                            FROM fikseeritudPakett")
 
         fixedPackages.Columns("name").ColumnName = "Nimi"
         fixedPackages.Columns("provider").ColumnName = "Pakkuja"
@@ -153,14 +154,15 @@ Public Class MainForm
         fixedPackages.Columns("dayPrice").ColumnName = "Päeva hind"
         fixedPackages.Columns("nightPrice").ColumnName = "Öö hind"
         fixedPackages.Columns("24hPrice").ColumnName = "Ööpäeva hind"
-        'universalPackages.Columns("footprint").ColumnName = "CO2 jalajälg"
-        'universalPackages.Columns("source").ColumnName = "Allikas"
+        fixedPackages.Columns("footprint").ColumnName = "CO2 jalajälg"
+        fixedPackages.Columns("source").ColumnName = "Allikas"
 
         dgvFixedPackages.DataSource = fixedPackages
 
         databaseQuery = New AndmeParija.CDatabaseQuery
-        Dim borsPackages As DataTable = databaseQuery.queryData("SELECT name, provider,  margin,
-                                                            averageMonthPrice, monthTax
+        Dim borsPackages As DataTable = databaseQuery.queryData("SELECT name, provider, margin,
+                                                            averageMonthPrice, monthTax,
+                                                            source, footprint
                                                             FROM borsPakett")
 
         borsPackages.Columns("name").ColumnName = "Nimi"
@@ -168,6 +170,8 @@ Public Class MainForm
         borsPackages.Columns("margin").ColumnName = "Marginaal"
         borsPackages.Columns("averageMonthPrice").ColumnName = "Kuuhind"
         borsPackages.Columns("monthTax").ColumnName = "Kuumaks"
+        borsPackages.Columns("footprint").ColumnName = "CO2 jalajälg"
+        borsPackages.Columns("source").ColumnName = "Allikas"
 
         dgvBorsPackages.DataSource = borsPackages
 
