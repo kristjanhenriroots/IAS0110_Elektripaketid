@@ -144,7 +144,7 @@ Public Class MainForm
         applianceLabel.Top = applianceComboBox.Top
         applianceLabel.Left = applianceComboBox.Left - 100
         powerRatingLabel.Parent = Me
-        powerRatingLabel.Top =  powerRatingTextBox.Top
+        powerRatingLabel.Top = powerRatingTextBox.Top
         powerRatingLabel.Left = powerRatingTextBox.Left - 105
         timeUsedLabel.Parent = Me
         timeUsedLabel.Top = timeUsedTextBox.Top
@@ -244,20 +244,8 @@ Public Class MainForm
 
         cbPackageFilter.DataSource = packageInfo
 
-        dgvPackages.Hide()
-        cbPackageFilter.Hide()
-        cbPackageType.Hide()
-        btnFilter.Hide()
-        btnConfirm.Hide()
-        btnMargins.Hide()
-        cbStartTime.Hide()
-        cbEndTime.Hide()
-        tbMargins.Hide()
-        lblCO2.Hide()
-        tbCO2.Hide()
-        lblSort.Hide()
-        lblOrder.Hide()
-        lblPackageType.Hide()
+        showCalc(False)
+        showSearch(False)
 
         dgvPackages.CurrentRow.Selected = False
 
@@ -319,6 +307,103 @@ Public Class MainForm
         For Each applianceName As String In appliances.Keys
             applianceComboBox.Items.Add(applianceName)
         Next
+    End Sub
+
+    Private Sub showMain(choice As Boolean)
+        If choice Then
+            chartPanel.Show()
+            cbWeekAVG.Show()
+            cbTimeFrame.Show()
+            tbRecTimeFrame.Show()
+            btnCalcTimeFrame.Show()
+            pakettCheckedListBox.Show()
+
+            lblValik.Show()
+            lblAverageTF.Show()
+            lblAverageNow.Show()
+            lblSavedPer.Show()
+            lblTarbimisaeg.Show()
+            lblPackageList.Show()
+        Else
+            chartPanel.Hide()
+            cbWeekAVG.Hide()
+            cbTimeFrame.Hide()
+            tbRecTimeFrame.Hide()
+            btnCalcTimeFrame.Hide()
+            pakettCheckedListBox.Hide()
+            lblValik.Hide()
+            lblAverageTF.Hide()
+            lblAverageNow.Hide()
+            lblSavedPer.Hide()
+            lblTarbimisaeg.Hide()
+            lblPackageList.Hide()
+        End If
+    End Sub
+    Private Sub showCalc(choice As Boolean)
+        If choice Then
+            applianceComboBox.Show()
+            costTextBox.Show()
+            electricityRateTextBox.Show()
+            powerRatingTextBox.Show()
+            timeUsedTextBox.Show()
+            calculateButton.Show()
+            applianceLabel.Show()
+            costLabel.Show()
+            electricityRateLabel.Show()
+            powerRatingLabel.Show()
+            timeUsedLabel.Show()
+        Else
+            applianceComboBox.Hide()
+            costTextBox.Hide()
+            electricityRateTextBox.Hide()
+            powerRatingTextBox.Hide()
+            timeUsedTextBox.Hide()
+            applianceLabel.Hide()
+            costLabel.Hide()
+            electricityRateLabel.Hide()
+            powerRatingLabel.Hide()
+            timeUsedLabel.Hide()
+        End If
+    End Sub
+
+    Private Sub showSearch(choice As Boolean)
+        If choice Then
+            dgvPackages.Show()
+            cbPackageType.Show()
+            cbPackageFilter.Show()
+            btnFilter.Show()
+            cbOrder.Show()
+            btnConfirm.Show()
+            btnMargins.Show()
+            cbStartTime.Show()
+            cbEndTime.Show()
+            tbMargins.Show()
+            lblCO2.Show()
+            tbCO2.Show()
+            lblSort.Show()
+            lblOrder.Show()
+            lblPackageType.Show()
+            lblStartTime.Show()
+            lblEndTime.Show()
+        Else
+            dgvPackages.Hide()
+            cbPackageType.Hide()
+            cbPackageFilter.Hide()
+            btnFilter.Hide()
+            cbOrder.Hide()
+            btnConfirm.Hide()
+            btnMargins.Hide()
+            cbStartTime.Hide()
+            cbEndTime.Hide()
+            tbMargins.Hide()
+            lblCO2.Hide()
+            tbCO2.Hide()
+            lblSort.Hide()
+            lblOrder.Hide()
+            lblPackageType.Hide()
+            lblStartTime.Hide()
+            lblEndTime.Hide()
+        End If
     End Sub
 
     ' Handles dynamic form and font resizing when the user drags the window larger or smaller
@@ -507,142 +592,22 @@ Public Class MainForm
 
     'Button tabs'
     Private Sub otsingButton_Click(sender As Object, e As EventArgs) Handles otsingButton.Click
-
-        chartPanel.Hide()
-        cbWeekAVG.Hide()
-        cbTimeFrame.Hide()
-        tbRecTimeFrame.Hide()
-        btnCalcTimeFrame.Hide()
-        pakettCheckedListBox.Hide()
-        lblValik.Hide()
-        lblAverageTF.Hide()
-        lblAverageNow.Hide()
-        lblSavedPer.Hide()
-        lblTarbimisaeg.Hide()
-        lblPackageList.Hide()
-
-
-        dgvPackages.Show()
-        cbPackageType.Show()
-        cbPackageFilter.Show()
-        btnFilter.Show()
-        cbOrder.Show()
-        btnConfirm.Show()
-        btnMargins.Show()
-        cbStartTime.Show()
-        cbEndTime.Show()
-        tbMargins.Show()
-        lblCO2.Show()
-        tbCO2.Show()
-        lblSort.Show()
-        lblOrder.Show()
-        lblPackageType.Show()
-
-        applianceComboBox.Hide()
-        costTextBox.Hide()
-        electricityRateTextBox.Hide()
-        powerRatingTextBox.Hide()
-        timeUsedTextBox.Hide()
-        applianceLabel.Hide()
-        costLabel.Hide()
-        electricityRateLabel.Hide()
-        powerRatingLabel.Hide()
-        timeUsedLabel.Hide()
-
+        showSearch(True)
+        showMain(False)
+        showCalc(False)
     End Sub
 
     Private Sub homeButton_Click(sender As Object, e As EventArgs) Handles homeButton.Click
-
-        chartPanel.Show()
-        cbWeekAVG.Show()
-        cbTimeFrame.Show()
-        tbRecTimeFrame.Show()
-        btnCalcTimeFrame.Show()
-        pakettCheckedListBox.Show()
-
-        lblValik.Show()
-        lblAverageTF.Show()
-        lblAverageNow.Show()
-        lblSavedPer.Show()
-        lblTarbimisaeg.Show()
-        lblPackageList.Show()
-
-
-        dgvPackages.Hide()
-        cbPackageType.Hide()
-        cbPackageFilter.Hide()
-        btnFilter.Hide()
-        cbOrder.Hide()
-        btnConfirm.Hide()
-        btnMargins.Hide()
-        cbStartTime.Hide()
-        cbEndTime.Hide()
-        tbMargins.Hide()
-        lblCO2.Hide()
-        tbCO2.Hide()
-        lblSort.Hide()
-        lblOrder.Hide()
-        lblPackageType.Hide()
-
-        applianceComboBox.Hide()
-        costTextBox.Hide()
-        electricityRateTextBox.Hide()
-        powerRatingTextBox.Hide()
-        timeUsedTextBox.Hide()
-        applianceLabel.Hide()
-        costLabel.Hide()
-        electricityRateLabel.Hide()
-        powerRatingLabel.Hide()
-        timeUsedLabel.Hide()
-
+        showSearch(False)
+        showMain(True)
+        showCalc(False)
     End Sub
 
     Private Sub calcButton_Click(sender As Object, e As EventArgs) Handles calcButton.Click
 
-        chartPanel.Hide()
-        cbWeekAVG.Hide()
-        cbTimeFrame.Hide()
-        tbRecTimeFrame.Hide()
-        btnCalcTimeFrame.Hide()
-        pakettCheckedListBox.Hide()
-        compareButton.Hide()
-        jarjestamineComboBox.Hide()
-
-        lblValik.Hide()
-        lblAverageTF.Hide()
-        lblAverageNow.Hide()
-        lblSavedPer.Hide()
-        lblTarbimisaeg.Hide()
-        lblPackageList.Hide()
-        lblJarjestamine.Hide()
-
-        dgvPackages.Hide()
-        cbPackageType.Hide()
-        cbPackageFilter.Hide()
-        btnFilter.Hide()
-        cbOrder.Hide()
-        btnConfirm.Hide()
-        btnMargins.Hide()
-        cbStartTime.Hide()
-        cbEndTime.Hide()
-        tbMargins.Hide()
-        lblCO2.Hide()
-        tbCO2.Hide()
-        lblSort.Hide()
-        lblOrder.Hide()
-        lblPackageType.Hide()
-
-        applianceComboBox.Show()
-        costTextBox.Show()
-        electricityRateTextBox.Show()
-        powerRatingTextBox.Show()
-        timeUsedTextBox.Show()
-        calculateButton.Show()
-        applianceLabel.Show()
-        costLabel.Show()
-        electricityRateLabel.Show()
-        powerRatingLabel.Show()
-        timeUsedLabel.Show()
+        showSearch(False)
+        showMain(False)
+        showCalc(True)
 
     End Sub
 

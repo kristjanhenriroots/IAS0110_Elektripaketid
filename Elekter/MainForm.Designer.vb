@@ -71,6 +71,8 @@ Partial Class MainForm
         Me.lblPackageType = New System.Windows.Forms.Label()
         Me.lblSort = New System.Windows.Forms.Label()
         Me.lblOrder = New System.Windows.Forms.Label()
+        Me.lblStartTime = New System.Windows.Forms.Label()
+        Me.lblEndTime = New System.Windows.Forms.Label()
         Me.chartPanel.SuspendLayout()
         CType(Me.dgvPackages, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -505,7 +507,7 @@ Partial Class MainForm
         'cbStartTime
         '
         Me.cbStartTime.FormattingEnabled = True
-        Me.cbStartTime.Location = New System.Drawing.Point(773, 234)
+        Me.cbStartTime.Location = New System.Drawing.Point(840, 235)
         Me.cbStartTime.Name = "cbStartTime"
         Me.cbStartTime.Size = New System.Drawing.Size(121, 21)
         Me.cbStartTime.TabIndex = 102
@@ -513,7 +515,7 @@ Partial Class MainForm
         'cbEndTime
         '
         Me.cbEndTime.FormattingEnabled = True
-        Me.cbEndTime.Location = New System.Drawing.Point(773, 270)
+        Me.cbEndTime.Location = New System.Drawing.Point(840, 270)
         Me.cbEndTime.Name = "cbEndTime"
         Me.cbEndTime.Size = New System.Drawing.Size(121, 21)
         Me.cbEndTime.TabIndex = 103
@@ -555,11 +557,31 @@ Partial Class MainForm
         Me.lblOrder.TabIndex = 107
         Me.lblOrder.Text = "Järjekord:"
         '
+        'lblStartTime
+        '
+        Me.lblStartTime.AutoSize = True
+        Me.lblStartTime.Location = New System.Drawing.Point(781, 235)
+        Me.lblStartTime.Name = "lblStartTime"
+        Me.lblStartTime.Size = New System.Drawing.Size(57, 13)
+        Me.lblStartTime.TabIndex = 108
+        Me.lblStartTime.Text = "Algus aeg:"
+        '
+        'lblEndTime
+        '
+        Me.lblEndTime.AutoSize = True
+        Me.lblEndTime.Location = New System.Drawing.Point(781, 270)
+        Me.lblEndTime.Name = "lblEndTime"
+        Me.lblEndTime.Size = New System.Drawing.Size(55, 13)
+        Me.lblEndTime.TabIndex = 109
+        Me.lblEndTime.Text = "Lõpp aeg:"
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(984, 561)
+        Me.Controls.Add(Me.lblEndTime)
+        Me.Controls.Add(Me.lblStartTime)
         Me.Controls.Add(Me.lblOrder)
         Me.Controls.Add(Me.lblSort)
         Me.Controls.Add(Me.lblPackageType)
@@ -656,6 +678,8 @@ Partial Class MainForm
     Friend WithEvents lblPackageType As Label
     Friend WithEvents lblSort As Label
     Friend WithEvents lblOrder As Label
+    Friend WithEvents lblStartTime As Label
+    Friend WithEvents lblEndTime As Label
 End Class
 '=======
 '﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
