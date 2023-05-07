@@ -41,7 +41,7 @@ Partial Class MainForm
         Me.enlargeButton = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.lblSelectedPackage = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lblAverageNow = New System.Windows.Forms.Label()
         Me.lblAverageTF = New System.Windows.Forms.Label()
@@ -269,15 +269,15 @@ Partial Class MainForm
         Me.ComboBox1.Size = New System.Drawing.Size(84, 21)
         Me.ComboBox1.TabIndex = 55
         '
-        'Label2
+        'lblSelectedPackage
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(31, 43)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(164, 13)
-        Me.Label2.TabIndex = 53
-        Me.Label2.Text = "Hetkel valitud pakett: Börsipakett"
+        Me.lblSelectedPackage.AutoSize = True
+        Me.lblSelectedPackage.Location = New System.Drawing.Point(31, 43)
+        Me.lblSelectedPackage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblSelectedPackage.Name = "lblSelectedPackage"
+        Me.lblSelectedPackage.Size = New System.Drawing.Size(164, 13)
+        Me.lblSelectedPackage.TabIndex = 53
+        Me.lblSelectedPackage.Text = "Hetkel valitud pakett: Börsipakett"
         '
         'Label1
         '
@@ -343,8 +343,10 @@ Partial Class MainForm
         Me.dgvBorsPackages.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvBorsPackages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvBorsPackages.Location = New System.Drawing.Point(-1, 303)
+        Me.dgvBorsPackages.MultiSelect = False
         Me.dgvBorsPackages.Name = "dgvBorsPackages"
         Me.dgvBorsPackages.ReadOnly = True
+        Me.dgvBorsPackages.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvBorsPackages.Size = New System.Drawing.Size(709, 123)
         Me.dgvBorsPackages.TabIndex = 2
         '
@@ -356,8 +358,10 @@ Partial Class MainForm
         Me.dgvFixedPackages.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvFixedPackages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvFixedPackages.Location = New System.Drawing.Point(0, 151)
+        Me.dgvFixedPackages.MultiSelect = False
         Me.dgvFixedPackages.Name = "dgvFixedPackages"
         Me.dgvFixedPackages.ReadOnly = True
+        Me.dgvFixedPackages.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvFixedPackages.Size = New System.Drawing.Size(709, 123)
         Me.dgvFixedPackages.TabIndex = 1
         '
@@ -369,8 +373,10 @@ Partial Class MainForm
         Me.dgvUniversalPackages.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvUniversalPackages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvUniversalPackages.Location = New System.Drawing.Point(0, 0)
+        Me.dgvUniversalPackages.MultiSelect = False
         Me.dgvUniversalPackages.Name = "dgvUniversalPackages"
         Me.dgvUniversalPackages.ReadOnly = True
+        Me.dgvUniversalPackages.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvUniversalPackages.Size = New System.Drawing.Size(709, 123)
         Me.dgvUniversalPackages.TabIndex = 0
         '
@@ -549,7 +555,7 @@ Partial Class MainForm
         Me.Controls.Add(Me.enlargeButton)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.ComboBox1)
-        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.lblSelectedPackage)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.chartPanel)
         Me.Margin = New System.Windows.Forms.Padding(2)
@@ -583,7 +589,7 @@ Partial Class MainForm
     Friend WithEvents enlargeButton As Button
     Friend WithEvents Label3 As Label
     Friend WithEvents ComboBox1 As ComboBox
-    Friend WithEvents Label2 As Label
+    Friend WithEvents lblSelectedPackage As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents lblAverageNow As Label
     Friend WithEvents lblAverageTF As Label

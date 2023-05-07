@@ -415,6 +415,8 @@ Public Class MainForm
                 footprintVar = row(2)
             End If
         Next
+
+        Console.WriteLine(dgvUniversalPackages.CurrentRow.Cells("Nimi").Value)
     End Sub
 
     Private Sub otsingButton_Click(sender As Object, e As EventArgs) Handles otsingButton.Click
@@ -452,5 +454,20 @@ Public Class MainForm
             dgvBorsPackages.Sort(dgvBorsPackages.Columns(cbPackagesFilter.SelectedItem), ListSortDirection.Ascending)
         End If
 
+    End Sub
+
+    Private Sub dgvBorsPackages_MouseClick(sender As Object, e As EventArgs) Handles dgvBorsPackages.MouseClick
+        dgvUniversalPackages.ClearSelection()
+        dgvFixedPackages.ClearSelection()
+    End Sub
+
+    Private Sub dgvFixedPackages_MouseClick(sender As Object, e As EventArgs) Handles dgvFixedPackages.MouseClick
+        dgvUniversalPackages.ClearSelection()
+        dgvBorsPackages.ClearSelection()
+    End Sub
+
+    Private Sub dgvUniversalPackages_MouseClick(sender As Object, e As EventArgs) Handles dgvUniversalPackages.MouseClick
+        dgvFixedPackages.ClearSelection()
+        dgvBorsPackages.ClearSelection()
     End Sub
 End Class
