@@ -1,7 +1,6 @@
 ﻿Imports System.CodeDom.Compiler
 Imports System.Globalization
 Imports System.Text
-Imports AndmeParija.CAPIQuery
 Imports AndmeParija.CDatabaseQuery
 Public Class formVordlus
     Private comboBoxTable As New DataTable

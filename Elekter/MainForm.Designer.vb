@@ -31,7 +31,7 @@ Partial Class MainForm
         Me.lblValik = New System.Windows.Forms.Label()
         Me.cbTimeFrame = New System.Windows.Forms.ComboBox()
         Me.tbCO2 = New System.Windows.Forms.TextBox()
-        Me.Label8 = New System.Windows.Forms.Label()
+        Me.lblCO2 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.TextBox3 = New System.Windows.Forms.TextBox()
@@ -53,7 +53,7 @@ Partial Class MainForm
         Me.jarjestamineComboBox = New System.Windows.Forms.ComboBox()
         Me.compareButton = New System.Windows.Forms.Button()
         Me.pakettCheckedListBox = New System.Windows.Forms.CheckedListBox()
-        Me.Label12 = New System.Windows.Forms.Label()
+        Me.lblPackageList = New System.Windows.Forms.Label()
         Me.cbWeekAVG = New System.Windows.Forms.CheckBox()
         Me.cbProvider = New System.Windows.Forms.ComboBox()
         Me.cbPackage = New System.Windows.Forms.ComboBox()
@@ -63,7 +63,11 @@ Partial Class MainForm
         Me.cbPackageFilter = New System.Windows.Forms.ComboBox()
         Me.cbPackageType = New System.Windows.Forms.ComboBox()
         Me.btnFilter = New System.Windows.Forms.Button()
-        Me.cbTest = New System.Windows.Forms.CheckBox()
+        Me.cbOrder = New System.Windows.Forms.ComboBox()
+        Me.btnMargins = New System.Windows.Forms.Button()
+        Me.cbStartTime = New System.Windows.Forms.ComboBox()
+        Me.cbEndTime = New System.Windows.Forms.ComboBox()
+        Me.tbMargins = New System.Windows.Forms.TextBox()
         Me.chartPanel.SuspendLayout()
         CType(Me.dgvPackages, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -145,22 +149,22 @@ Partial Class MainForm
         'tbCO2
         '
         Me.tbCO2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.tbCO2.Location = New System.Drawing.Point(627, 521)
+        Me.tbCO2.Location = New System.Drawing.Point(628, 38)
         Me.tbCO2.Margin = New System.Windows.Forms.Padding(2)
         Me.tbCO2.Name = "tbCO2"
         Me.tbCO2.Size = New System.Drawing.Size(115, 20)
         Me.tbCO2.TabIndex = 67
         '
-        'Label8
+        'lblCO2
         '
-        Me.Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(624, 506)
-        Me.Label8.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(66, 13)
-        Me.Label8.TabIndex = 66
-        Me.Label8.Text = "CO2 jalajälg:"
+        Me.lblCO2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lblCO2.AutoSize = True
+        Me.lblCO2.Location = New System.Drawing.Point(558, 41)
+        Me.lblCO2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblCO2.Name = "lblCO2"
+        Me.lblCO2.Size = New System.Drawing.Size(66, 13)
+        Me.lblCO2.TabIndex = 66
+        Me.lblCO2.Text = "CO2 jalajälg:"
         '
         'Label6
         '
@@ -335,6 +339,7 @@ Partial Class MainForm
         '
         Me.dgvPackages.AllowUserToAddRows = False
         Me.dgvPackages.AllowUserToDeleteRows = False
+        Me.dgvPackages.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvPackages.BackgroundColor = System.Drawing.SystemColors.ControlLight
         Me.dgvPackages.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvPackages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -391,21 +396,21 @@ Partial Class MainForm
         Me.pakettCheckedListBox.Size = New System.Drawing.Size(198, 124)
         Me.pakettCheckedListBox.TabIndex = 81
         '
-        'Label12
+        'lblPackageList
         '
-        Me.Label12.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(772, 317)
-        Me.Label12.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(93, 13)
-        Me.Label12.TabIndex = 80
-        Me.Label12.Text = "Pakettide nimekiri:"
+        Me.lblPackageList.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.lblPackageList.AutoSize = True
+        Me.lblPackageList.Location = New System.Drawing.Point(772, 317)
+        Me.lblPackageList.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblPackageList.Name = "lblPackageList"
+        Me.lblPackageList.Size = New System.Drawing.Size(93, 13)
+        Me.lblPackageList.TabIndex = 80
+        Me.lblPackageList.Text = "Pakettide nimekiri:"
         '
         'cbWeekAVG
         '
         Me.cbWeekAVG.AutoSize = True
-        Me.cbWeekAVG.Location = New System.Drawing.Point(200, 41)
+        Me.cbWeekAVG.Location = New System.Drawing.Point(638, 41)
         Me.cbWeekAVG.Name = "cbWeekAVG"
         Me.cbWeekAVG.Size = New System.Drawing.Size(108, 17)
         Me.cbWeekAVG.TabIndex = 90
@@ -430,11 +435,11 @@ Partial Class MainForm
         '
         'btnConfirm
         '
-        Me.btnConfirm.Location = New System.Drawing.Point(772, 519)
+        Me.btnConfirm.Location = New System.Drawing.Point(773, 203)
         Me.btnConfirm.Name = "btnConfirm"
         Me.btnConfirm.Size = New System.Drawing.Size(83, 25)
         Me.btnConfirm.TabIndex = 93
-        Me.btnConfirm.Text = "Kinnita"
+        Me.btnConfirm.Text = "Kinnita Pakett"
         Me.btnConfirm.UseVisualStyleBackColor = True
         '
         'lblProvider
@@ -475,29 +480,65 @@ Partial Class MainForm
         '
         'btnFilter
         '
-        Me.btnFilter.Location = New System.Drawing.Point(902, 243)
+        Me.btnFilter.Location = New System.Drawing.Point(773, 164)
         Me.btnFilter.Name = "btnFilter"
-        Me.btnFilter.Size = New System.Drawing.Size(75, 23)
+        Me.btnFilter.Size = New System.Drawing.Size(92, 23)
         Me.btnFilter.TabIndex = 98
-        Me.btnFilter.Text = "filter"
+        Me.btnFilter.Text = "Soorita Otsing"
         Me.btnFilter.UseVisualStyleBackColor = True
         '
-        'cbTest
+        'cbOrder
         '
-        Me.cbTest.AutoSize = True
-        Me.cbTest.Location = New System.Drawing.Point(902, 211)
-        Me.cbTest.Name = "cbTest"
-        Me.cbTest.Size = New System.Drawing.Size(81, 17)
-        Me.cbTest.TabIndex = 99
-        Me.cbTest.Text = "CheckBox1"
-        Me.cbTest.UseVisualStyleBackColor = True
+        Me.cbOrder.FormattingEnabled = True
+        Me.cbOrder.Location = New System.Drawing.Point(901, 107)
+        Me.cbOrder.Name = "cbOrder"
+        Me.cbOrder.Size = New System.Drawing.Size(72, 21)
+        Me.cbOrder.TabIndex = 100
+        '
+        'btnMargins
+        '
+        Me.btnMargins.Location = New System.Drawing.Point(886, 203)
+        Me.btnMargins.Name = "btnMargins"
+        Me.btnMargins.Size = New System.Drawing.Size(75, 25)
+        Me.btnMargins.TabIndex = 101
+        Me.btnMargins.Text = "Marginaalid"
+        Me.btnMargins.UseVisualStyleBackColor = True
+        '
+        'cbStartTime
+        '
+        Me.cbStartTime.FormattingEnabled = True
+        Me.cbStartTime.Location = New System.Drawing.Point(773, 234)
+        Me.cbStartTime.Name = "cbStartTime"
+        Me.cbStartTime.Size = New System.Drawing.Size(121, 21)
+        Me.cbStartTime.TabIndex = 102
+        '
+        'cbEndTime
+        '
+        Me.cbEndTime.FormattingEnabled = True
+        Me.cbEndTime.Location = New System.Drawing.Point(773, 270)
+        Me.cbEndTime.Name = "cbEndTime"
+        Me.cbEndTime.Size = New System.Drawing.Size(121, 21)
+        Me.cbEndTime.TabIndex = 103
+        '
+        'tbMargins
+        '
+        Me.tbMargins.Location = New System.Drawing.Point(773, 297)
+        Me.tbMargins.Multiline = True
+        Me.tbMargins.Name = "tbMargins"
+        Me.tbMargins.ReadOnly = True
+        Me.tbMargins.Size = New System.Drawing.Size(188, 70)
+        Me.tbMargins.TabIndex = 104
         '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(984, 561)
-        Me.Controls.Add(Me.cbTest)
+        Me.Controls.Add(Me.tbMargins)
+        Me.Controls.Add(Me.cbEndTime)
+        Me.Controls.Add(Me.cbStartTime)
+        Me.Controls.Add(Me.btnMargins)
+        Me.Controls.Add(Me.cbOrder)
         Me.Controls.Add(Me.btnFilter)
         Me.Controls.Add(Me.cbPackageType)
         Me.Controls.Add(Me.cbPackageFilter)
@@ -511,7 +552,7 @@ Partial Class MainForm
         Me.Controls.Add(Me.jarjestamineComboBox)
         Me.Controls.Add(Me.compareButton)
         Me.Controls.Add(Me.pakettCheckedListBox)
-        Me.Controls.Add(Me.Label12)
+        Me.Controls.Add(Me.lblPackageList)
         Me.Controls.Add(Me.lblSavedPer)
         Me.Controls.Add(Me.lblAverageTF)
         Me.Controls.Add(Me.lblAverageNow)
@@ -523,7 +564,7 @@ Partial Class MainForm
         Me.Controls.Add(Me.lblValik)
         Me.Controls.Add(Me.cbTimeFrame)
         Me.Controls.Add(Me.tbCO2)
-        Me.Controls.Add(Me.Label8)
+        Me.Controls.Add(Me.lblCO2)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.TextBox3)
@@ -556,7 +597,7 @@ Partial Class MainForm
     Friend WithEvents lblValik As Label
     Friend WithEvents cbTimeFrame As ComboBox
     Friend WithEvents tbCO2 As TextBox
-    Friend WithEvents Label8 As Label
+    Friend WithEvents lblCO2 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents TextBox3 As TextBox
@@ -577,7 +618,7 @@ Partial Class MainForm
     Friend WithEvents jarjestamineComboBox As ComboBox
     Friend WithEvents compareButton As Button
     Friend WithEvents pakettCheckedListBox As CheckedListBox
-    Friend WithEvents Label12 As Label
+    Friend WithEvents lblPackageList As Label
     Friend WithEvents cbWeekAVG As CheckBox
     Friend WithEvents cbProvider As ComboBox
     Friend WithEvents cbPackage As ComboBox
@@ -588,7 +629,11 @@ Partial Class MainForm
     Friend WithEvents cbPackageFilter As ComboBox
     Friend WithEvents cbPackageType As ComboBox
     Friend WithEvents btnFilter As Button
-    Friend WithEvents cbTest As CheckBox
+    Friend WithEvents cbOrder As ComboBox
+    Friend WithEvents btnMargins As Button
+    Friend WithEvents cbStartTime As ComboBox
+    Friend WithEvents cbEndTime As ComboBox
+    Friend WithEvents tbMargins As TextBox
 End Class
 '=======
 '﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>

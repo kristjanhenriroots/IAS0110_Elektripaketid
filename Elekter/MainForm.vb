@@ -10,6 +10,7 @@ Imports packageComparator
 Imports API_Handler
 Imports AndmeParija
 Imports System.ComponentModel
+Imports PriceCalc
 
 Public Class MainForm
     Dim times As New List(Of DateTime)()                                    ' holds the times in DateTime format dd/mm/yyyy HH:mm . Corresponding price held in prices()
@@ -28,9 +29,12 @@ Public Class MainForm
     Private comboBoxTable As New DataTable 'Esimene on vajalik pakettide võrdlemiseks, teine pakettide valimiseks
     Private footprintVar As New Double ' globaalne muutuja valitud paketti co2 jalajälje jaoks
 
-    Dim universalPackages As DataTable
-    Dim fixedPackages As DataTable
-    Dim borsPackages As DataTable
+    Private universalPackages As DataTable
+    Private fixedPackages As DataTable
+    Private borsPackages As DataTable
+
+    Private selectedPackage As String
+    Private selectedPackageText As String = "Hetkel valitud pakett: "
 
     ' Main form load, currently
     '   1. Calls API and gets 24h pricing, will be changed to database
@@ -135,11 +139,9 @@ Public Class MainForm
 
         databaseQuery = New AndmeParija.CDatabaseQuery
         fixedPackages = databaseQuery.queryData("SELECT name, provider,
-                                                            avgPricePerKW, averageMonthPrice, monthTax, 
-                                                            durationMonths, dayPrice,
-                                                            nightPrice, ""24HPrice"",
-                                                            source, footprint
-                                                            FROM fikseeritudPakett")
+                                                avgPricePerKW, averageMonthPrice, monthTax, 
+                                                durationMonths, dayPrice, nightPrice, ""24HPrice"",
+                                                source, footprint FROM fikseeritudPakett")
 
         fixedPackages.Columns("name").ColumnName = "Nimi"
         fixedPackages.Columns("provider").ColumnName = "Pakkuja"
@@ -167,6 +169,13 @@ Public Class MainForm
         borsPackages.Columns("monthTax").ColumnName = "Kuumaks"
         borsPackages.Columns("footprint").ColumnName = "CO2 jalajälg"
         borsPackages.Columns("source").ColumnName = "Allikas"
+        borsPackages.Columns.Add("Hind Marginaaliga", GetType(Double))
+        borsPackages.Columns("Hind Marginaaliga").SetOrdinal(1)
+        Dim index = 0
+        For Each row As DataRow In borsPackages.Rows
+            row("Hind Marginaaliga") = Math.Round(prices(index) + row("Marginaal"), 2)
+            index = index + 1
+        Next
 
         'dadsad
         Dim packageInfo As New List(Of String)
@@ -197,11 +206,35 @@ Public Class MainForm
         cbPackageFilter.DataSource = packageInfo
         cbPackageFilter.Hide()
         cbPackageType.Hide()
+        btnFilter.Hide()
+        btnConfirm.Hide()
+        btnMargins.Hide()
+        cbStartTime.Hide()
+        cbEndTime.Hide()
+        tbMargins.Hide()
+        lblCO2.Hide()
+        tbCO2.Hide()
 
         dgvPackages.CurrentRow.Selected = False
 
         Dim packageTypes As String() = {"Universaalne", "Fikseeritud", "Börs"}
+        Dim filterOrder As String() = {"Kasvav", "Kahanev"}
         cbPackageType.DataSource = packageTypes
+        cbOrder.DataSource = filterOrder
+
+        selectedPackage = dgvPackages.CurrentRow.Cells("Pakkuja").Value + " " + dgvPackages.CurrentRow.Cells("Nimi").Value
+        lblSelectedPackage.Text = selectedPackageText + selectedPackage
+
+        Dim borsTimes As New List(Of String)
+        For Each t In times
+            borsTimes.Add(t.ToString("yyyy.MM.dd HH:mm"))
+            Console.WriteLine(t.ToString("yyyy.MM.dd HH:mm"))
+        Next
+
+        cbStartTime.BindingContext = New BindingContext
+        cbStartTime.DataSource = borsTimes
+        cbEndTime.BindingContext = New BindingContext
+        cbEndTime.DataSource = borsTimes
     End Sub
 
     ' Handles dynamic form and font resizing when the user drags the window larger or smaller
@@ -228,10 +261,6 @@ Public Class MainForm
 
 
     'Button tabs'
-    Private Sub calcButton_Click(sender As Object, e As EventArgs) Handles calcButton.Click
-        formCalc.Show()
-        Me.Hide()
-    End Sub
 
     Private Sub vordlusButton_Click(sender As Object, e As EventArgs) Handles vordlusButton.Click
         formVordlus.Show()
@@ -415,8 +444,8 @@ Public Class MainForm
             End If
         Next
 
-        Console.WriteLine(dgvPackages.CurrentRow.Cells("Nimi").Value)
-
+        selectedPackage = dgvPackages.CurrentRow.Cells("Pakkuja").Value + " " + dgvPackages.CurrentRow.Cells("Nimi").Value
+        lblSelectedPackage.Text = selectedPackageText + selectedPackage
     End Sub
 
     Private Sub otsingButton_Click(sender As Object, e As EventArgs) Handles otsingButton.Click
@@ -425,16 +454,27 @@ Public Class MainForm
         cbTimeFrame.Hide()
         tbRecTimeFrame.Hide()
         btnCalcTimeFrame.Hide()
+        pakettCheckedListBox.Hide()
 
         lblValik.Hide()
         lblAverageTF.Hide()
         lblAverageNow.Hide()
         lblSavedPer.Hide()
         lblTarbimisaeg.Hide()
+        lblPackageList.Hide()
 
         dgvPackages.Show()
         cbPackageType.Show()
         cbPackageFilter.Show()
+        btnFilter.Show()
+        cbOrder.Show()
+        btnConfirm.Show()
+        btnMargins.Show()
+        cbStartTime.Show()
+        cbEndTime.Show()
+        tbMargins.Show()
+        lblCO2.Show()
+        tbCO2.Show()
 
     End Sub
 
@@ -445,24 +485,70 @@ Public Class MainForm
         cbTimeFrame.Show()
         tbRecTimeFrame.Show()
         btnCalcTimeFrame.Show()
+        pakettCheckedListBox.Show()
 
         lblValik.Show()
         lblAverageTF.Show()
         lblAverageNow.Show()
         lblSavedPer.Show()
         lblTarbimisaeg.Show()
+        lblPackageList.Show()
 
         dgvPackages.Hide()
         cbPackageType.Hide()
         cbPackageFilter.Hide()
+        btnFilter.Hide()
+        cbOrder.Hide()
+        btnConfirm.Hide()
+        btnMargins.Hide()
+        cbStartTime.Hide()
+        cbEndTime.Hide()
+        tbMargins.Hide()
+        lblCO2.Hide()
+        tbCO2.Hide()
 
     End Sub
 
+    Private Sub calcButton_Click(sender As Object, e As EventArgs) Handles calcButton.Click
+
+        chartPanel.Hide()
+        cbWeekAVG.Hide()
+        cbTimeFrame.Hide()
+        tbRecTimeFrame.Hide()
+        btnCalcTimeFrame.Hide()
+        pakettCheckedListBox.Hide()
+
+        lblValik.Hide()
+        lblAverageTF.Hide()
+        lblAverageNow.Hide()
+        lblSavedPer.Hide()
+        lblTarbimisaeg.Hide()
+        lblPackageList.Hide()
+
+        dgvPackages.Hide()
+        cbPackageType.Hide()
+        cbPackageFilter.Hide()
+        btnFilter.Hide()
+        cbOrder.Hide()
+        btnConfirm.Hide()
+        btnMargins.Hide()
+        cbStartTime.Hide()
+        cbEndTime.Hide()
+        tbMargins.Hide()
+        lblCO2.Hide()
+        tbCO2.Hide()
+
+    End Sub
 
     Private Sub btnFilter_Click(sender As Object, e As EventArgs) Handles btnFilter.Click
 
         If dgvPackages.Columns.Contains(cbPackageFilter.SelectedItem) Then
-            dgvPackages.Sort(dgvPackages.Columns(cbPackageFilter.SelectedItem), ListSortDirection.Ascending)
+            If cbOrder.SelectedValue = "Kasvav" Then
+                dgvPackages.Sort(dgvPackages.Columns(cbPackageFilter.SelectedItem), ListSortDirection.Ascending)
+            ElseIf cbOrder.SelectedValue = "Kahanev" Then
+                dgvPackages.Sort(dgvPackages.Columns(cbPackageFilter.SelectedItem), ListSortDirection.Descending)
+            End If
+
         End If
 
     End Sub
@@ -475,5 +561,9 @@ Public Class MainForm
         ElseIf cbPackageType.SelectedValue = "Börs" Then
             dgvPackages.DataSource = borsPackages
         End If
+    End Sub
+
+    Private Sub btnMargins_Click(sender As Object, e As EventArgs) Handles btnMargins.Click
+
     End Sub
 End Class
