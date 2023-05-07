@@ -515,7 +515,8 @@ Partial Class MainForm
         Me.tbMargins.Multiline = True
         Me.tbMargins.Name = "tbMargins"
         Me.tbMargins.ReadOnly = True
-        Me.tbMargins.Size = New System.Drawing.Size(188, 70)
+        Me.tbMargins.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.tbMargins.Size = New System.Drawing.Size(188, 164)
         Me.tbMargins.TabIndex = 104
         '
         'MainForm

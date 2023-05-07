@@ -29,6 +29,7 @@ Public Class MainForm
     Private comboBoxTable As New DataTable 'Esimene on vajalik pakettide võrdlemiseks, teine pakettide valimiseks
     Private footprintVar As New Double ' globaalne muutuja valitud paketti co2 jalajälje jaoks
 
+    Private priceTimeTable As DataTable
     Private universalPackages As DataTable
     Private fixedPackages As DataTable
     Private borsPackages As DataTable
@@ -63,7 +64,6 @@ Public Class MainForm
         chartPanel.Controls.Add(CType(chartMaker, Control))
 
         databaseQuery = New CDatabaseQuery()
-        Dim priceTimeTable As New DataTable
 
         Try
             Dim currentDate As DateTime = DateTime.Now.Date.AddHours(-3)
@@ -544,7 +544,31 @@ Public Class MainForm
     End Sub
 
     Private Sub btnMargins_Click(sender As Object, e As EventArgs) Handles btnMargins.Click
+        Dim tempTable = priceTimeTable
+        Dim sbPackagePriceMargin As New StringBuilder
+        sbPackagePriceMargin.AppendLine("Valitud ajavahemiku börsi hinnad ilma ja koos marginaalita")
+        If cbPackageType.SelectedValue = "Börs" Then
 
+            Dim packageMargin = dgvPackages.CurrentRow.Cells("Marginaal")
+            If Not tempTable.Columns.Contains("priceMargin") Then
+                tempTable.Columns.Add("priceMargin", GetType(Double))
+            End If
+            Dim i = 0
+            For Each row In tempTable.Rows
+                row("priceMargin") = Math.Round(row("price") + dgvPackages.CurrentRow.Cells("Marginaal").Value, 2)
+            Next
+
+            For Each row As DataRow In tempTable.Rows
+                If row("dateTime") >= cbStartTime.SelectedItem And row("dateTime") <= cbEndTime.SelectedItem Then
+                    sbPackagePriceMargin.AppendLine(row("dateTime") & " " & row("price") & " " & row("priceMargin"))
+                    Console.WriteLine(row("dateTime") & " " & row("price") & " " & row("priceMargin"))
+                End If
+            Next
+        Else
+                MessageBox.Show("Marginaale saab vaadata ainult börsi paketil. Palun valige börsi pakett.")
+        End If
+
+        tbMargins.Text = sbPackagePriceMargin.ToString
     End Sub
 
 End Class
