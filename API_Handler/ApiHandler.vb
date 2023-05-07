@@ -28,7 +28,6 @@ Public Class ApiHandler
 
                     Dim dateValue As DateTime = DateTime.ParseExact(values(1).Trim(""""), "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture) ' .AddHours(-3)
                     Dim price As Double = Double.Parse(values(2).Trim("""").Replace(",", "."), CultureInfo.InvariantCulture) * 1.2 / 10
-
                     times.Add(dateValue)
                     prices.Add(price)
                 End While

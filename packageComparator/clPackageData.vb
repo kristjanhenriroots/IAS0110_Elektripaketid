@@ -8,8 +8,6 @@ Public Class clPackageData
     Public Function PackageData(ByRef dictDT As DataTable) As Dictionary(Of String, Double) Implements iComparePackages.PackageData
         For Each row As DataRow In dictDT.Rows
             If Not deals.ContainsKey(row("name")) Then
-                Console.Write(row("name").ToString())
-                Console.WriteLine(row("avgPricePerKW"))
                 deals.Add(row("provider") & " " & row("name"), row("avgPricePerKW"))
             End If
         Next
