@@ -28,6 +28,10 @@ Public Class MainForm
     Private comboBoxTable As New DataTable 'Esimene on vajalik pakettide võrdlemiseks, teine pakettide valimiseks
     Private footprintVar As New Double ' globaalne muutuja valitud paketti co2 jalajälje jaoks
 
+    Dim universalPackages As DataTable
+    Dim fixedPackages As DataTable
+    Dim borsPackages As DataTable
+
     ' Main form load, currently
     '   1. Calls API and gets 24h pricing, will be changed to database
     '   2. 
@@ -107,21 +111,13 @@ Public Class MainForm
         cbProvider.DataSource = providerValues           'Täidab comboboxi pakkujatega
 
         'Pakettide pask. Parent kontroll 
-        dgvUniversalPackages.Hide()
-        dgvUniversalPackages.Parent = Me
-        dgvUniversalPackages.Left = chartPanel.Left
-        dgvUniversalPackages.Top = chartPanel.Top
-        dgvFixedPackages.Hide()
-        dgvFixedPackages.Parent = Me
-        dgvFixedPackages.Left = chartPanel.Left
-        dgvFixedPackages.Top = chartPanel.Top + dgvUniversalPackages.Height + 20
-        dgvBorsPackages.Hide()
-        dgvBorsPackages.Parent = Me
-        dgvBorsPackages.Left = chartPanel.Left
-        dgvBorsPackages.Top = chartPanel.Top + dgvUniversalPackages.Height + dgvFixedPackages.Height + 40
+        dgvPackages.Hide()
+        dgvPackages.Parent = Me
+        dgvPackages.Left = chartPanel.Left
+        dgvPackages.Top = chartPanel.Top
 
         databaseQuery = New AndmeParija.CDatabaseQuery
-        Dim universalPackages As DataTable = databaseQuery.queryData("SELECT name, provider, baseHourPrice, margin,
+        universalPackages = databaseQuery.queryData("SELECT name, provider, baseHourPrice, margin,
                                                             avgPricePerKW, averageMonthPrice, monthTax, source, 
                                                             footprint FROM universaalPakett")
 
@@ -135,10 +131,10 @@ Public Class MainForm
         universalPackages.Columns("footprint").ColumnName = "CO2 jalajälg"
         universalPackages.Columns("source").ColumnName = "Allikas"
 
-        dgvUniversalPackages.DataSource = universalPackages
+        dgvPackages.DataSource = universalPackages
 
         databaseQuery = New AndmeParija.CDatabaseQuery
-        Dim fixedPackages As DataTable = databaseQuery.queryData("SELECT name, provider,
+        fixedPackages = databaseQuery.queryData("SELECT name, provider,
                                                             avgPricePerKW, averageMonthPrice, monthTax, 
                                                             durationMonths, dayPrice,
                                                             nightPrice, ""24HPrice"",
@@ -157,10 +153,9 @@ Public Class MainForm
         fixedPackages.Columns("footprint").ColumnName = "CO2 jalajälg"
         fixedPackages.Columns("source").ColumnName = "Allikas"
 
-        dgvFixedPackages.DataSource = fixedPackages
 
         databaseQuery = New AndmeParija.CDatabaseQuery
-        Dim borsPackages As DataTable = databaseQuery.queryData("SELECT name, provider, margin,
+        borsPackages = databaseQuery.queryData("SELECT name, provider, margin,
                                                             averageMonthPrice, monthTax,
                                                             source, footprint
                                                             FROM borsPakett")
@@ -172,8 +167,6 @@ Public Class MainForm
         borsPackages.Columns("monthTax").ColumnName = "Kuumaks"
         borsPackages.Columns("footprint").ColumnName = "CO2 jalajälg"
         borsPackages.Columns("source").ColumnName = "Allikas"
-
-        dgvBorsPackages.DataSource = borsPackages
 
         'dadsad
         Dim packageInfo As New List(Of String)
@@ -201,8 +194,14 @@ Public Class MainForm
             End If
         Next
 
-        cbPackagesFilter.DataSource = packageInfo
-        cbPackagesFilter.Hide()
+        cbPackageFilter.DataSource = packageInfo
+        cbPackageFilter.Hide()
+        cbPackageType.Hide()
+
+        dgvPackages.CurrentRow.Selected = False
+
+        Dim packageTypes As String() = {"Universaalne", "Fikseeritud", "Börs"}
+        cbPackageType.DataSource = packageTypes
     End Sub
 
     ' Handles dynamic form and font resizing when the user drags the window larger or smaller
@@ -416,58 +415,65 @@ Public Class MainForm
             End If
         Next
 
-        Console.WriteLine(dgvUniversalPackages.CurrentRow.Cells("Nimi").Value)
+        Console.WriteLine(dgvPackages.CurrentRow.Cells("Nimi").Value)
+
     End Sub
 
     Private Sub otsingButton_Click(sender As Object, e As EventArgs) Handles otsingButton.Click
-
         chartPanel.Hide()
-        dgvUniversalPackages.Show()
-        dgvFixedPackages.Show()
-        dgvBorsPackages.Show()
-        cbPackagesFilter.Show()
+        cbWeekAVG.Hide()
+        cbTimeFrame.Hide()
+        tbRecTimeFrame.Hide()
+        btnCalcTimeFrame.Hide()
+
+        lblValik.Hide()
+        lblAverageTF.Hide()
+        lblAverageNow.Hide()
+        lblSavedPer.Hide()
+        lblTarbimisaeg.Hide()
+
+        dgvPackages.Show()
+        cbPackageType.Show()
+        cbPackageFilter.Show()
 
     End Sub
 
     Private Sub homeButton_Click(sender As Object, e As EventArgs) Handles homeButton.Click
 
         chartPanel.Show()
-        dgvUniversalPackages.Hide()
-        dgvFixedPackages.Hide()
-        dgvBorsPackages.Hide()
-        cbPackagesFilter.Hide()
+        cbWeekAVG.Show()
+        cbTimeFrame.Show()
+        tbRecTimeFrame.Show()
+        btnCalcTimeFrame.Show()
+
+        lblValik.Show()
+        lblAverageTF.Show()
+        lblAverageNow.Show()
+        lblSavedPer.Show()
+        lblTarbimisaeg.Show()
+
+        dgvPackages.Hide()
+        cbPackageType.Hide()
+        cbPackageFilter.Hide()
 
     End Sub
 
 
     Private Sub btnFilter_Click(sender As Object, e As EventArgs) Handles btnFilter.Click
 
-        If dgvUniversalPackages.Columns.Contains(cbPackagesFilter.SelectedItem) Then
-            dgvUniversalPackages.Sort(dgvUniversalPackages.Columns(cbPackagesFilter.SelectedItem), ListSortDirection.Ascending)
-        End If
-
-        If dgvFixedPackages.Columns.Contains(cbPackagesFilter.SelectedItem) Then
-            dgvFixedPackages.Sort(dgvFixedPackages.Columns(cbPackagesFilter.SelectedItem), ListSortDirection.Ascending)
-        End If
-
-        If dgvBorsPackages.Columns.Contains(cbPackagesFilter.SelectedItem) Then
-            dgvBorsPackages.Sort(dgvBorsPackages.Columns(cbPackagesFilter.SelectedItem), ListSortDirection.Ascending)
+        If dgvPackages.Columns.Contains(cbPackageFilter.SelectedItem) Then
+            dgvPackages.Sort(dgvPackages.Columns(cbPackageFilter.SelectedItem), ListSortDirection.Ascending)
         End If
 
     End Sub
 
-    Private Sub dgvBorsPackages_MouseClick(sender As Object, e As EventArgs) Handles dgvBorsPackages.MouseClick
-        dgvUniversalPackages.ClearSelection()
-        dgvFixedPackages.ClearSelection()
-    End Sub
-
-    Private Sub dgvFixedPackages_MouseClick(sender As Object, e As EventArgs) Handles dgvFixedPackages.MouseClick
-        dgvUniversalPackages.ClearSelection()
-        dgvBorsPackages.ClearSelection()
-    End Sub
-
-    Private Sub dgvUniversalPackages_MouseClick(sender As Object, e As EventArgs) Handles dgvUniversalPackages.MouseClick
-        dgvFixedPackages.ClearSelection()
-        dgvBorsPackages.ClearSelection()
+    Private Sub cbPackageType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbPackageType.SelectedIndexChanged
+        If cbPackageType.SelectedValue = "Universaalne" Then
+            dgvPackages.DataSource = universalPackages
+        ElseIf cbPackageType.SelectedValue = "Fikseeritud" Then
+            dgvPackages.DataSource = fixedPackages
+        ElseIf cbPackageType.SelectedValue = "Börs" Then
+            dgvPackages.DataSource = borsPackages
+        End If
     End Sub
 End Class

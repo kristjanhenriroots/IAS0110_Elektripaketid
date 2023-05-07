@@ -22,12 +22,13 @@ Partial Class MainForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
         Me.otsingButton = New System.Windows.Forms.Button()
         Me.vordlusButton = New System.Windows.Forms.Button()
         Me.calcButton = New System.Windows.Forms.Button()
         Me.homeButton = New System.Windows.Forms.Button()
         Me.btnCalcTimeFrame = New System.Windows.Forms.Button()
-        Me.Label9 = New System.Windows.Forms.Label()
+        Me.lblValik = New System.Windows.Forms.Label()
         Me.cbTimeFrame = New System.Windows.Forms.ComboBox()
         Me.tbCO2 = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -36,7 +37,7 @@ Partial Class MainForm
         Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.tbRecTimeFrame = New System.Windows.Forms.TextBox()
-        Me.Label4 = New System.Windows.Forms.Label()
+        Me.lblTarbimisaeg = New System.Windows.Forms.Label()
         Me.shrinkButton = New System.Windows.Forms.Button()
         Me.enlargeButton = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -47,9 +48,7 @@ Partial Class MainForm
         Me.lblAverageTF = New System.Windows.Forms.Label()
         Me.lblSavedPer = New System.Windows.Forms.Label()
         Me.chartPanel = New System.Windows.Forms.Panel()
-        Me.dgvBorsPackages = New System.Windows.Forms.DataGridView()
-        Me.dgvFixedPackages = New System.Windows.Forms.DataGridView()
-        Me.dgvUniversalPackages = New System.Windows.Forms.DataGridView()
+        Me.dgvPackages = New System.Windows.Forms.DataGridView()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.jarjestamineComboBox = New System.Windows.Forms.ComboBox()
         Me.compareButton = New System.Windows.Forms.Button()
@@ -61,13 +60,12 @@ Partial Class MainForm
         Me.btnConfirm = New System.Windows.Forms.Button()
         Me.lblProvider = New System.Windows.Forms.Label()
         Me.lblPackage = New System.Windows.Forms.Label()
-        Me.cbPackagesFilter = New System.Windows.Forms.ComboBox()
-        Me.ComboBox3 = New System.Windows.Forms.ComboBox()
+        Me.cbPackageFilter = New System.Windows.Forms.ComboBox()
+        Me.cbPackageType = New System.Windows.Forms.ComboBox()
         Me.btnFilter = New System.Windows.Forms.Button()
+        Me.cbTest = New System.Windows.Forms.CheckBox()
         Me.chartPanel.SuspendLayout()
-        CType(Me.dgvBorsPackages, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dgvFixedPackages, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dgvUniversalPackages, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvPackages, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'otsingButton
@@ -121,16 +119,16 @@ Partial Class MainForm
         Me.btnCalcTimeFrame.Text = "Muuda kasutusaegu"
         Me.btnCalcTimeFrame.UseVisualStyleBackColor = True
         '
-        'Label9
+        'lblValik
         '
-        Me.Label9.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(770, 45)
-        Me.Label9.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(60, 13)
-        Me.Label9.TabIndex = 69
-        Me.Label9.Text = "Kuva valik:"
+        Me.lblValik.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.lblValik.AutoSize = True
+        Me.lblValik.Location = New System.Drawing.Point(770, 45)
+        Me.lblValik.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblValik.Name = "lblValik"
+        Me.lblValik.Size = New System.Drawing.Size(60, 13)
+        Me.lblValik.TabIndex = 69
+        Me.lblValik.Text = "Kuva valik:"
         '
         'cbTimeFrame
         '
@@ -214,16 +212,16 @@ Partial Class MainForm
         Me.tbRecTimeFrame.Size = New System.Drawing.Size(115, 20)
         Me.tbRecTimeFrame.TabIndex = 60
         '
-        'Label4
+        'lblTarbimisaeg
         '
-        Me.Label4.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(765, 131)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(123, 13)
-        Me.Label4.TabIndex = 59
-        Me.Label4.Text = "Soovitatav tarbimiseaeg:"
+        Me.lblTarbimisaeg.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.lblTarbimisaeg.AutoSize = True
+        Me.lblTarbimisaeg.Location = New System.Drawing.Point(765, 131)
+        Me.lblTarbimisaeg.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblTarbimisaeg.Name = "lblTarbimisaeg"
+        Me.lblTarbimisaeg.Size = New System.Drawing.Size(123, 13)
+        Me.lblTarbimisaeg.TabIndex = 59
+        Me.lblTarbimisaeg.Text = "Soovitatav tarbimiseaeg:"
         '
         'shrinkButton
         '
@@ -327,58 +325,26 @@ Partial Class MainForm
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.chartPanel.AutoSize = True
-        Me.chartPanel.Controls.Add(Me.dgvBorsPackages)
-        Me.chartPanel.Controls.Add(Me.dgvFixedPackages)
-        Me.chartPanel.Controls.Add(Me.dgvUniversalPackages)
+        Me.chartPanel.Controls.Add(Me.dgvPackages)
         Me.chartPanel.Location = New System.Drawing.Point(34, 64)
         Me.chartPanel.Name = "chartPanel"
         Me.chartPanel.Size = New System.Drawing.Size(712, 429)
         Me.chartPanel.TabIndex = 79
         '
-        'dgvBorsPackages
+        'dgvPackages
         '
-        Me.dgvBorsPackages.AllowUserToAddRows = False
-        Me.dgvBorsPackages.AllowUserToDeleteRows = False
-        Me.dgvBorsPackages.BackgroundColor = System.Drawing.SystemColors.ControlLight
-        Me.dgvBorsPackages.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dgvBorsPackages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvBorsPackages.Location = New System.Drawing.Point(-1, 303)
-        Me.dgvBorsPackages.MultiSelect = False
-        Me.dgvBorsPackages.Name = "dgvBorsPackages"
-        Me.dgvBorsPackages.ReadOnly = True
-        Me.dgvBorsPackages.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvBorsPackages.Size = New System.Drawing.Size(709, 123)
-        Me.dgvBorsPackages.TabIndex = 2
-        '
-        'dgvFixedPackages
-        '
-        Me.dgvFixedPackages.AllowUserToAddRows = False
-        Me.dgvFixedPackages.AllowUserToDeleteRows = False
-        Me.dgvFixedPackages.BackgroundColor = System.Drawing.SystemColors.ControlLight
-        Me.dgvFixedPackages.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dgvFixedPackages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvFixedPackages.Location = New System.Drawing.Point(0, 151)
-        Me.dgvFixedPackages.MultiSelect = False
-        Me.dgvFixedPackages.Name = "dgvFixedPackages"
-        Me.dgvFixedPackages.ReadOnly = True
-        Me.dgvFixedPackages.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvFixedPackages.Size = New System.Drawing.Size(709, 123)
-        Me.dgvFixedPackages.TabIndex = 1
-        '
-        'dgvUniversalPackages
-        '
-        Me.dgvUniversalPackages.AllowUserToAddRows = False
-        Me.dgvUniversalPackages.AllowUserToDeleteRows = False
-        Me.dgvUniversalPackages.BackgroundColor = System.Drawing.SystemColors.ControlLight
-        Me.dgvUniversalPackages.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dgvUniversalPackages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvUniversalPackages.Location = New System.Drawing.Point(0, 0)
-        Me.dgvUniversalPackages.MultiSelect = False
-        Me.dgvUniversalPackages.Name = "dgvUniversalPackages"
-        Me.dgvUniversalPackages.ReadOnly = True
-        Me.dgvUniversalPackages.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvUniversalPackages.Size = New System.Drawing.Size(709, 123)
-        Me.dgvUniversalPackages.TabIndex = 0
+        Me.dgvPackages.AllowUserToAddRows = False
+        Me.dgvPackages.AllowUserToDeleteRows = False
+        Me.dgvPackages.BackgroundColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvPackages.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dgvPackages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvPackages.Location = New System.Drawing.Point(0, 0)
+        Me.dgvPackages.MultiSelect = False
+        Me.dgvPackages.Name = "dgvPackages"
+        Me.dgvPackages.ReadOnly = True
+        Me.dgvPackages.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvPackages.Size = New System.Drawing.Size(709, 425)
+        Me.dgvPackages.TabIndex = 0
         '
         'Label11
         '
@@ -489,21 +455,23 @@ Partial Class MainForm
         Me.lblPackage.TabIndex = 95
         Me.lblPackage.Text = "Pakett:"
         '
-        'cbPackagesFilter
+        'cbPackageFilter
         '
-        Me.cbPackagesFilter.FormattingEnabled = True
-        Me.cbPackagesFilter.Location = New System.Drawing.Point(775, 243)
-        Me.cbPackagesFilter.Name = "cbPackagesFilter"
-        Me.cbPackagesFilter.Size = New System.Drawing.Size(121, 21)
-        Me.cbPackagesFilter.TabIndex = 96
+        Me.cbPackageFilter.FormattingEnabled = True
+        Me.cbPackageFilter.Location = New System.Drawing.Point(773, 107)
+        Me.cbPackageFilter.Name = "cbPackageFilter"
+        Me.cbPackageFilter.Size = New System.Drawing.Size(121, 21)
+        Me.cbPackageFilter.TabIndex = 96
         '
-        'ComboBox3
+        'cbPackageType
         '
-        Me.ComboBox3.FormattingEnabled = True
-        Me.ComboBox3.Location = New System.Drawing.Point(775, 283)
-        Me.ComboBox3.Name = "ComboBox3"
-        Me.ComboBox3.Size = New System.Drawing.Size(121, 21)
-        Me.ComboBox3.TabIndex = 97
+        Me.cbPackageType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbPackageType.FormattingEnabled = True
+        Me.cbPackageType.Items.AddRange(New Object() {"Universaalne", "Fikseeritud", "Börs"})
+        Me.cbPackageType.Location = New System.Drawing.Point(773, 64)
+        Me.cbPackageType.Name = "cbPackageType"
+        Me.cbPackageType.Size = New System.Drawing.Size(121, 21)
+        Me.cbPackageType.TabIndex = 97
         '
         'btnFilter
         '
@@ -514,14 +482,25 @@ Partial Class MainForm
         Me.btnFilter.Text = "filter"
         Me.btnFilter.UseVisualStyleBackColor = True
         '
+        'cbTest
+        '
+        Me.cbTest.AutoSize = True
+        Me.cbTest.Location = New System.Drawing.Point(902, 211)
+        Me.cbTest.Name = "cbTest"
+        Me.cbTest.Size = New System.Drawing.Size(81, 17)
+        Me.cbTest.TabIndex = 99
+        Me.cbTest.Text = "CheckBox1"
+        Me.cbTest.UseVisualStyleBackColor = True
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(984, 561)
+        Me.Controls.Add(Me.cbTest)
         Me.Controls.Add(Me.btnFilter)
-        Me.Controls.Add(Me.ComboBox3)
-        Me.Controls.Add(Me.cbPackagesFilter)
+        Me.Controls.Add(Me.cbPackageType)
+        Me.Controls.Add(Me.cbPackageFilter)
         Me.Controls.Add(Me.lblPackage)
         Me.Controls.Add(Me.lblProvider)
         Me.Controls.Add(Me.btnConfirm)
@@ -541,7 +520,7 @@ Partial Class MainForm
         Me.Controls.Add(Me.calcButton)
         Me.Controls.Add(Me.homeButton)
         Me.Controls.Add(Me.btnCalcTimeFrame)
-        Me.Controls.Add(Me.Label9)
+        Me.Controls.Add(Me.lblValik)
         Me.Controls.Add(Me.cbTimeFrame)
         Me.Controls.Add(Me.tbCO2)
         Me.Controls.Add(Me.Label8)
@@ -550,7 +529,7 @@ Partial Class MainForm
         Me.Controls.Add(Me.TextBox3)
         Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.tbRecTimeFrame)
-        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.lblTarbimisaeg)
         Me.Controls.Add(Me.shrinkButton)
         Me.Controls.Add(Me.enlargeButton)
         Me.Controls.Add(Me.Label3)
@@ -558,14 +537,13 @@ Partial Class MainForm
         Me.Controls.Add(Me.lblSelectedPackage)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.chartPanel)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "MainForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "MainForm"
         Me.chartPanel.ResumeLayout(False)
-        CType(Me.dgvBorsPackages, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dgvFixedPackages, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dgvUniversalPackages, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvPackages, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -575,7 +553,7 @@ Partial Class MainForm
     Friend WithEvents calcButton As Button
     Friend WithEvents homeButton As Button
     Friend WithEvents btnCalcTimeFrame As Button
-    Friend WithEvents Label9 As Label
+    Friend WithEvents lblValik As Label
     Friend WithEvents cbTimeFrame As ComboBox
     Friend WithEvents tbCO2 As TextBox
     Friend WithEvents Label8 As Label
@@ -584,7 +562,7 @@ Partial Class MainForm
     Friend WithEvents TextBox3 As TextBox
     Friend WithEvents TextBox2 As TextBox
     Friend WithEvents tbRecTimeFrame As TextBox
-    Friend WithEvents Label4 As Label
+    Friend WithEvents lblTarbimisaeg As Label
     Friend WithEvents shrinkButton As Button
     Friend WithEvents enlargeButton As Button
     Friend WithEvents Label3 As Label
@@ -606,12 +584,11 @@ Partial Class MainForm
     Friend WithEvents btnConfirm As Button
     Friend WithEvents lblProvider As Label
     Friend WithEvents lblPackage As Label
-    Friend WithEvents dgvUniversalPackages As DataGridView
-    Friend WithEvents dgvBorsPackages As DataGridView
-    Friend WithEvents dgvFixedPackages As DataGridView
-    Friend WithEvents cbPackagesFilter As ComboBox
-    Friend WithEvents ComboBox3 As ComboBox
+    Friend WithEvents dgvPackages As DataGridView
+    Friend WithEvents cbPackageFilter As ComboBox
+    Friend WithEvents cbPackageType As ComboBox
     Friend WithEvents btnFilter As Button
+    Friend WithEvents cbTest As CheckBox
 End Class
 '=======
 '﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
