@@ -55,6 +55,13 @@
     <Reference Include="AndmeParija">
       <HintPath>..\AndmeParija\AndmeParija\bin\Debug\AndmeParija.dll</HintPath>
     </Reference>
+    <Reference Include="CSVexport">
+      <HintPath>..\CSVexport\bin\Debug\CSVexport.exe</HintPath>
+    </Reference>
+    <Reference Include="CSVExporterDNF, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CSVexport\CSVExporterDNF.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>

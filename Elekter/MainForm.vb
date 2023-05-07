@@ -10,6 +10,8 @@ Imports packageComparator
 Imports API_Handler
 Imports AndmeParija
 Imports System.ComponentModel
+Imports CSVexport
+Imports CSVExporterDNF
 
 Public Class MainForm
     Dim times As New List(Of DateTime)()                                    ' holds the times in DateTime format dd/mm/yyyy HH:mm . Corresponding price held in prices()
@@ -21,6 +23,11 @@ Public Class MainForm
     Dim rs As New Resizer                                                   ' calls the custom class for dynamic form resizing, see Resizer.vb
     Dim initialFormSize As SizeF                                            ' saves the initial form size, used to calculate the size factor when resizing fonts
     Dim initialFontSize As Single                                           ' saves the initial font size, used to calculate new font size dynamically
+    Dim exporter As IExporter = New CExporter
+
+    Public Property Delimiter As String
+    Public Property TextQualifier As String
+    Public Property FilePath As String
 
 
     Private databaseQuery As AndmeParija.IDatabaseQuery = New CDatabaseQuery()
@@ -202,6 +209,11 @@ Public Class MainForm
 
         Dim packageTypes As String() = {"Universaalne", "Fikseeritud", "Börs"}
         cbPackageType.DataSource = packageTypes
+
+        Delimiter = ";"
+        TextQualifier = " "
+        ' Set FilePath to an empty string if you want the user to choose a new file path each time
+        FilePath = String.Empty
     End Sub
 
     ' Handles dynamic form and font resizing when the user drags the window larger or smaller
@@ -475,5 +487,15 @@ Public Class MainForm
         ElseIf cbPackageType.SelectedValue = "Börs" Then
             dgvPackages.DataSource = borsPackages
         End If
+    End Sub
+
+    Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
+        Dim exportForm As New formExport With {
+        .Times = times,
+        .Prices = prices,
+        .Exporter = exporter
+    }
+
+        exportForm.ShowDialog()
     End Sub
 End Class

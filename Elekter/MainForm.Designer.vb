@@ -64,6 +64,7 @@ Partial Class MainForm
         Me.cbPackageType = New System.Windows.Forms.ComboBox()
         Me.btnFilter = New System.Windows.Forms.Button()
         Me.cbTest = New System.Windows.Forms.CheckBox()
+        Me.btnExport = New System.Windows.Forms.Button()
         Me.chartPanel.SuspendLayout()
         CType(Me.dgvPackages, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -492,11 +493,21 @@ Partial Class MainForm
         Me.cbTest.Text = "CheckBox1"
         Me.cbTest.UseVisualStyleBackColor = True
         '
+        'btnExport
+        '
+        Me.btnExport.Location = New System.Drawing.Point(418, 23)
+        Me.btnExport.Name = "btnExport"
+        Me.btnExport.Size = New System.Drawing.Size(75, 23)
+        Me.btnExport.TabIndex = 100
+        Me.btnExport.Text = "Button1"
+        Me.btnExport.UseVisualStyleBackColor = True
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(984, 561)
+        Me.Controls.Add(Me.btnExport)
         Me.Controls.Add(Me.cbTest)
         Me.Controls.Add(Me.btnFilter)
         Me.Controls.Add(Me.cbPackageType)
@@ -589,6 +600,7 @@ Partial Class MainForm
     Friend WithEvents cbPackageType As ComboBox
     Friend WithEvents btnFilter As Button
     Friend WithEvents cbTest As CheckBox
+    Friend WithEvents btnExport As Button
 End Class
 '=======
 '﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
