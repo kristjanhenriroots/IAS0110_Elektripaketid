@@ -68,6 +68,7 @@ Partial Class MainForm
         Me.cbStartTime = New System.Windows.Forms.ComboBox()
         Me.cbEndTime = New System.Windows.Forms.ComboBox()
         Me.tbMargins = New System.Windows.Forms.TextBox()
+        Me.btnExport = New System.Windows.Forms.Button()
         Me.chartPanel.SuspendLayout()
         CType(Me.dgvPackages, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -525,11 +526,21 @@ Partial Class MainForm
         Me.tbMargins.Size = New System.Drawing.Size(188, 164)
         Me.tbMargins.TabIndex = 104
         '
+        'btnExport
+        '
+        Me.btnExport.Location = New System.Drawing.Point(775, 505)
+        Me.btnExport.Name = "btnExport"
+        Me.btnExport.Size = New System.Drawing.Size(75, 23)
+        Me.btnExport.TabIndex = 105
+        Me.btnExport.Text = "CSV"
+        Me.btnExport.UseVisualStyleBackColor = True
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(984, 561)
+        Me.Controls.Add(Me.btnExport)
         Me.Controls.Add(Me.tbMargins)
         Me.Controls.Add(Me.cbEndTime)
         Me.Controls.Add(Me.cbStartTime)
@@ -620,6 +631,7 @@ Partial Class MainForm
     Friend WithEvents powerRatingTextBox As TextBox
     Friend WithEvents costLabel As Label
     Friend WithEvents calculateButton As Button
+    Friend WithEvents btnExport As Button
 End Class
 '=======
 '﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>

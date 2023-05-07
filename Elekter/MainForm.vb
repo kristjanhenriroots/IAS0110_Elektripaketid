@@ -10,6 +10,8 @@ Imports packageComparator
 Imports API_Handler
 Imports AndmeParija
 Imports System.ComponentModel
+Imports CSVExporterDNF
+Imports CSVexport
 
 Public Class MainForm
     Dim times As New List(Of DateTime)()                                    ' holds the times in DateTime format dd/mm/yyyy HH:mm . Corresponding price held in prices()
@@ -21,7 +23,7 @@ Public Class MainForm
     Dim rs As New Resizer                                                   ' calls the custom class for dynamic form resizing, see Resizer.vb
     Dim initialFormSize As SizeF                                            ' saves the initial form size, used to calculate the size factor when resizing fonts
     Dim initialFontSize As Single                                           ' saves the initial font size, used to calculate new font size dynamically
-
+    Dim exporter As IExporter = New CExporter
 
     Private databaseQuery As AndmeParija.IDatabaseQuery = New CDatabaseQuery()
     Private dictionaryTable As New DataTable 'Datatableid universaal pakettide jaoks
@@ -144,7 +146,7 @@ Public Class MainForm
         applianceLabel.Top = applianceComboBox.Top
         applianceLabel.Left = applianceComboBox.Left - 100
         powerRatingLabel.Parent = Me
-        powerRatingLabel.Top =  powerRatingTextBox.Top
+        powerRatingLabel.Top = powerRatingTextBox.Top
         powerRatingLabel.Left = powerRatingTextBox.Left - 105
         timeUsedLabel.Parent = Me
         timeUsedLabel.Top = timeUsedTextBox.Top
@@ -674,7 +676,7 @@ Public Class MainForm
                 End If
             Next
         Else
-                MessageBox.Show("Marginaale saab vaadata ainult börsi paketil. Palun valige börsi pakett.")
+            MessageBox.Show("Marginaale saab vaadata ainult börsi paketil. Palun valige börsi pakett.")
         End If
 
         tbMargins.Text = sbPackagePriceMargin.ToString
@@ -719,4 +721,13 @@ Public Class MainForm
 
     End Sub
 
+    Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
+        Dim exportForm As New formExport With {
+        .Times = times,
+        .Prices = prices,
+        .Exporter = exporter
+    }
+
+        exportForm.ShowDialog()
+    End Sub
 End Class
