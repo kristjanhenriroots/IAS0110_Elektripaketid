@@ -24,7 +24,6 @@ Partial Class MainForm
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
         Me.otsingButton = New System.Windows.Forms.Button()
-        Me.vordlusButton = New System.Windows.Forms.Button()
         Me.calcButton = New System.Windows.Forms.Button()
         Me.homeButton = New System.Windows.Forms.Button()
         Me.btnCalcTimeFrame = New System.Windows.Forms.Button()
@@ -81,16 +80,6 @@ Partial Class MainForm
         Me.otsingButton.TabIndex = 74
         Me.otsingButton.Text = "Otsing"
         Me.otsingButton.UseVisualStyleBackColor = True
-        '
-        'vordlusButton
-        '
-        Me.vordlusButton.Location = New System.Drawing.Point(119, 11)
-        Me.vordlusButton.Margin = New System.Windows.Forms.Padding(2)
-        Me.vordlusButton.Name = "vordlusButton"
-        Me.vordlusButton.Size = New System.Drawing.Size(50, 20)
-        Me.vordlusButton.TabIndex = 73
-        Me.vordlusButton.Text = "Võrd"
-        Me.vordlusButton.UseVisualStyleBackColor = True
         '
         'calcButton
         '
@@ -557,7 +546,6 @@ Partial Class MainForm
         Me.Controls.Add(Me.lblAverageTF)
         Me.Controls.Add(Me.lblAverageNow)
         Me.Controls.Add(Me.otsingButton)
-        Me.Controls.Add(Me.vordlusButton)
         Me.Controls.Add(Me.calcButton)
         Me.Controls.Add(Me.homeButton)
         Me.Controls.Add(Me.btnCalcTimeFrame)
@@ -590,7 +578,6 @@ Partial Class MainForm
 
     End Sub
     Friend WithEvents otsingButton As Button
-    Friend WithEvents vordlusButton As Button
     Friend WithEvents calcButton As Button
     Friend WithEvents homeButton As Button
     Friend WithEvents btnCalcTimeFrame As Button

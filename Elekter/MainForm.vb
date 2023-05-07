@@ -257,16 +257,6 @@ Public Class MainForm
         chartMaker.UpdateMaxColumnWidth()   ' call the chartMaker class, column sizing will be recalculated as well
     End Sub
 
-
-
-
-    'Button tabs'
-
-    Private Sub vordlusButton_Click(sender As Object, e As EventArgs) Handles vordlusButton.Click
-        formVordlus.Show()
-        Me.Hide()
-    End Sub
-
     ' Calculates the cheapest time to use electricity based on the amount of hours
     Private Sub btnCalcTimeFrame_Click(sender As Object, e As EventArgs) Handles btnCalcTimeFrame.Click
 
@@ -416,37 +406,48 @@ Public Class MainForm
     End Sub
 
     'Kuvab jalajälje muutumist pakettide vahel
-    Private Sub cbPackage_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbPackage.SelectedValueChanged
-        'Esimesel käivitusel on tühi, seega täida esimese ettejuhtuva paketti CO2 jalajäljega
+    'Private Sub cbPackage_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbPackage.SelectedValueChanged
+    '    'Esimesel käivitusel on tühi, seega täida esimese ettejuhtuva paketti CO2 jalajäljega
+    '    If String.IsNullOrEmpty(tbCO2.Text) Then
+    '        For Each row As DataRow In comboBoxTable.Rows
+    '            If row(0) = cbProvider.SelectedValue And row(1) = cbPackage.SelectedValue Then
+    '                tbCO2.Text = row(2)
+    '                footprintVar = row(2)
+    '            End If
+    '        Next
+    '    Else
+    '        'Kui on juba, siis võtab olemasoleva jalajälje ning näitab paketi vahetuse uut jalajälge
+    '        For Each row As DataRow In comboBoxTable.Rows
+    '            If row(0) = cbProvider.SelectedValue And row(1) = cbPackage.SelectedValue Then
+    '                tbCO2.Text = footprintVar & "->" & row(2)
+    '            End If
+    '        Next
+    '    End If
+    'End Sub
+
+    Private Sub dgvPackages_CurrentCellChanged(sender As Object, e As EventArgs) Handles dgvPackages.CurrentCellChanged
+        Console.WriteLine("Toimib")
+
         If String.IsNullOrEmpty(tbCO2.Text) Then
-            For Each row As DataRow In comboBoxTable.Rows
-                If row(0) = cbProvider.SelectedValue And row(1) = cbPackage.SelectedValue Then
-                    tbCO2.Text = row(2)
-                    footprintVar = row(2)
-                End If
-            Next
+            tbCO2.Text = dgvPackages.CurrentRow.Cells("CO2 jalajälg").Value.ToString
+            footprintVar = dgvPackages.CurrentRow.Cells("CO2 jalajälg").Value
         Else
-            'Kui on juba, siis võtab olemasoleva jalajälje ning näitab paketi vahetuse uut jalajälge
-            For Each row As DataRow In comboBoxTable.Rows
-                If row(0) = cbProvider.SelectedValue And row(1) = cbPackage.SelectedValue Then
-                    tbCO2.Text = footprintVar & "->" & row(2)
-                End If
-            Next
+            tbCO2.Text = footprintVar & "->" & dgvPackages.CurrentRow.Cells("CO2 jalajälg").Value.ToString
         End If
     End Sub
 
     'Kinnitab paketti ja paneb CO2 jalajälje lahtrisse
     Private Sub btnConfirm_Click(sender As Object, e As EventArgs) Handles btnConfirm.Click
-        For Each row As DataRow In comboBoxTable.Rows
-            If row(0) = cbProvider.SelectedValue And row(1) = cbPackage.SelectedValue Then
-                tbCO2.Text = row(2)
-                footprintVar = row(2)
-            End If
-        Next
+
+        tbCO2.Text = dgvPackages.CurrentRow.Cells("CO2 jalajälg").Value.ToString
+        footprintVar = dgvPackages.CurrentRow.Cells("CO2 jalajälg").Value
+
 
         selectedPackage = dgvPackages.CurrentRow.Cells("Pakkuja").Value + " " + dgvPackages.CurrentRow.Cells("Nimi").Value
         lblSelectedPackage.Text = selectedPackageText + selectedPackage
     End Sub
+
+    'Button tabs'
 
     Private Sub otsingButton_Click(sender As Object, e As EventArgs) Handles otsingButton.Click
         chartPanel.Hide()
@@ -566,4 +567,6 @@ Public Class MainForm
     Private Sub btnMargins_Click(sender As Object, e As EventArgs) Handles btnMargins.Click
 
     End Sub
+
+
 End Class
