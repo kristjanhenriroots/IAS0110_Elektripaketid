@@ -110,7 +110,7 @@ Partial Class formExport
         Me.lblSeparator.TabIndex = 9
         Me.lblSeparator.Text = "Eraldaja"
         '
-        'Form1
+        'formExport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -124,8 +124,8 @@ Partial Class formExport
         Me.Controls.Add(Me.lblPath)
         Me.Controls.Add(Me.lblQval)
         Me.Controls.Add(Me.lblSeparator)
-        Me.Name = "Form1"
-        Me.Text = "Form1"
+        Me.Name = "formExport"
+        Me.Text = "CSV Export"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
