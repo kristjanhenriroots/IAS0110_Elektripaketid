@@ -71,16 +71,27 @@ Public Class UCchartMaker
     ' main function that makes the cartesian chart with börsihind, gets the times and prices lists
     Public Sub setInitialChart(times As DateTime(), prices As Double()) Implements iMakeChart.setInitialChart
 
+        ' Find the index of the first data point within the last 24-hour range
+        Dim indexOfFirstDataPoint As Integer = 0
+        Dim oneDay As TimeSpan = TimeSpan.FromHours(24)
+        Dim lastDateTime As DateTime = times(times.Length - 1)
+        For i As Integer = times.Length - 1 To 0 Step -1
+            If lastDateTime - times(i) <= oneDay Then
+                indexOfFirstDataPoint = i
+            Else
+                Exit For
+            End If
+        Next
 
         ' Set up the x axis
         mainChart.AxisX.Add(New Axis With {
-            .LabelFormatter = Function(value) DateTime.FromOADate(value).ToString("HH:00"), ' Change formatting for labels, leave only the rounded hour and account for the time zone difference
-            .MinValue = times(1).ToOADate(),                           ' Chart starting location is broken without the addHours although it makes no sense, solution not found
-            .MaxValue = times(times.Length - 1).ToOADate(),            ' Set the range of the chart, starting and ending location, will be first and last element in the times array
-            .Separator = New LiveCharts.Wpf.Separator With {
-                .Step = New TimeSpan(2, 0, 0).TotalDays                             ' labels on the x axis bottom should appear every 2 hours, but still pretty broken
-            }
-        })
+        .LabelFormatter = Function(value) DateTime.FromOADate(value).ToString("HH:00"), ' Change formatting for labels, leave only the rounded hour and account for the time zone difference
+        .MinValue = times(indexOfFirstDataPoint).ToOADate(),        ' Chart starting location is the first element within the last 24-hour range
+        .MaxValue = times(times.Length - 1).ToOADate(),             ' Set the range of the chart, starting and ending location, will be the last element in the times array
+        .Separator = New LiveCharts.Wpf.Separator With {
+            .Step = New TimeSpan(2, 0, 0).TotalDays                 ' labels on the x axis bottom should appear every 2 hours, but still pretty broken
+        }
+    })
 
 
 
@@ -304,7 +315,5 @@ Public Class UCchartMaker
         scatterSeries.Values.Add(New ObservablePoint(time.ToOADate(), price))
         mainChart.Series.Add(scatterSeries)
     End Sub
-
-
 
 End Class

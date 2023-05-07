@@ -72,7 +72,7 @@ Public Class MainForm
             Dim currentDate As DateTime = DateTime.Now.Date.AddHours(-3)
             Dim pricesAndTimes = Await apiHandler.GetPriceData(currentDate.AddDays(-7), currentDate.AddDays(1))
             priceTimeTable = databaseQuery.queryData("Select dateTime, price FROM bors WHERE dateTime BETWEEN '" &
-                                                DateTime.Now.Date.ToString("yyyy.MM.dd HH:mm") &
+                                                DateTime.Now.AddDays(-7).Date.ToString("yyyy.MM.dd HH:mm") &
                                                 "' AND '" & DateTime.Now.Date.AddDays(1).ToString("yyyy.MM.dd HH:mm") & "'")
             'times = pricesAndTimes.Item1
             'prices = pricesAndTimes.Item2
@@ -340,34 +340,6 @@ Public Class MainForm
         chartMaker.UpdateMaxColumnWidth()   ' call the chartMaker class, column sizing will be recalculated as well
     End Sub
 
-    ' Calculates the cheapest time to use electricity based on the amount of hours
-    Private Sub btnCalcTimeFrame_Click(sender As Object, e As EventArgs) Handles btnCalcTimeFrame.Click
-
-        ' combobox needs to have a value selected, and if there are enough hours in current data
-        If cbTimeFrame.SelectedItem And Int(cbTimeFrame.SelectedItem) <= times.Count Then
-
-            ' get the best time frame
-            Dim time_frame = frame.CalcTimeFrame(Int(cbTimeFrame.SelectedItem), prices.ToArray(), times.ToArray())  ' get an array of 2 datetime type elements, first the beginning and then the ending time
-
-            ' display the time frame and change colors accordingly
-            tbRecTimeFrame.Text = (time_frame(0).ToString("HH:mm") & " - " & time_frame(1).ToString("HH:mm"))
-
-
-            Dim startingIndex = frame.findTimeFrame(prices.ToArray(), times.ToArray(), time_frame(0))                                       ' what index in the times array is the beginning time
-            Dim averageNow = Math.Round(frame.averagePriceBors(Int(cbTimeFrame.SelectedItem), prices.ToArray(), times.ToArray()), 2)        ' calculate averages for now and recommended times
-            Dim averageTF = Math.Round(frame.averagePriceTimeFrame(Int(cbTimeFrame.SelectedItem), prices.ToArray(), startingIndex), 2)
-
-
-
-            chartMaker.addRecommendedTime(time_frame(0), Int(cbTimeFrame.SelectedItem), averageTF)                                                ' indicate the recommended time on the chart
-
-            lblAverageNow.Text = ("Keskmine hind: " & averageNow)
-            lblAverageTF.Text = ("Keskmine soovituslik: " & averageTF)                                                                      ' show times and savings to user
-            lblSavedPer.Text = ("Säästaksid: " & 100 - Math.Round(averageTF / averageNow * 100, 0) & "%")
-
-        End If
-    End Sub
-
     ' Returns current price for formCalc, might get removed later
     Public Function ReturnCurrentPrice()
         Return prices(GetCurrentPrice())
@@ -388,6 +360,41 @@ Public Class MainForm
             Return -1 ' Return -1 or throw an exception if the price cannot be determined
         End If
     End Function
+    ' Calculates the cheapest time to use electricity based on the amount of hours
+    Private Sub btnCalcTimeFrame_Click(sender As Object, e As EventArgs) Handles btnCalcTimeFrame.Click
+        ' combobox needs to have a value selected
+        If cbTimeFrame.SelectedItem Then
+            Dim currentIndex As Integer = GetCurrentPrice()
+
+            If currentIndex >= 0 AndAlso Int(cbTimeFrame.SelectedItem) <= times.Count - currentIndex Then
+
+                Dim remainingPrices As Double() = prices.GetRange(currentIndex, prices.Count - currentIndex).ToArray()
+                Dim remainingTimes As DateTime() = times.GetRange(currentIndex, times.Count - currentIndex).ToArray()
+
+                ' get the best time frame
+                Dim time_frame = frame.CalcTimeFrame(Int(cbTimeFrame.SelectedItem), remainingPrices, remainingTimes)  ' get an array of 2 datetime type elements, first the beginning and then the ending time
+
+                ' display the time frame and change colors accordingly
+                tbRecTimeFrame.Text = (time_frame(0).ToString("HH:mm") & " - " & time_frame(1).ToString("HH:mm"))
+
+                Dim startingIndex = frame.findTimeFrame(remainingPrices, remainingTimes, time_frame(0))                                       ' what index in the times array is the beginning time
+                Dim averageNow = Math.Round(frame.averagePriceBors(Int(cbTimeFrame.SelectedItem), remainingPrices, remainingTimes), 2)        ' calculate averages for now and recommended times
+                Dim averageTF = Math.Round(frame.averagePriceTimeFrame(Int(cbTimeFrame.SelectedItem), remainingPrices, startingIndex), 2)
+
+                chartMaker.addRecommendedTime(time_frame(0), Int(cbTimeFrame.SelectedItem), averageTF)                                                ' indicate the recommended time on the chart
+
+                lblAverageNow.Text = ("Keskmine hind: " & averageNow)
+                lblAverageTF.Text = ("Keskmine soovituslik: " & averageTF)                                                                      ' show times and savings to user
+                lblSavedPer.Text = ("Säästaksid: " & 100 - Math.Round(averageTF / averageNow * 100, 0) & "%")
+
+            End If
+        End If
+    End Sub
+
+
+
+
+
 
 
     ' Will update the listbox showing all electricity packages
