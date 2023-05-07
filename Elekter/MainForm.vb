@@ -117,44 +117,7 @@ Public Class MainForm
 
         'Pakettide pask. Parent kontroll 
 
-        dgvPackages.Parent = Me
-        dgvPackages.Left = chartPanel.Left
-        dgvPackages.Top = chartPanel.Top
 
-        applianceComboBox.Parent = Me
-        applianceComboBox.Top = chartPanel.Top + 50
-        applianceComboBox.Left = chartPanel.Left + 100
-        powerRatingTextBox.Parent = Me
-        powerRatingTextBox.Top = applianceComboBox.Top + 30
-        powerRatingTextBox.Left = applianceComboBox.Left
-        timeUsedTextBox.Parent = Me
-        timeUsedTextBox.Top = powerRatingTextBox.Top + 30
-        timeUsedTextBox.Left = applianceComboBox.Left
-        electricityRateTextBox.Parent = Me
-        electricityRateTextBox.Top = timeUsedTextBox.Top + 30
-        electricityRateTextBox.Left = applianceComboBox.Left
-        costTextBox.Parent = Me
-        costTextBox.Top = electricityRateTextBox.Top + 30
-        costTextBox.Left = applianceComboBox.Left
-        calculateButton.Parent = Me
-        calculateButton.Top = costTextBox.Top + 30
-        calculateButton.Left = applianceComboBox.Left
-
-        applianceLabel.Parent = Me
-        applianceLabel.Top = applianceComboBox.Top
-        applianceLabel.Left = applianceComboBox.Left - 100
-        powerRatingLabel.Parent = Me
-        powerRatingLabel.Top = powerRatingTextBox.Top
-        powerRatingLabel.Left = powerRatingTextBox.Left - 105
-        timeUsedLabel.Parent = Me
-        timeUsedLabel.Top = timeUsedTextBox.Top
-        timeUsedLabel.Left = timeUsedTextBox.Left - 97
-        electricityRateLabel.Parent = Me
-        electricityRateLabel.Top = electricityRateTextBox.Top
-        electricityRateLabel.Left = electricityRateTextBox.Left - 90
-        costLabel.Parent = Me
-        costLabel.Top = costTextBox.Top
-        costLabel.Left = costTextBox.Left - 87
 
 
 
@@ -243,7 +206,7 @@ Public Class MainForm
         Next
 
         cbPackageFilter.DataSource = packageInfo
-
+        fixPlacement()
         showCalc(False)
         showSearch(False)
 
@@ -317,7 +280,6 @@ Public Class MainForm
             tbRecTimeFrame.Show()
             btnCalcTimeFrame.Show()
             pakettCheckedListBox.Show()
-
             lblValik.Show()
             lblAverageTF.Show()
             lblAverageNow.Show()
@@ -339,6 +301,7 @@ Public Class MainForm
             lblPackageList.Hide()
         End If
     End Sub
+
     Private Sub showCalc(choice As Boolean)
         If choice Then
             applianceComboBox.Show()
@@ -358,6 +321,7 @@ Public Class MainForm
             electricityRateTextBox.Hide()
             powerRatingTextBox.Hide()
             timeUsedTextBox.Hide()
+            calculateButton.Hide()
             applianceLabel.Hide()
             costLabel.Hide()
             electricityRateLabel.Hide()
@@ -404,6 +368,47 @@ Public Class MainForm
             lblStartTime.Hide()
             lblEndTime.Hide()
         End If
+    End Sub
+
+    Private Sub fixPlacement()
+        dgvPackages.Parent = Me
+        dgvPackages.Left = chartPanel.Left
+        dgvPackages.Top = chartPanel.Top
+
+        applianceComboBox.Parent = Me
+        applianceComboBox.Top = chartPanel.Top + 50
+        applianceComboBox.Left = chartPanel.Left + 100
+        powerRatingTextBox.Parent = Me
+        powerRatingTextBox.Top = applianceComboBox.Top + 30
+        powerRatingTextBox.Left = applianceComboBox.Left
+        timeUsedTextBox.Parent = Me
+        timeUsedTextBox.Top = powerRatingTextBox.Top + 30
+        timeUsedTextBox.Left = applianceComboBox.Left
+        electricityRateTextBox.Parent = Me
+        electricityRateTextBox.Top = timeUsedTextBox.Top + 30
+        electricityRateTextBox.Left = applianceComboBox.Left
+        costTextBox.Parent = Me
+        costTextBox.Top = electricityRateTextBox.Top + 30
+        costTextBox.Left = applianceComboBox.Left
+        calculateButton.Parent = Me
+        calculateButton.Top = costTextBox.Top + 30
+        calculateButton.Left = applianceComboBox.Left
+
+        applianceLabel.Parent = Me
+        applianceLabel.Top = applianceComboBox.Top
+        applianceLabel.Left = applianceComboBox.Left - 100
+        powerRatingLabel.Parent = Me
+        powerRatingLabel.Top = powerRatingTextBox.Top
+        powerRatingLabel.Left = powerRatingTextBox.Left - 105
+        timeUsedLabel.Parent = Me
+        timeUsedLabel.Top = timeUsedTextBox.Top
+        timeUsedLabel.Left = timeUsedTextBox.Left - 97
+        electricityRateLabel.Parent = Me
+        electricityRateLabel.Top = electricityRateTextBox.Top
+        electricityRateLabel.Left = electricityRateTextBox.Left - 90
+        costLabel.Parent = Me
+        costLabel.Top = costTextBox.Top
+        costLabel.Left = costTextBox.Left - 87
     End Sub
 
     ' Handles dynamic form and font resizing when the user drags the window larger or smaller
