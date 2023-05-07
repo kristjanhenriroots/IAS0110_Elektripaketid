@@ -47,6 +47,9 @@ Partial Class MainForm
         Me.lblAverageTF = New System.Windows.Forms.Label()
         Me.lblSavedPer = New System.Windows.Forms.Label()
         Me.chartPanel = New System.Windows.Forms.Panel()
+        Me.dgvBorsPackages = New System.Windows.Forms.DataGridView()
+        Me.dgvFixedPackages = New System.Windows.Forms.DataGridView()
+        Me.dgvUniversalPackages = New System.Windows.Forms.DataGridView()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.jarjestamineComboBox = New System.Windows.Forms.ComboBox()
         Me.compareButton = New System.Windows.Forms.Button()
@@ -58,16 +61,13 @@ Partial Class MainForm
         Me.btnConfirm = New System.Windows.Forms.Button()
         Me.lblProvider = New System.Windows.Forms.Label()
         Me.lblPackage = New System.Windows.Forms.Label()
-        Me.dgvUniversalPackages = New System.Windows.Forms.DataGridView()
-        Me.dgvFixedPackages = New System.Windows.Forms.DataGridView()
-        Me.dgvBorsPackages = New System.Windows.Forms.DataGridView()
         Me.cbPackagesFilter = New System.Windows.Forms.ComboBox()
         Me.ComboBox3 = New System.Windows.Forms.ComboBox()
         Me.btnFilter = New System.Windows.Forms.Button()
         Me.chartPanel.SuspendLayout()
-        CType(Me.dgvUniversalPackages, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dgvFixedPackages, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvBorsPackages, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvFixedPackages, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvUniversalPackages, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'otsingButton
@@ -335,6 +335,45 @@ Partial Class MainForm
         Me.chartPanel.Size = New System.Drawing.Size(712, 429)
         Me.chartPanel.TabIndex = 79
         '
+        'dgvBorsPackages
+        '
+        Me.dgvBorsPackages.AllowUserToAddRows = False
+        Me.dgvBorsPackages.AllowUserToDeleteRows = False
+        Me.dgvBorsPackages.BackgroundColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvBorsPackages.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dgvBorsPackages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvBorsPackages.Location = New System.Drawing.Point(-1, 303)
+        Me.dgvBorsPackages.Name = "dgvBorsPackages"
+        Me.dgvBorsPackages.ReadOnly = True
+        Me.dgvBorsPackages.Size = New System.Drawing.Size(709, 123)
+        Me.dgvBorsPackages.TabIndex = 2
+        '
+        'dgvFixedPackages
+        '
+        Me.dgvFixedPackages.AllowUserToAddRows = False
+        Me.dgvFixedPackages.AllowUserToDeleteRows = False
+        Me.dgvFixedPackages.BackgroundColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvFixedPackages.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dgvFixedPackages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvFixedPackages.Location = New System.Drawing.Point(0, 151)
+        Me.dgvFixedPackages.Name = "dgvFixedPackages"
+        Me.dgvFixedPackages.ReadOnly = True
+        Me.dgvFixedPackages.Size = New System.Drawing.Size(709, 123)
+        Me.dgvFixedPackages.TabIndex = 1
+        '
+        'dgvUniversalPackages
+        '
+        Me.dgvUniversalPackages.AllowUserToAddRows = False
+        Me.dgvUniversalPackages.AllowUserToDeleteRows = False
+        Me.dgvUniversalPackages.BackgroundColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvUniversalPackages.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dgvUniversalPackages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvUniversalPackages.Location = New System.Drawing.Point(0, 0)
+        Me.dgvUniversalPackages.Name = "dgvUniversalPackages"
+        Me.dgvUniversalPackages.ReadOnly = True
+        Me.dgvUniversalPackages.Size = New System.Drawing.Size(709, 123)
+        Me.dgvUniversalPackages.TabIndex = 0
+        '
         'Label11
         '
         Me.Label11.Anchor = System.Windows.Forms.AnchorStyles.Right
@@ -444,45 +483,6 @@ Partial Class MainForm
         Me.lblPackage.TabIndex = 95
         Me.lblPackage.Text = "Pakett:"
         '
-        'dgvUniversalPackages
-        '
-        Me.dgvUniversalPackages.AllowUserToAddRows = False
-        Me.dgvUniversalPackages.AllowUserToDeleteRows = False
-        Me.dgvUniversalPackages.BackgroundColor = System.Drawing.SystemColors.ControlLight
-        Me.dgvUniversalPackages.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dgvUniversalPackages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvUniversalPackages.Location = New System.Drawing.Point(0, 0)
-        Me.dgvUniversalPackages.Name = "dgvUniversalPackages"
-        Me.dgvUniversalPackages.ReadOnly = True
-        Me.dgvUniversalPackages.Size = New System.Drawing.Size(709, 123)
-        Me.dgvUniversalPackages.TabIndex = 0
-        '
-        'dgvFixedPackages
-        '
-        Me.dgvFixedPackages.AllowUserToAddRows = False
-        Me.dgvFixedPackages.AllowUserToDeleteRows = False
-        Me.dgvFixedPackages.BackgroundColor = System.Drawing.SystemColors.ControlLight
-        Me.dgvFixedPackages.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dgvFixedPackages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvFixedPackages.Location = New System.Drawing.Point(0, 151)
-        Me.dgvFixedPackages.Name = "dgvFixedPackages"
-        Me.dgvFixedPackages.ReadOnly = True
-        Me.dgvFixedPackages.Size = New System.Drawing.Size(709, 123)
-        Me.dgvFixedPackages.TabIndex = 1
-        '
-        'dgvBorsPackages
-        '
-        Me.dgvBorsPackages.AllowUserToAddRows = False
-        Me.dgvBorsPackages.AllowUserToDeleteRows = False
-        Me.dgvBorsPackages.BackgroundColor = System.Drawing.SystemColors.ControlLight
-        Me.dgvBorsPackages.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dgvBorsPackages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvBorsPackages.Location = New System.Drawing.Point(-1, 303)
-        Me.dgvBorsPackages.Name = "dgvBorsPackages"
-        Me.dgvBorsPackages.ReadOnly = True
-        Me.dgvBorsPackages.Size = New System.Drawing.Size(709, 123)
-        Me.dgvBorsPackages.TabIndex = 2
-        '
         'cbPackagesFilter
         '
         Me.cbPackagesFilter.FormattingEnabled = True
@@ -557,9 +557,9 @@ Partial Class MainForm
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "MainForm"
         Me.chartPanel.ResumeLayout(False)
-        CType(Me.dgvUniversalPackages, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dgvFixedPackages, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvBorsPackages, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvFixedPackages, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvUniversalPackages, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

@@ -9,6 +9,7 @@ Imports System.Security.Cryptography
 Imports packageComparator
 Imports API_Handler
 Imports AndmeParija
+Imports System.ComponentModel
 
 Public Class MainForm
     Dim times As New List(Of DateTime)()                                    ' holds the times in DateTime format dd/mm/yyyy HH:mm . Corresponding price held in prices()
@@ -171,6 +172,32 @@ Public Class MainForm
         dgvBorsPackages.DataSource = borsPackages
 
         'dadsad
+        Dim packageInfo As New List(Of String)
+        For Each col As DataColumn In universalPackages.Columns
+            tempVar = col.ToString
+            If Not packageInfo.Contains(tempVar) Then
+                Console.WriteLine(tempVar)
+                packageInfo.Add(col.ToString)
+            End If
+        Next
+        For Each col As DataColumn In fixedPackages.Columns
+            tempVar = col.ToString
+
+            If Not packageInfo.Contains(tempVar) Then
+                Console.WriteLine(tempVar)
+                packageInfo.Add(col.ToString)
+            End If
+        Next
+        For Each col As DataColumn In borsPackages.Columns
+            tempVar = col.ToString
+
+            If Not packageInfo.Contains(tempVar) Then
+                Console.WriteLine(tempVar)
+                packageInfo.Add(col.ToString)
+            End If
+        Next
+
+        cbPackagesFilter.DataSource = packageInfo
     End Sub
 
     ' Handles dynamic form and font resizing when the user drags the window larger or smaller
@@ -404,7 +431,24 @@ Public Class MainForm
         dgvBorsPackages.Hide()
     End Sub
 
+
     Private Sub btnFilter_Click(sender As Object, e As EventArgs) Handles btnFilter.Click
+
+        If dgvUniversalPackages.Columns.Contains(cbPackagesFilter.SelectedItem) Then
+            dgvUniversalPackages.Sort(dgvUniversalPackages.Columns(cbPackagesFilter.SelectedItem), ListSortDirection.Ascending)
+        End If
+
+        If dgvFixedPackages.Columns.Contains(cbPackagesFilter.SelectedItem) Then
+            dgvFixedPackages.Sort(dgvFixedPackages.Columns(cbPackagesFilter.SelectedItem), ListSortDirection.Ascending)
+        End If
+
+        If dgvBorsPackages.Columns.Contains(cbPackagesFilter.SelectedItem) Then
+            dgvBorsPackages.Sort(dgvBorsPackages.Columns(cbPackagesFilter.SelectedItem), ListSortDirection.Ascending)
+        End If
+
+
+
+
 
     End Sub
 End Class
